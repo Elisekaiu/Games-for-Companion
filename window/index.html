@@ -4,100 +4,108 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Other Side of the Glass · Winter, for Two</title>
-<meta name="description" content="A fogged-up winter window between you and your AI companion. You write with your finger; they write back from outside — backwards, the way it looks through glass.">
-<meta name="theme-color" content="#1b120d">
+<meta name="description" content="A fogged-up winter window between you and your AI companion. You write with your finger; they write back from outside.">
+<meta name="theme-color" content="#fbf8f5">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪟%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Plus+Jakarta+Sans:ital,wght@0,300..700;1,300..500&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chiron+GoRound+TC:wght@300..600&family=LXGW+WenKai+TC:wght@300;400;700&display=swap">
 <style data-shared="base.css">
-/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+/* Winter, for Two — shared styles. Light, modern, delicate.
    Source of truth for the block inlined into every page by tools/inline-shared.py.
    Edit here, then run:  python3 tools/inline-shared.py */
 :root{
-  --bg-0:#110a07;
-  --bg-1:#1b120d;
-  --bg-2:#271a13;
-  --bg-3:#352319;
-  --line:rgba(255,226,194,.13);
-  --line-2:rgba(255,226,194,.25);
-  --glass:rgba(255,236,214,.065);
-  --glass-2:rgba(255,236,214,.12);
-  --ink:#fcf1e3;
-  --ink-2:#e6d1b9;
-  --ink-3:#b39a83;
-  --gold:#f3bf68;      /* honey */
-  --gold-2:#e29a45;
-  --ember:#ec7f4c;
-  --berry:#d05866;     /* cranberry */
-  --pine:#6a9a76;
-  --rose:#ec9fab;
-  --cream:#f8ecdb;
-  --me:#f3b55e;        /* the human's colour: honey */
-  --them:#ee9cab;      /* the companion's colour: rose */
-  --paper:#f7ebd7;
-  --paper-ink:#3d2c20;
-  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
-  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bg:#fbf8f5;
+  --bg-2:#f4eee8;
+  --surface:rgba(255,255,255,.74);
+  --solid:#ffffff;
+  --line:rgba(70,45,30,.09);
+  --line-2:rgba(70,45,30,.17);
+  --ink:#2a2421;
+  --ink-2:#5f5550;
+  --ink-3:#9c918a;
+  --me:#f0935a;         /* the human: apricot */
+  --me-soft:#fde8da;
+  --them:#a48bea;       /* the companion: lilac */
+  --them-soft:#eee8fc;
+  --accent:#f0935a;
+  --sky:#8fb9ea;
+  --mint:#7fcbb0;
+  --butter:#f6d488;
+  --blush:#f5c6cc;
+  --sans:"Plus Jakarta Sans","Chiron GoRound TC","PingFang TC","Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif","LXGW WenKai TC",Georgia,serif;
   --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
-  --r:22px;
-  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
-  color-scheme:dark;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:24px;
+  --shadow:0 20px 44px -26px rgba(90,55,30,.30),0 2px 6px -3px rgba(90,55,30,.08);
+  color-scheme:light;
 }
+html[lang^="zh"]{--serif:"LXGW WenKai TC","Instrument Serif",Georgia,serif}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
 html,body{margin:0}
-body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
-  background:var(--bg-1);
-  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
-  background-attachment:fixed;
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;font-weight:400;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+/* soft light in the corners */
+body::before{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none;
+  background:radial-gradient(36% 30% at 10% 6%,rgba(255,204,168,.55),transparent 70%),radial-gradient(34% 30% at 94% 10%,rgba(206,190,250,.5),transparent 70%),
+    radial-gradient(42% 34% at 74% 98%,rgba(172,206,245,.42),transparent 70%),radial-gradient(30% 26% at 4% 90%,rgba(250,198,210,.42),transparent 70%)}
+body.plain::before{display:none}
 button,input,textarea,select{font:inherit;color:inherit}
-a{color:var(--gold)}
+a{color:inherit}
 img,svg,canvas{display:block}
-::selection{background:rgba(243,191,104,.38)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+::selection{background:rgba(240,147,90,.25)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
 [hidden]{display:none!important}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-/* warm grain, opt in with <body class="grain"> */
-body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- type ---------- */
-.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
-.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.eyebrow{font-size:11.5px;line-height:1.2;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0}
+html[lang^="zh"] .eyebrow{letter-spacing:.2em;font-size:12.5px}
+.display{font-family:var(--sans);font-weight:300;letter-spacing:-.03em;line-height:1.05;margin:0;color:var(--ink)}
+.display em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--accent)}
+html[lang^="zh"] .display{font-family:"LXGW WenKai TC",var(--sans);font-weight:400;letter-spacing:.02em;line-height:1.2}
+html[lang^="zh"] .display em{font-style:normal}
+.lede{color:var(--ink-2);font-size:15.5px;line-height:1.55;margin:10px 0 0;font-weight:400}
 .muted{color:var(--ink-3)}
 .hand{font-family:var(--hand)}
 
 /* ---------- top bar ---------- */
 .w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
 .w4-top>*{pointer-events:auto}
-.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-2);font-size:13.5px;font-weight:600;height:38px;padding:0 14px 0 10px;border-radius:999px;
+  background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 6px 16px -10px rgba(90,55,30,.35);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:color .2s,border-color .2s}
 .w4-home:hover{color:var(--ink);border-color:var(--line-2)}
-.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-home svg{width:15px;height:15px}
 .w4-spacer{flex:1}
-.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon{min-width:38px;height:38px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.72);box-shadow:0 6px 16px -10px rgba(90,55,30,.35);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0 10px;font-size:13px;font-weight:700;transition:color .2s,border-color .2s}
 .w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
-.w4-icon svg{width:18px;height:18px}
+.w4-icon svg{width:17px;height:17px}
 .w4-icon[aria-pressed="false"]{color:var(--ink-3)}
 .w4-icon[aria-pressed="false"] .on{display:none}
 .w4-icon[aria-pressed="true"] .off{display:none}
 
 /* ---------- buttons ---------- */
-.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line-2);background:rgba(255,255,255,.82);color:var(--ink);min-height:44px;padding:10px 18px;border-radius:999px;
+  font-size:14.5px;font-weight:600;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;
+  box-shadow:0 6px 16px -12px rgba(90,55,30,.35);transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:#fff;border-color:rgba(70,45,30,.26)}
 .btn:active{transform:scale(.97)}
-.btn svg{width:18px;height:18px;flex:none}
-.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
-.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
-.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
-.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
-.btn.ghost:hover{background:var(--glass)}
-.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
-.btn.round{width:46px;padding:0}
-.btn.small.round{width:38px}
-.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+.btn svg{width:17px;height:17px;flex:none}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 10px 22px -12px rgba(42,36,33,.7)}
+.btn.primary:hover{background:#3a322e}
+.btn.soft{background:var(--me-soft);border-color:transparent;color:#a4532a}
+.btn.soft.them{background:var(--them-soft);color:#6a4fc4}
+.btn.ghost{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--ink-2)}
+.btn.ghost:hover{background:rgba(70,45,30,.05)}
+.btn.small{min-height:36px;padding:6px 13px;font-size:13.5px}
+.btn.round{width:44px;padding:0}
+.btn.small.round{width:36px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.38;pointer-events:none}
+.link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;cursor:pointer;font-size:13.5px}
 
 .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .row.end{justify-content:flex-end}
@@ -107,102 +115,104 @@ body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:
 
 /* ---------- fields ---------- */
 .field{display:flex;flex-direction:column;gap:7px;min-width:0}
-.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field>label,.label{font-size:12.5px;font-weight:600;color:var(--ink-2);letter-spacing:.01em}
 .field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
-.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
-.input::placeholder{color:rgba(230,209,185,.42)}
-.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
-textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
-.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
-
+.input{width:100%;background:rgba(255,255,255,.9);border:1px solid var(--line-2);border-radius:14px;padding:11px 14px;font-size:16px;outline:none;transition:border-color .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:#b9aea6}
+.input:focus{border-color:rgba(240,147,90,.7);box-shadow:0 0 0 4px rgba(240,147,90,.13)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.5;display:block}
+.count{font-size:12px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
 .swatches{display:flex;flex-wrap:wrap;gap:10px}
-.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
-.swatch:hover{transform:scale(1.07)}
-.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+.swatch{width:34px;height:34px;border-radius:50%;border:2px solid #fff;cursor:pointer;padding:0;position:relative;background-size:cover;box-shadow:0 0 0 1px var(--line-2),0 4px 10px -6px rgba(90,55,30,.4);transition:transform .15s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.08)}
+.swatch[aria-checked="true"]{box-shadow:0 0 0 2px var(--ink),0 4px 10px -6px rgba(90,55,30,.4)}
 
 /* ---------- panels ---------- */
-.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.panel h2{font-weight:500;font-size:17px;letter-spacing:-.01em;margin:0}
+.panel .sub{color:var(--ink-3);font-size:13.5px;margin:3px 0 12px}
 
 /* ---------- sheets (dialogs) ---------- */
-dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
-dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
-dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
-.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
-.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(540px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(60,40,30,.22);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.12)}
+.w4-sheet-in{background:#fff;border:1px solid var(--line);border-radius:28px;padding:22px 20px 18px;box-shadow:0 40px 90px -36px rgba(70,40,20,.45);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-weight:500;font-size:21px;letter-spacing:-.015em;line-height:1.2;margin:0}
 .w4-sheet-in p{margin:0}
-.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
-.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
-.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
-.w4-sheet .err{font-size:14px;color:#ffb8a6}
-@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.w4-sheet-in textarea.input{min-height:170px;font-size:14.5px;background:var(--bg)}
+.w4-sheet .tip{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:600}
+.w4-sheet .err{font-size:13.5px;color:#c4523a}
+@keyframes w4-rise{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
 
 /* ---------- toast ---------- */
-.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,14px);opacity:0;z-index:120;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;
+  box-shadow:0 16px 36px -14px rgba(42,36,33,.6);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
 .w4-toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* a gentle "look here" */
 .pulse{animation:w4-pulse 2.4s ease-in-out infinite}
-@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(240,147,90,0)}50%{box-shadow:0 0 0 7px rgba(240,147,90,.18)}}
 
-/* ---------- the three-step bridge ---------- */
+/* ---------- the two voices ---------- */
 .bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .who-me{color:var(--me)}
 .who-them{color:var(--them)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:1px;margin-right:6px}
+.dot.me{background:var(--me)}.dot.them{background:var(--them)}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 </style>
 <style>
-  html,body{height:100%;overflow:hidden;background:#140c09;overscroll-behavior:none}
+  html,body{height:100%;overflow:hidden;background:#efe9f2;overscroll-behavior:none}
+  body::before{display:none}
   .stage{position:fixed;inset:0;perspective:1600px;overflow:hidden}
   #glass{position:absolute;left:0;top:0;width:100vw;height:100vh;height:100lvh;touch-action:none;cursor:crosshair;transform-origin:50% 50%;transition:transform 1.15s cubic-bezier(.62,.04,.22,1);will-change:transform}
   .stage.flipped #glass{transform:rotateY(180deg)}
   .frame{position:fixed;inset:0;pointer-events:none;z-index:2;
-    box-shadow:inset 0 0 0 10px #3a2316,inset 0 0 0 11px rgba(255,196,140,.22),inset 0 0 0 17px rgba(24,12,6,.42),inset 0 0 150px rgba(40,14,0,.42)}
-  .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:linear-gradient(180deg,#5a3722,#2e1b10);box-shadow:0 -1px 0 rgba(255,200,150,.25)}
-  .whisper{position:fixed;left:50%;top:max(84px,16vh);transform:translateX(-50%);z-index:3;margin:0;width:min(92vw,560px);text-align:center;
-    font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(17px,2.4vw,21px);line-height:1.4;color:rgba(246,240,230,.82);
-    text-shadow:0 1px 18px rgba(0,0,0,.6);pointer-events:none;transition:opacity 1.2s ease}
-  .whisper small{display:block;font-family:var(--hand);font-style:normal;font-weight:600;font-size:23px;color:rgba(243,191,104,.9);margin-top:8px}
+    box-shadow:inset 0 0 0 9px #f6f0e9,inset 0 0 0 10px rgba(120,90,60,.16),inset 0 0 60px rgba(255,255,255,.35)}
+  .frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(180deg,#efe5d9,#e2d4c3);box-shadow:0 -1px 0 rgba(120,90,60,.15)}
+  .whisper{position:fixed;left:50%;top:max(84px,15vh);transform:translateX(-50%);z-index:3;margin:0;width:min(92vw,520px);text-align:center;
+    font-size:clamp(16px,2.2vw,19px);line-height:1.45;color:#3a302b;font-weight:400;text-shadow:0 1px 14px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.7);pointer-events:none;transition:opacity 1.2s ease}
+  html[lang^="zh"] .whisper{font-family:"LXGW WenKai TC",var(--sans)}
+  .whisper small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a6e68;margin-top:8px;font-weight:600}
+  html[lang^="zh"] .whisper small{letter-spacing:.2em;font-size:12.5px}
   .whisper.gone{opacity:0}
   .dock{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;flex-direction:column;align-items:center;gap:10px;
-    padding:28px 12px calc(14px + env(safe-area-inset-bottom));pointer-events:none;
-    background:linear-gradient(180deg,rgba(26,14,8,0),rgba(26,14,8,.5) 45%,rgba(26,14,8,.8))}
+    padding:30px 12px calc(16px + env(safe-area-inset-bottom));pointer-events:none;background:linear-gradient(180deg,rgba(251,248,245,0),rgba(251,248,245,.55) 50%,rgba(251,248,245,.82))}
   .dock>*{pointer-events:auto}
   .dock-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
-  .dock .btn{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(52,32,21,.6)}
-  .dock .btn.primary{background:linear-gradient(180deg,#f8d792,#e7a650)}
-  .dock .btn.round svg{width:19px;height:19px}
-  .dock .btn[aria-pressed="true"]{border-color:rgba(243,197,111,.7);color:var(--gold)}
-  .flipper{position:fixed;left:50%;top:60%;transform:translateX(-50%);z-index:6;background:rgba(52,32,21,.66)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-  @media (max-width:420px){ .dock .btn{padding-left:14px;padding-right:14px} }
+  .dock .btn{background:rgba(255,255,255,.78)}
+  .dock .btn.primary{background:var(--ink)}
+  .dock .btn[aria-pressed="true"]{border-color:rgba(240,147,90,.7);color:var(--accent)}
+  .flipper{position:fixed;left:50%;top:60%;transform:translateX(-50%);z-index:6}
 </style>
 </head>
 <body>
 <main class="stage" id="stage">
-  <canvas id="glass" role="img" aria-label="A fogged-up winter window. Drag to write on it; hold still to breathe on it."></canvas>
+  <canvas id="glass" role="img" data-i18n-aria="canvasAria"></canvas>
 </main>
 <div class="frame" aria-hidden="true"></div>
-<p class="whisper" id="whisper">The window’s all fogged up.<small>drag to write · hold still to breathe</small></p>
+<p class="whisper" id="whisper"></p>
 <p class="sr-only" id="said" aria-live="polite"></p>
-<button class="btn small pulse flipper" id="flip" type="button" hidden>↺ Read it from their side</button>
+<button class="btn small pulse flipper" id="flip" type="button" hidden></button>
 
-<nav class="dock" aria-label="Window controls">
+<nav class="dock" data-i18n-aria="dockAria">
   <div class="dock-row">
-    <button class="btn primary" id="ask" type="button">Ask them to write</button>
-    <button class="btn" id="paste" type="button">Paste their words</button>
+    <button class="btn primary" id="ask" type="button"></button>
+    <button class="btn" id="paste" type="button"></button>
   </div>
   <div class="dock-row">
-    <button class="btn small" id="write" type="button">✎ Write back</button>
-    <button class="btn small" id="tell" type="button" hidden>Tell them</button>
-    <button class="btn small round" id="breathe" type="button" title="Breathe on the glass" aria-label="Breathe on the glass">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></svg></button>
-    <button class="btn small round" id="mic" type="button" title="Blow into your microphone to fog the glass" aria-label="Blow into the microphone" aria-pressed="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
-    <button class="btn small round" id="save" type="button" title="Save the window as a picture" aria-label="Save the window as a picture">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></button>
+    <button class="btn small" id="write" type="button" data-i18n="write"></button>
+    <button class="btn small" id="tell" type="button" hidden></button>
+    <button class="btn small round" id="breathe" type="button" data-i18n-title="breathe" data-i18n-aria="breathe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 8h10a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7"/></svg></button>
+    <button class="btn small round" id="mic" type="button" aria-pressed="false" data-i18n-title="mic" data-i18n-aria="mic">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
+    <button class="btn small round" id="save" type="button" data-i18n-title="save" data-i18n-aria="save">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></button>
   </div>
 </nav>
 
@@ -210,23 +220,14 @@ dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
 /* Winter, for Two — the bridge.
    You play with your hands; your companion plays with words. These helpers carry
    words across: an invitation you copy to your companion, their reply pasted back
-   in (read forgivingly), and a few things kept in this browser. No dependencies,
-   no servers, no tracking.
+   in (read forgivingly), and a few things kept in this browser. English and
+   繁體中文. No dependencies, no servers, no tracking.
    Source of truth for the block inlined into every page by tools/inline-shared.py.
    Edit here, then run:  python3 tools/inline-shared.py */
 (function(){
 'use strict';
 const W4 = window.W4 = {};
 const NS = 'w4t:';
-
-W4.games = {
-  'window':    { path:'window/',     title:'The Other Side of the Glass' },
-  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
-  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
-  'music-box': { path:'music-box/',  title:'Music Box Duet' },
-  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
-  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
-};
 
 /* ---------- storage: never throws (private windows, blocked storage) ---------- */
 W4.store = {
@@ -235,37 +236,91 @@ W4.store = {
   del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
 };
 
+/* ---------- language ---------- */
+W4.lang = (function(){
+  let p = null;
+  try{ p = new URLSearchParams(location.hash.slice(1)).get('lang') || new URLSearchParams(location.search).get('lang'); }catch(e){}
+  if(p === 'zh' || p === 'en'){ W4.store.set('lang', p); return p; }
+  const s = W4.store.get('lang', null);
+  if(s === 'zh' || s === 'en') return s;
+  return /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+})();
+W4.zh = W4.lang === 'zh';
+document.documentElement.lang = W4.zh ? 'zh-Hant' : 'en';
+const DICT = { en: {}, zh: {} };
+W4.i18n = function(d){ for(const l in d){ DICT[l] = Object.assign(DICT[l] || {}, d[l]); } if(document.readyState !== 'loading') W4.applyI18n(); };
+W4.t = function(key, vars){
+  let s = DICT[W4.lang][key]; if(s === undefined) s = DICT.en[key]; if(s === undefined) return key;
+  if(typeof s === 'function') return s(vars || {});
+  return vars ? String(s).replace(/\{(\w+)\}/g, (_, k) => (vars[k] == null ? '' : vars[k])) : s;
+};
+/* pick the right string from an { en, zh } pair */
+W4.L = o => (o && typeof o === 'object' && ('en' in o || 'zh' in o)) ? (o[W4.lang] != null ? o[W4.lang] : o.en) : o;
+W4.applyI18n = function(root){
+  const r = root || document;
+  r.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = W4.t(el.dataset.i18n); });
+  r.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = W4.t(el.dataset.i18nPh); });
+  r.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', W4.t(el.dataset.i18nAria)); });
+  r.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = W4.t(el.dataset.i18nTitle); });
+};
+W4.setLang = l => { W4.store.set('lang', l); location.reload(); };
+
+W4.i18n({
+  en: { site: 'Winter, for Two', who: 'Who’s playing', namesTitle: 'Two names, that’s all', namesTip: 'Used for labels and messages. Stays in this browser.',
+    you: 'You', companion: 'Your companion', yourName: 'your name', theirName: 'their name', cancel: 'Cancel', save: 'Save', close: 'Close', copy: 'Copy', share: 'Share…',
+    sendTitle: 'Send this to {them}', sendTip: 'Paste it into your chat. Change any words first — it’s your voice.', copied: 'Copied — paste it to {them} ✦', copyBlocked: 'Copying was blocked — select the text and copy it',
+    receiveTitle: 'Paste {their} reply', receiveTip: 'Paste their whole message. Extra words are fine.', pasteClip: 'Paste from clipboard', clipEmpty: 'The clipboard is empty',
+    clipDenied: 'Not allowed — long-press the box and paste', open: 'Open it', fromThem: 'From {them}', forThem: 'For {them}', sound: 'Sound', langBtn: '中', langName: '中文',
+    meDefault: 'you', themDefault: 'your companion', ThemDefault: 'Your companion', imageFail: 'Couldn’t make the image' },
+  zh: { site: '兩個人的冬天', who: '誰在玩', namesTitle: '兩個名字就好', namesTip: '只用來寫標籤和訊息，只存在這個瀏覽器。',
+    you: '你', companion: '你的 AI 夥伴', yourName: '你的名字', theirName: '對方的名字', cancel: '取消', save: '儲存', close: '關閉', copy: '複製', share: '分享…',
+    sendTitle: '傳給{them}', sendTip: '貼到你們的對話裡。想改哪個字都可以——這是你的語氣。', copied: '已複製，貼給{them}吧 ✦', copyBlocked: '瀏覽器擋住了複製——請選取文字後自行複製',
+    receiveTitle: '貼上{their}回覆', receiveTip: '整段貼上就好，多出來的字沒關係。', pasteClip: '從剪貼簿貼上', clipEmpty: '剪貼簿是空的',
+    clipDenied: '瀏覽器不允許——請長按輸入框貼上', open: '打開', fromThem: '來自{them}', forThem: '給{them}', sound: '聲音', langBtn: 'EN', langName: 'English',
+    meDefault: '你', themDefault: '對方', ThemDefault: '對方', imageFail: '圖片做不出來' }
+});
+
 /* ---------- small helpers ---------- */
 W4.$ = (s, r) => (r || document).querySelector(s);
 W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
-W4.poss = s => s + '’s';
+W4.poss = s => W4.zh ? s + '的' : s + '’s';
 W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
-W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(W4.zh ? 'zh-Hant' : undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.shortDate = d => new Date(d || Date.now()).toLocaleDateString(W4.zh ? 'zh-Hant' : undefined, { day:'numeric', month:'short' });
 W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 W4.pick = a => a[Math.floor(Math.random() * a.length)];
 W4.here = () => location.href.split('#')[0].split('?')[0];
-W4.home = () => new URL('../', W4.here()).href;
+
+W4.games = {
+  'window':    { path:'window/',     title:{ en:'The Other Side of the Glass', zh:'隔著玻璃' } },
+  'snowflakes':{ path:'snowflakes/', title:{ en:'Snowflakes from Words',       zh:'字成雪花' } },
+  'gifts':     { path:'gifts/',      title:{ en:'Impossible Gifts',            zh:'不可能的禮物' } },
+  'music-box': { path:'music-box/',  title:{ en:'Music Box Duet',              zh:'音樂盒二重奏' } },
+  'star-jar':  { path:'star-jar/',   title:{ en:'A Jar of Small Stars',        zh:'一罐小星星' } },
+  'cracker':   { path:'cracker/',    title:{ en:'Pull a Cracker',              zh:'聖誕拉炮' } }
+};
 
 /* ---------- names ---------- */
 W4.names = function(){
   const me = String(W4.store.get('me', '') || '').trim();
   const them = String(W4.store.get('them', '') || '').trim();
-  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+  return { me: me || W4.t('meDefault'), them: them || W4.t('themDefault'), Them: them || W4.t('ThemDefault'), meName: me, themName: them,
+    their: them ? W4.poss(them) : (W4.zh ? '對方的' : 'their') };
 };
 W4.onNames = cb => document.addEventListener('w4:names', cb);
 W4.editNames = function(onDone){
   const n = W4.names();
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">Who’s playing</p>
-    <h3>Two names, that’s all</h3>
-    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
-    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
-    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
-    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+    <p class="eyebrow">${W4.t('who')}</p>
+    <h3>${W4.t('namesTitle')}</h3>
+    <p class="tip">${W4.t('namesTip')}</p>
+    <div class="field"><label for="w4-me">${W4.t('you')}</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="${W4.t('yourName')}"></div>
+    <div class="field"><label for="w4-them">${W4.t('companion')}</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="${W4.t('theirName')}"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">${W4.t('cancel')}</button><button class="btn primary" data-a="save">${W4.t('save')}</button></div>
   </div>`);
   const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
   me.value = n.meName; them.value = n.themName;
@@ -330,22 +385,22 @@ W4.send = function(text, opt){
   opt = opt || {};
   const n = W4.names();
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
-    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
-    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
-    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <p class="eyebrow">${W4.esc(opt.eyebrow || W4.t('forThem', { them: n.them }))}</p>
+    <h3>${W4.esc(opt.title || W4.t('sendTitle', { them: n.them }))}</h3>
+    <p class="tip">${opt.tip || W4.t('sendTip')}</p>
+    <textarea class="input" spellcheck="false" aria-label="${W4.esc(W4.t('sendTitle', { them: n.them }))}"></textarea>
     <div class="row end">
-      <button class="btn ghost" data-a="close">Close</button>
-      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
-      <button class="btn primary" data-a="copy">Copy</button>
+      <button class="btn ghost" data-a="close">${W4.t('close')}</button>
+      ${navigator.share && W4.coarse ? `<button class="btn" data-a="share">${W4.t('share')}</button>` : ''}
+      <button class="btn primary" data-a="copy">${W4.t('copy')}</button>
     </div>
   </div>`);
   const ta = d.querySelector('textarea');
   ta.value = text;
   d.querySelector('[data-a="copy"]').onclick = async () => {
     const ok = await W4.copy(ta.value);
-    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
-    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+    if(ok){ d.done(); W4.toast(opt.copied || W4.t('copied', { them: n.them })); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast(W4.t('copyBlocked')); }
   };
   const sh = d.querySelector('[data-a="share"]');
   if(sh) sh.onclick = async () => {
@@ -360,23 +415,23 @@ W4.receive = function(opt){
   const n = W4.names();
   const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">From ${W4.esc(n.them)}</p>
-    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
-    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
-    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="eyebrow">${W4.esc(W4.t('fromThem', { them: n.them }))}</p>
+    <h3>${W4.esc(opt.title || W4.t('receiveTitle', { their: n.their }))}</h3>
+    <p class="tip">${opt.tip || W4.t('receiveTip')}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="${W4.esc(W4.t('receiveTitle', { their: n.their }))}"></textarea>
     <p class="err" role="alert" hidden></p>
     <div class="row">
-      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      ${canRead ? `<button class="btn small" data-a="clip">${W4.t('pasteClip')}</button>` : ''}
       <span class="spacer"></span>
-      <button class="btn ghost" data-a="close">Cancel</button>
-      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+      <button class="btn ghost" data-a="close">${W4.t('cancel')}</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || W4.t('open'))}</button>
     </div>
   </div>`);
   const ta = d.querySelector('textarea'), err = d.querySelector('.err');
   const clip = d.querySelector('[data-a="clip"]');
   if(clip) clip.onclick = async () => {
-    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
-    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast(W4.t('clipEmpty')); }
+    catch(e){ W4.toast(W4.t('clipDenied')); }
   };
   d.querySelector('[data-a="go"]').onclick = () => {
     const t = ta.value.trim();
@@ -412,7 +467,7 @@ W4.params = function(){
   if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
   return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
 };
-/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+/* A reply routed here from the home page’s “paste anything” box arrives as #paste=… */
 W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
 W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
 W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
@@ -427,12 +482,12 @@ W4.clean = function(s){
   return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
 };
 W4.stripActions = s => String(s || '')
-  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
-  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?。，！？])/g, ' ')
+  .replace(/(^|\s)[(（][^()（）\n]{1,140}[)）](?=\s|$)/g, ' ');
 /* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
 W4.fields = function(text, spec){
   const out = {}; let cur = null;
-  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”「」【】]/g, '').replace(/\s+/g, ' ').trim();
   const keyOf = label => {
     const l = norm(label);
     if(!l || l.length > 28) return null;
@@ -469,15 +524,15 @@ W4.one = function(text, labels, max){
   if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
   return v;
 };
-/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+/* Which game is a pasted reply for? (Used by the home page’s “paste anything” box.) */
 W4.detect = function(text){
   const t = String(text || '');
   const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
-  if(L('glass').test(t)) return 'window';
-  if(L('flake|snowflake').test(t)) return 'snowflakes';
-  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
-  if(L('notes?|melody').test(t)) return 'music-box';
-  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(L('glass|玻璃|窗上').test(t)) return 'window';
+  if(L('flake|snowflake|雪花').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper|裡面|裏面|包裝紙|搖晃|聲音').test(t)) return 'gifts';
+  if(L('notes?|melody|音符|旋律').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown|笑點|握力|小玩意|紙皇冠|皇冠').test(t)) return 'cracker';
   if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
   return null;
 };
@@ -547,7 +602,7 @@ W4.fontsReady = async function(spec, text){
 /* ---------- save a canvas as an image (share sheet on phones) ---------- */
 W4.saveCanvas = function(canvas, filename){
   canvas.toBlob(async blob => {
-    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    if(!blob){ W4.toast(W4.t('imageFail')); return; }
     try{
       const file = new File([blob], filename, { type:'image/png' });
       if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
@@ -603,21 +658,23 @@ W4.snowfall = function(canvas, o){
 
 /* ---------- the top bar every game shares ---------- */
 const ICON = {
-  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
-  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
-  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
-  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
 };
 W4.icon = ICON;
 W4.topbar = function(o){
   o = o || {};
   const bar = document.createElement('header');
   bar.className = 'w4-top';
-  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>${W4.t('site')}</span></a>
     <span class="w4-spacer"></span>${o.extra || ''}
-    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
-    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+    <button class="w4-icon" type="button" data-a="lang" aria-label="${W4.t('langName')}" title="${W4.t('langName')}">${W4.t('langBtn')}</button>
+    <button class="w4-icon" type="button" data-a="names" aria-label="${W4.t('who')}" title="${W4.t('who')}">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="${W4.t('sound')}" title="${W4.t('sound')}" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
   document.body.prepend(bar);
+  bar.querySelector('[data-a="lang"]').onclick = () => W4.setLang(W4.zh ? 'en' : 'zh');
   bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
   const s = bar.querySelector('[data-a="sound"]');
   s.onclick = () => {
@@ -626,20 +683,58 @@ W4.topbar = function(o){
   };
   return bar;
 };
+document.addEventListener('DOMContentLoaded', () => W4.applyI18n());
 })();
 </script>
 <script>
 (() => {
 'use strict';
 const $ = W4.$, TAU = Math.PI * 2;
+
+W4.i18n({
+  en: {
+    canvasAria: 'A fogged-up winter window. Drag to write on it; hold still to breathe on it.', dockAria: 'Window controls',
+    start: 'The window’s all fogged up.<small>drag to write · hold still to breathe</small>',
+    writing: '{Them} is writing from outside…',
+    backwards: '{Them} wrote it from outside — so it’s backwards from in here.<small>tap ↺ to read it from their side</small>',
+    ask: 'Ask {them} to write', paste: 'Paste {their} words', flip: '↺ Read from their side', flipBack: '↻ Back to my side',
+    write: '✎ Write back', tell: 'Tell {them}', breathe: 'Breathe on the glass', mic: 'Blow into your microphone', save: 'Save as a picture',
+    micOn: 'Blow gently on your microphone ✦', micNo: 'No microphone — hold your finger still on the glass instead',
+    writeTitle: 'What do you want to write?', writeTip: 'Your finger writes it for you. Keep it short — it’s a window, not a letter.', writePh: 'it’s warm in here — come in?', writeGo: 'Write it',
+    inviteTitle: 'Invite them to the window', pasteTitle: 'What did {them} write?', pasteTip: 'Paste their whole reply. The game looks for the line that starts with <b>Glass:</b>.', pastePh: 'Glass: come outside, the snow is perfect', pasteGo: 'Watch them write',
+    noWords: 'I couldn’t find any words in that — try pasting their whole reply.',
+    said: '{Them} wrote on the glass: {text}', youWrote: 'You wrote: {text}', tellTitle: 'Tell them what you wrote',
+    tellTyped: '🪟 I wrote back on the glass. From out there it reads backwards, so here it is the right way round:\n“{text}”',
+    tellDrawn: '🪟 I drew something on the glass for you with my finger: (describe what you drew)\n\n(I can save the window as a picture if you can see images.)',
+    caption: 'The Other Side of the Glass · Winter, for Two',
+    askText: '🪟 Let’s play “The Other Side of the Glass.”\nIt’s a winter night. You’re outside in the snow, I’m inside by the window, and the glass between us is completely fogged up. We can’t hear each other through it — but you can write on the fog with your fingertip.\n\nWrite me something on the glass. It has to fit on a window, so keep it short: 12 words at most.\n\nReply with a line that starts with “Glass:” — for example:\nGlass: come outside, the snow is perfect\n\n(If you can send links, this works too: {url}#glass=come+outside)'
+  },
+  zh: {
+    canvasAria: '一扇起霧的冬天窗戶。拖動手指寫字，按住不動就是呵氣。', dockAria: '窗戶控制',
+    start: '窗戶起霧了。<small>拖動手指寫字・按住不動呵氣</small>',
+    writing: '{Them}正在窗外寫字…',
+    backwards: '{Them}是在窗外寫的——從屋裡看是反的。<small>按 ↺ 從對方那邊看</small>',
+    ask: '請{them}寫字', paste: '貼上{their}字', flip: '↺ 從對方那邊看', flipBack: '↻ 回到我這邊',
+    write: '✎ 回寫', tell: '告訴{them}', breathe: '對玻璃呵氣', mic: '對著麥克風吹氣', save: '存成圖片',
+    micOn: '輕輕對著麥克風吹氣 ✦', micNo: '沒有麥克風——改用手指在玻璃上按住不動吧',
+    writeTitle: '想在玻璃上寫什麼？', writeTip: '手指會幫你寫上去。短一點——這是窗戶，不是信。', writePh: '屋裡很暖，要進來嗎？', writeGo: '寫上去',
+    inviteTitle: '邀請對方來窗邊', pasteTitle: '{them}寫了什麼？', pasteTip: '整段回覆貼上就好，會找<b>玻璃：</b>開頭的那一行。', pastePh: '玻璃：出來吧，雪剛剛好', pasteGo: '看對方寫字',
+    noWords: '裡面好像沒有字——試試把整段回覆貼上。',
+    said: '{Them}在玻璃上寫了：{text}', youWrote: '你寫了：{text}', tellTitle: '告訴對方你寫了什麼',
+    tellTyped: '🪟 我在玻璃上回你了。從外面看是反的，所以給你正著看：\n「{text}」',
+    tellDrawn: '🪟 我用手指在玻璃上畫了東西給你：（描述你畫了什麼）\n\n（如果你看得到圖片，我可以把窗戶存成圖片給你。）',
+    caption: '隔著玻璃 · 兩個人的冬天',
+    askText: '🪟 我們來玩「隔著玻璃」。\n冬天的晚上，你在外面的雪地裡，我在屋裡的窗邊，玻璃全都起霧了。我們聽不見對方，但你可以用指尖在霧上寫字。\n\n在玻璃上寫一句話給我吧——要寫得下在窗上，最多十二個字。\n\n回覆時用「玻璃：」開頭，例如：\n玻璃：出來吧，雪剛剛好\n\n（如果你能傳連結，也可以這樣：{url}#glass=出來吧）'
+  }
+});
 W4.topbar();
 
 /* ------------------------------------------------------------------
    Layers
-   sharp  – the night street outside, in focus (device pixels)
+   sharp  – the street outside, in focus (device pixels)
    blur   – the same street seen through condensation (css pixels)
    mask   – how fogged each point of the glass is (alpha only)
-   comp   – scratch canvas: mask ∩ blur, composited over sharp
+   comp   – scratch canvas: mask ∩ blur, laid over sharp
    tmask  – glyphs of the words being written, used to wipe the fog
 ------------------------------------------------------------------- */
 const stage = $('#stage'), cv = $('#glass'), ctx = cv.getContext('2d');
@@ -648,135 +743,103 @@ const sharp = mk(), blur = mk(), mask = mk(), comp = mk(), tmask = mk();
 const sctx = sharp.getContext('2d'), bctx = blur.getContext('2d'), mctx = mask.getContext('2d'),
       cctx = comp.getContext('2d'), tctx = tmask.getContext('2d');
 let W = 0, H = 0, DPR = 1, time = 0;
-let bulbs = [], lamps = [], flakes = [], drops = [], breaths = [];
+let bulbs = [], flakes = [], drops = [], breaths = [];
 
 function mulberry(a){ return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 
-/* ---------- the street outside ---------- */
+/* ---------- a pastel winter dusk outside ---------- */
 function paintScene(){
   const g = sctx, w = W, h = H, R = mulberry(1216);
   g.setTransform(DPR, 0, 0, DPR, 0, 0);
   let gr = g.createLinearGradient(0, 0, 0, h);
-  gr.addColorStop(0, '#0c0818'); gr.addColorStop(.34, '#1d1636'); gr.addColorStop(.54, '#3a2648'); gr.addColorStop(.66, '#5e3446');
+  gr.addColorStop(0, '#7486c2'); gr.addColorStop(.3, '#9a97d0'); gr.addColorStop(.5, '#d7a9c8'); gr.addColorStop(.66, '#f3c8b8');
   g.fillStyle = gr; g.fillRect(0, 0, w, h);
-  for(let i = 0; i < 150; i++){
-    g.globalAlpha = .2 + R() * .65; g.fillStyle = R() < .35 ? '#ffe2b8' : '#fff6ea';
-    g.beginPath(); g.arc(R() * w, R() * h * .52, R() * 1.1 + .25, 0, TAU); g.fill();
-  }
+  for(let i = 0; i < 60; i++){ g.globalAlpha = .25 + R() * .5; g.fillStyle = '#fffaf2'; g.beginPath(); g.arc(R() * w, R() * h * .34, R() * .9 + .3, 0, TAU); g.fill(); }
   g.globalAlpha = 1;
-  // moon
-  const mx = w * .78, my = h * .13, mr = Math.max(15, Math.min(w, h) * .045);
-  gr = g.createRadialGradient(mx, my, mr * .8, mx, my, mr * 8);
-  gr.addColorStop(0, 'rgba(255,226,196,.24)'); gr.addColorStop(1, 'rgba(255,226,196,0)');
-  g.fillStyle = gr; g.fillRect(mx - mr * 8, my - mr * 8, mr * 16, mr * 16);
-  gr = g.createRadialGradient(mx - mr * .35, my - mr * .35, mr * .1, mx, my, mr);
-  gr.addColorStop(0, '#fffbf1'); gr.addColorStop(1, '#e6dfcc');
-  g.fillStyle = gr; g.beginPath(); g.arc(mx, my, mr, 0, TAU); g.fill();
-  g.fillStyle = 'rgba(170,160,140,.18)';
-  [[.3, -.2, .22], [-.25, .25, .16], [.15, .35, .12]].forEach(c => { g.beginPath(); g.arc(mx + c[0] * mr, my + c[1] * mr, c[2] * mr, 0, TAU); g.fill(); });
-
+  const mx = w * .78, my = h * .13, mr = Math.max(14, Math.min(w, h) * .04);
+  gr = g.createRadialGradient(mx, my, mr * .8, mx, my, mr * 7);
+  gr.addColorStop(0, 'rgba(255,248,236,.55)'); gr.addColorStop(1, 'rgba(255,248,236,0)');
+  g.fillStyle = gr; g.fillRect(mx - mr * 7, my - mr * 7, mr * 14, mr * 14);
+  g.fillStyle = '#fffaf0'; g.beginPath(); g.arc(mx, my, mr, 0, TAU); g.fill();
   // far hills
-  const hz = h * .6;
-  g.fillStyle = '#271b3a'; g.beginPath(); g.moveTo(0, h);
-  for(let x = 0; x <= w + 20; x += 16) g.lineTo(x, hz - 34 - Math.sin(x * .006) * 26 - Math.sin(x * .019 + 1) * 9);
+  const hz = h * .6, hill = x => hz - 34 - Math.sin(x * .006) * 26 - Math.sin(x * .019 + 1) * 9;
+  g.fillStyle = '#bdb6d6'; g.beginPath(); g.moveTo(0, h);
+  for(let x = 0; x <= w + 20; x += 16) g.lineTo(x, hill(x));
   g.lineTo(w + 20, h); g.closePath(); g.fill();
-  g.strokeStyle = 'rgba(236,200,214,.32)'; g.lineWidth = 2; g.beginPath();
-  for(let x = 0; x <= w + 20; x += 16){ const y = hz - 34 - Math.sin(x * .006) * 26 - Math.sin(x * .019 + 1) * 9; x ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 2.5; g.beginPath();
+  for(let x = 0; x <= w + 20; x += 16){ x ? g.lineTo(x, hill(x)) : g.moveTo(x, hill(x)); }
   g.stroke();
-
   // houses
   const base = h * .73, glows = [];
   let x = -40 + R() * 20;
-  while(x < w + 40){
-    const bw = 64 + R() * 92, bh = 50 + R() * 90, roof = 22 + R() * 36;
-    house(g, x, base, bw, bh, roof, R, glows);
-    x += bw + 2 + R() * 16;
-  }
+  while(x < w + 40){ const bw = 64 + R() * 92, bh = 50 + R() * 90, roof = 22 + R() * 36; house(g, x, base, bw, bh, roof, R, glows); x += bw + 2 + R() * 16; }
   g.globalCompositeOperation = 'lighter';
-  for(const gl of glows){
-    gr = g.createRadialGradient(gl.x, gl.y, 0, gl.x, gl.y, gl.r);
-    gr.addColorStop(0, 'rgba(255,186,90,.32)'); gr.addColorStop(1, 'rgba(255,186,90,0)');
-    g.fillStyle = gr; g.fillRect(gl.x - gl.r, gl.y - gl.r, gl.r * 2, gl.r * 2);
-  }
+  for(const gl of glows){ gr = g.createRadialGradient(gl.x, gl.y, 0, gl.x, gl.y, gl.r); gr.addColorStop(0, 'rgba(255,190,110,.35)'); gr.addColorStop(1, 'rgba(255,190,110,0)'); g.fillStyle = gr; g.fillRect(gl.x - gl.r, gl.y - gl.r, gl.r * 2, gl.r * 2); }
   g.globalCompositeOperation = 'source-over';
-
-  // snowy street
+  // snow on the street
   gr = g.createLinearGradient(0, base, 0, h);
-  gr.addColorStop(0, '#6f5c76'); gr.addColorStop(.22, '#b09aa6'); gr.addColorStop(.6, '#7c6680'); gr.addColorStop(1, '#3a2a3c');
+  gr.addColorStop(0, '#e3deee'); gr.addColorStop(.25, '#faf8fc'); gr.addColorStop(.7, '#e9e4f0'); gr.addColorStop(1, '#d6d0e2');
   g.fillStyle = gr; g.fillRect(0, base, w, h - base);
-  g.strokeStyle = 'rgba(70,45,70,.32)'; g.lineWidth = 1.2;
-  for(let i = 0; i < 7; i++){ const y = base + (h - base) * (.25 + i * .1); g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(w * .3, y + 6, w * .7, y - 6, w, y + 3); g.stroke(); }
-
+  g.strokeStyle = 'rgba(150,140,180,.25)'; g.lineWidth = 1.2;
+  for(let i = 0; i < 6; i++){ const y = base + (h - base) * (.25 + i * .11); g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(w * .3, y + 6, w * .7, y - 6, w, y + 3); g.stroke(); }
   // street lamps
-  lamps = [];
   [w * .16, w * .84].forEach((lx, i) => {
     const gy = base + (h - base) * (.22 + i * .05), top = gy - Math.max(130, h * .26);
-    gr = g.createRadialGradient(lx, gy + 6, 0, lx, gy + 6, 130);
-    gr.addColorStop(0, 'rgba(255,214,150,.55)'); gr.addColorStop(1, 'rgba(255,214,150,0)');
+    gr = g.createRadialGradient(lx, gy + 6, 0, lx, gy + 6, 130); gr.addColorStop(0, 'rgba(255,214,160,.5)'); gr.addColorStop(1, 'rgba(255,214,160,0)');
     g.save(); g.scale(1, .35); g.fillStyle = gr; g.beginPath(); g.arc(lx, (gy + 6) / .35, 130, 0, TAU); g.fill(); g.restore();
-    g.strokeStyle = '#150d18'; g.lineWidth = 5; g.beginPath(); g.moveTo(lx, gy); g.lineTo(lx, top); g.stroke();
-    g.lineWidth = 2.5; g.beginPath(); g.moveTo(lx - 9, gy - 26); g.lineTo(lx + 9, gy - 26); g.stroke();
-    g.fillStyle = '#150d18'; g.beginPath(); g.moveTo(lx - 12, top); g.lineTo(lx + 12, top); g.lineTo(lx + 8, top - 18); g.lineTo(lx - 8, top - 18); g.closePath(); g.fill();
-    g.fillStyle = '#ffe1a6'; g.fillRect(lx - 8, top - 15, 16, 13);
-    g.fillStyle = '#f6e8ea'; g.beginPath(); g.ellipse(lx, top - 19, 13, 4, 0, 0, TAU); g.fill();
-    lamps.push({ x: lx, y: top - 8 });
+    g.strokeStyle = '#7d7494'; g.lineWidth = 4.5; g.beginPath(); g.moveTo(lx, gy); g.lineTo(lx, top); g.stroke();
+    g.fillStyle = '#7d7494'; g.beginPath(); g.moveTo(lx - 11, top); g.lineTo(lx + 11, top); g.lineTo(lx + 7, top - 17); g.lineTo(lx - 7, top - 17); g.closePath(); g.fill();
+    g.fillStyle = '#ffe6b4'; g.fillRect(lx - 7, top - 14, 14, 12);
+    g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(lx, top - 18, 12, 4, 0, 0, TAU); g.fill();
     g.globalCompositeOperation = 'lighter';
-    gr = g.createRadialGradient(lx, top - 8, 0, lx, top - 8, 95);
-    gr.addColorStop(0, 'rgba(255,215,150,.8)'); gr.addColorStop(.25, 'rgba(255,200,120,.25)'); gr.addColorStop(1, 'rgba(255,200,120,0)');
-    g.fillStyle = gr; g.fillRect(lx - 95, top - 103, 190, 190);
+    gr = g.createRadialGradient(lx, top - 8, 0, lx, top - 8, 90); gr.addColorStop(0, 'rgba(255,214,150,.7)'); gr.addColorStop(.3, 'rgba(255,200,130,.2)'); gr.addColorStop(1, 'rgba(255,200,130,0)');
+    g.fillStyle = gr; g.fillRect(lx - 90, top - 98, 180, 180);
     g.globalCompositeOperation = 'source-over';
   });
-
-  // pines in the foreground corners
   pine(g, w * .02, h * .97, Math.max(150, h * .3), R);
   pine(g, w * .99, h * 1.0, Math.max(170, h * .34), R);
   if(w > 700) pine(g, w * .58, base + 22, 90, R);
-
   // a string of lights along the eaves above the window
   bulbs = [];
   const x0 = -30, x1 = w + 30, y0 = h * .17, y1 = h * .23, sag = Math.max(50, h * .09);
   const pt = t => [x0 + (x1 - x0) * t, y0 + (y1 - y0) * t + sag * 4 * t * (1 - t)];
-  g.strokeStyle = 'rgba(16,8,10,.9)'; g.lineWidth = 1.6; g.beginPath();
+  g.strokeStyle = 'rgba(90,80,110,.7)'; g.lineWidth = 1.4; g.beginPath();
   for(let t = 0; t <= 1.0001; t += .01){ const p = pt(t); t ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); }
   g.stroke();
-  const cols = ['#ffd27c', '#ff6f61', '#ffe9b8', '#ffb35c', '#ff8f7a', '#9fe0b0', '#ffc46a'];
+  const cols = ['#ffcf7a', '#ff9c8c', '#fff1c6', '#ffb35e', '#ffb0c0', '#a9e2bf', '#ffd88f'];
   const n = Math.max(10, Math.round((x1 - x0) / 34));
   for(let i = 0; i <= n; i++){
     const p = pt(i / n), c = cols[i % cols.length];
-    g.fillStyle = '#160c0c'; g.fillRect(p[0] - 2, p[1] - 1, 4, 5);
+    g.fillStyle = '#6f6680'; g.fillRect(p[0] - 2, p[1] - 1, 4, 5);
     g.fillStyle = c; g.beginPath(); g.ellipse(p[0], p[1] + 8, 3.6, 5.2, 0, 0, TAU); g.fill();
     bulbs.push({ x: p[0], y: p[1] + 8, c, ph: R() * TAU, sp: .6 + R() * 1.6 });
   }
 }
 function house(g, x, base, bw, bh, roof, R, glows){
-  const top = base - bh, tone = 22 + R() * 12;
-  g.fillStyle = `rgb(${tone + 10},${tone},${tone + 14})`; g.fillRect(x, top, bw, bh);
-  g.fillStyle = '#1c1224'; g.beginPath(); g.moveTo(x - 6, top); g.lineTo(x + bw / 2, top - roof); g.lineTo(x + bw + 6, top); g.closePath(); g.fill();
-  if(R() < .6){ const cx = x + bw * (.62 + R() * .2); g.fillStyle = '#20152a'; g.fillRect(cx, top - roof * .9, 12, roof * .7); g.fillStyle = '#f3e6ea'; g.fillRect(cx - 2, top - roof * .9 - 4, 16, 5); }
-  g.strokeStyle = '#f2e4e6'; g.lineWidth = 6 + R() * 3; g.lineJoin = 'round'; g.lineCap = 'round';
+  const top = base - bh, t = R() * 22;
+  g.fillStyle = `rgb(${150 + t},${142 + t},${176 + t})`; g.fillRect(x, top, bw, bh);
+  g.fillStyle = `rgb(${128 + t},${118 + t},${156 + t})`; g.beginPath(); g.moveTo(x - 6, top); g.lineTo(x + bw / 2, top - roof); g.lineTo(x + bw + 6, top); g.closePath(); g.fill();
+  if(R() < .6){ const cx = x + bw * (.62 + R() * .2); g.fillStyle = `rgb(${132 + t},${122 + t},${160 + t})`; g.fillRect(cx, top - roof * .9, 12, roof * .7); g.fillStyle = '#fff'; g.fillRect(cx - 2, top - roof * .9 - 4, 16, 5); }
+  g.strokeStyle = '#ffffff'; g.lineWidth = 6 + R() * 3; g.lineJoin = 'round'; g.lineCap = 'round';
   g.beginPath(); g.moveTo(x - 4, top + 1); g.lineTo(x + bw / 2, top - roof + 2); g.lineTo(x + bw + 4, top + 1); g.stroke();
-  g.fillStyle = 'rgba(242,228,230,.75)'; g.fillRect(x - 5, top - 1, bw + 10, 4);
   const cols = Math.max(1, Math.floor(bw / 30)), rows = Math.max(1, Math.floor(bh / 38));
   const ww = 12 + R() * 5, wh = 15 + R() * 6;
   for(let c = 0; c < cols; c++) for(let r = 0; r < rows; r++){
     const wx = x + (c + .5) * bw / cols - ww / 2, wy = top + 12 + r * (bh - 18) / rows;
     if(wy + wh > base - 6) continue;
     const lit = R() < .72;
-    g.fillStyle = lit ? (R() < .5 ? '#ffcf7a' : '#ffad5a') : '#2a1d2e';
+    g.fillStyle = lit ? (R() < .5 ? '#ffd38c' : '#ffc072') : '#b8b1cf';
     g.fillRect(wx, wy, ww, wh);
-    if(lit){
-      g.fillStyle = 'rgba(80,40,10,.35)'; g.fillRect(wx + ww / 2 - .7, wy, 1.4, wh); g.fillRect(wx, wy + wh / 2 - .7, ww, 1.4);
-      glows.push({ x: wx + ww / 2, y: wy + wh / 2, r: 26 + R() * 14 });
-    }
-    g.fillStyle = 'rgba(244,230,232,.7)'; g.fillRect(wx - 1, wy + wh, ww + 2, 2.5);
+    if(lit){ g.fillStyle = 'rgba(150,90,40,.25)'; g.fillRect(wx + ww / 2 - .6, wy, 1.2, wh); g.fillRect(wx, wy + wh / 2 - .6, ww, 1.2); glows.push({ x: wx + ww / 2, y: wy + wh / 2, r: 26 + R() * 14 }); }
+    g.fillStyle = 'rgba(255,255,255,.85)'; g.fillRect(wx - 1, wy + wh, ww + 2, 2.5);
   }
 }
-function pine(g, x, base, ht, R){
+function pine(g, x, base, ht){
   const tiers = 5, wd = ht * .55;
   for(let i = 0; i < tiers; i++){
     const t = i / tiers, y = base - ht * t * .92, tw = wd * (1 - t * .8), th = ht * .32;
-    g.fillStyle = '#14211c'; g.beginPath(); g.moveTo(x - tw / 2, y); g.lineTo(x, y - th); g.lineTo(x + tw / 2, y); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(244,232,234,.85)'; g.lineWidth = 3.5; g.lineCap = 'round';
+    g.fillStyle = '#8791a8'; g.beginPath(); g.moveTo(x - tw / 2, y); g.lineTo(x, y - th); g.lineTo(x + tw / 2, y); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.95)'; g.lineWidth = 3.5; g.lineCap = 'round';
     g.beginPath(); g.moveTo(x - tw * .42, y - 3); g.quadraticCurveTo(x - tw * .1, y - th * .35, x, y - th + 4); g.stroke();
     g.beginPath(); g.moveTo(x + tw * .12, y - th * .5); g.lineTo(x + tw * .38, y - 4); g.stroke();
   }
@@ -792,30 +855,22 @@ function makeBlur(){
     const x = c.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(src, 0, 0, w, h);
     chain.push(c); src = c;
   }
-  for(let i = chain.length - 2; i >= 0; i--){
-    const c = chain[i], x = c.getContext('2d');
-    x.globalCompositeOperation = 'copy'; x.imageSmoothingQuality = 'high'; x.drawImage(src, 0, 0, c.width, c.height); src = c;
-  }
+  for(let i = chain.length - 2; i >= 0; i--){ const c = chain[i], x = c.getContext('2d'); x.globalCompositeOperation = 'copy'; x.imageSmoothingQuality = 'high'; x.drawImage(src, 0, 0, c.width, c.height); src = c; }
   bctx.globalCompositeOperation = 'source-over'; bctx.imageSmoothingQuality = 'high';
   bctx.clearRect(0, 0, W, H); bctx.drawImage(src, 0, 0, W, H);
-  bctx.fillStyle = 'rgba(240,214,200,.15)'; bctx.fillRect(0, 0, W, H);
+  bctx.fillStyle = 'rgba(255,253,252,.5)'; bctx.fillRect(0, 0, W, H);
   const R = mulberry(7);
-  for(let i = 0, n = W * H / 50; i < n; i++){
-    bctx.fillStyle = `rgba(255,255,255,${.02 + R() * .07})`;
-    const s = R() * 1.5 + .4; bctx.fillRect(R() * W, R() * H, s, s);
-  }
+  for(let i = 0, n = W * H / 50; i < n; i++){ bctx.fillStyle = `rgba(255,255,255,${.05 + R() * .12})`; const s = R() * 1.5 + .4; bctx.fillRect(R() * W, R() * H, s, s); }
 }
 
 /* ---------- fog ---------- */
 function fogAll(){
-  mctx.globalCompositeOperation = 'source-over';
-  mctx.clearRect(0, 0, W, H);
+  mctx.globalCompositeOperation = 'source-over'; mctx.clearRect(0, 0, W, H);
   const g = mctx.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, 'rgba(0,0,0,.8)'); g.addColorStop(.55, 'rgba(0,0,0,.9)'); g.addColorStop(1, 'rgba(0,0,0,.97)');
+  g.addColorStop(0, 'rgba(0,0,0,.84)'); g.addColorStop(.55, 'rgba(0,0,0,.92)'); g.addColorStop(1, 'rgba(0,0,0,.97)');
   mctx.fillStyle = g; mctx.fillRect(0, 0, W, H);
   for(let i = 0; i < 46; i++){
-    const x = Math.random() * W, y = Math.random() * H, r = 40 + Math.random() * 150;
-    const rg = mctx.createRadialGradient(x, y, 0, x, y, r);
+    const x = Math.random() * W, y = Math.random() * H, r = 40 + Math.random() * 150, rg = mctx.createRadialGradient(x, y, 0, x, y, r);
     rg.addColorStop(0, `rgba(0,0,0,${.06 + Math.random() * .1})`); rg.addColorStop(1, 'rgba(0,0,0,0)');
     mctx.fillStyle = rg; mctx.fillRect(x - r, y - r, r * 2, r * 2);
   }
@@ -844,22 +899,14 @@ function bigBreath(){
   W4.whoosh({ dur: 1.4, freq: 520, q: .5, gain: .2, type: 'lowpass', attack: .25, sweep: 260 });
   lastBlock = null; $('#flip').hidden = true; setFlip(false);
   let k = 0;
-  const run = () => {
-    k++;
-    breatheAt(W / 2, H * .9, W * (.25 + k * .06) + 120, .22);
-    if(k % 3 === 0) breathFx(W / 2 + (Math.random() - .5) * W * .3, H * (.9 - k * .02), W * .35);
-    if(k < 22) requestAnimationFrame(run);
-  };
+  const run = () => { k++; breatheAt(W / 2, H * .9, W * (.25 + k * .06) + 120, .22); if(k % 3 === 0) breathFx(W / 2 + (Math.random() - .5) * W * .3, H * (.9 - k * .02), W * .35); if(k < 22) requestAnimationFrame(run); };
   run();
   for(const d of drops) d.dead = true;
   lastActivity = performance.now();
 }
 
 /* ---------- droplets ---------- */
-function addDrop(x, y, r, run){
-  drops.push({ x, y, r, vy: 0, run, stop: y + 22 + Math.random() * 120, wait: .8 + Math.random() * 3 });
-  if(drops.length > 160) drops.shift();
-}
+function addDrop(x, y, r, run){ drops.push({ x, y, r, vy: 0, run, stop: y + 22 + Math.random() * 120, wait: .8 + Math.random() * 3 }); if(drops.length > 160) drops.shift(); }
 function stepDrops(dt){
   for(const d of drops){
     if(!d.run) continue;
@@ -869,80 +916,51 @@ function stepDrops(dt){
     mctx.globalCompositeOperation = 'destination-out';
     mctx.drawImage(brush, d.x - d.r * .75, d.y - d.r * .75, d.r * 1.5, d.r * 1.5);
     d.y += d.vy * dt; d.x += (Math.random() - .5) * .5;
-    if(d.y >= d.stop || d.y > H - 3){ d.run = false; }
+    if(d.y >= d.stop || d.y > H - 3) d.run = false;
   }
   drops = drops.filter(d => !d.dead);
 }
 function drawDrops(g){
   for(const d of drops){
     const gr = g.createRadialGradient(d.x - d.r * .35, d.y - d.r * .4, d.r * .1, d.x, d.y, d.r);
-    gr.addColorStop(0, 'rgba(255,255,255,.62)'); gr.addColorStop(.45, 'rgba(215,228,250,.12)'); gr.addColorStop(1, 'rgba(8,12,28,.4)');
+    gr.addColorStop(0, 'rgba(255,255,255,.85)'); gr.addColorStop(.45, 'rgba(255,255,255,.15)'); gr.addColorStop(1, 'rgba(110,100,140,.35)');
     g.fillStyle = gr; g.beginPath(); g.arc(d.x, d.y, d.r, 0, TAU); g.fill();
   }
 }
 
 /* ---------- falling snow, twinkling lights ---------- */
-function makeFlakes(){
-  const n = Math.round(W * H / 5200);
-  flakes = Array.from({ length: n }, () => newFlake(true));
-}
-function newFlake(any){ const z = Math.random(); return { x: Math.random() * W, y: any ? Math.random() * H : -10, z, r: .5 + z * 2.4, vy: 16 + z * 52, ph: Math.random() * TAU, sw: 6 + Math.random() * 20 }; }
-function stepSnow(dt){
-  if(W4.reduced) return;
-  for(const f of flakes){
-    f.y += f.vy * dt; f.ph += dt * (.5 + f.z);
-    if(f.y > H + 10) Object.assign(f, newFlake(false));
-  }
-}
+function makeFlakes(){ flakes = Array.from({ length: Math.round(W * H / 5200) }, () => newFlake(true)); }
+function newFlake(any){ const z = Math.random(); return { x: Math.random() * W, y: any ? Math.random() * H : -10, z, r: .6 + z * 2.4, vy: 16 + z * 52, ph: Math.random() * TAU, sw: 6 + Math.random() * 20 }; }
+function stepSnow(dt){ if(W4.reduced) return; for(const f of flakes){ f.y += f.vy * dt; f.ph += dt * (.5 + f.z); if(f.y > H + 10) Object.assign(f, newFlake(false)); } }
 function drawSnow(g, soft){
-  g.fillStyle = soft ? 'rgba(255,255,255,.1)' : '#ffffff';
+  g.fillStyle = soft ? 'rgba(255,255,255,.22)' : '#ffffff';
   for(const f of flakes){
     const x = f.x + Math.sin(f.ph) * f.sw * .4;
     if(soft){ if(f.z < .55) continue; g.beginPath(); g.arc(x, f.y, f.r * 3.4, 0, TAU); g.fill(); }
-    else { g.globalAlpha = .3 + f.z * .65; g.beginPath(); g.arc(x, f.y, f.r, 0, TAU); g.fill(); }
+    else { g.globalAlpha = .45 + f.z * .55; g.beginPath(); g.arc(x, f.y, f.r, 0, TAU); g.fill(); }
   }
   g.globalAlpha = 1;
 }
-function tw(b){ return W4.reduced ? .8 : .55 + .45 * Math.sin(time * b.sp + b.ph); }
+const tw = b => W4.reduced ? .8 : .55 + .45 * Math.sin(time * b.sp + b.ph);
+function hexA(hex, a){ const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${n >> 8 & 255},${n & 255},${a.toFixed(3)})`; }
 function drawLights(g, soft){
   if(soft){
-    for(const b of bulbs){
-      const a = tw(b), r = 15 + (b.ph % 1) * 10;
-      const gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, r);
-      gr.addColorStop(0, hexA(b.c, .42 * a)); gr.addColorStop(.72, hexA(b.c, .3 * a)); gr.addColorStop(1, hexA(b.c, 0));
-      g.fillStyle = gr; g.beginPath(); g.arc(b.x, b.y, r, 0, TAU); g.fill();
-    }
+    for(const b of bulbs){ const a = tw(b), r = 15 + (b.ph % 1) * 10, gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, r); gr.addColorStop(0, hexA(b.c, .5 * a)); gr.addColorStop(.72, hexA(b.c, .34 * a)); gr.addColorStop(1, hexA(b.c, 0)); g.fillStyle = gr; g.beginPath(); g.arc(b.x, b.y, r, 0, TAU); g.fill(); }
   }else{
     g.globalCompositeOperation = 'lighter';
-    for(const b of bulbs){
-      const a = tw(b), gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, 11);
-      gr.addColorStop(0, hexA(b.c, .9 * a)); gr.addColorStop(1, hexA(b.c, 0));
-      g.fillStyle = gr; g.fillRect(b.x - 11, b.y - 11, 22, 22);
-    }
+    for(const b of bulbs){ const a = tw(b), gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, 11); gr.addColorStop(0, hexA(b.c, .9 * a)); gr.addColorStop(1, hexA(b.c, 0)); g.fillStyle = gr; g.fillRect(b.x - 11, b.y - 11, 22, 22); }
     g.globalCompositeOperation = 'source-over';
   }
 }
-function hexA(hex, a){ const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${n >> 8 & 255},${n & 255},${a.toFixed(3)})`; }
 function drawBreaths(g, dt){
-  for(const b of breaths){
-    b.a -= dt * .7; if(b.a <= 0) continue;
-    const gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r);
-    gr.addColorStop(0, `rgba(250,238,230,${.22 * b.a})`); gr.addColorStop(1, 'rgba(250,238,230,0)');
-    g.fillStyle = gr; g.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
-  }
+  for(const b of breaths){ b.a -= dt * .7; if(b.a <= 0) continue; const gr = g.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.r); gr.addColorStop(0, `rgba(255,255,255,${.3 * b.a})`); gr.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2); }
   breaths = breaths.filter(b => b.a > 0);
 }
 function drawRoom(g){
-  // the warm room behind you, reflected in the glass: a candle on the sill, the fire across the room
-  const f = W4.reduced ? 0 : Math.sin(time * 7.3) * .014 + Math.sin(time * 13.1) * .009;
-  const fire = W4.reduced ? 0 : Math.sin(time * 2.1) * .015 + Math.sin(time * 5.7) * .01;
-  let x = W * .1, y = H * .96, r = Math.max(W, H) * .52;
-  let gr = g.createRadialGradient(x, y, 0, x, y, r);
-  gr.addColorStop(0, `rgba(255,170,90,${.16 + f})`); gr.addColorStop(.5, `rgba(255,150,70,${.05 + f * .4})`); gr.addColorStop(1, 'rgba(255,150,70,0)');
-  g.fillStyle = gr; g.fillRect(0, 0, W, H);
-  x = W * .9; y = H * 1.04; r = Math.max(W, H) * .6;
-  gr = g.createRadialGradient(x, y, 0, x, y, r);
-  gr.addColorStop(0, `rgba(240,110,60,${.13 + fire})`); gr.addColorStop(1, 'rgba(240,110,60,0)');
+  // the warm room behind you, faintly reflected: a candle on the sill
+  const f = W4.reduced ? 0 : Math.sin(time * 7.3) * .012 + Math.sin(time * 13.1) * .008;
+  const x = W * .1, y = H * .97, r = Math.max(W, H) * .5, gr = g.createRadialGradient(x, y, 0, x, y, r);
+  gr.addColorStop(0, `rgba(255,178,110,${.13 + f})`); gr.addColorStop(1, 'rgba(255,178,110,0)');
   g.fillStyle = gr; g.fillRect(0, 0, W, H);
 }
 
@@ -950,10 +968,11 @@ function drawRoom(g){
 const FONT = s => `700 ${s}px Caveat, "LXGW WenKai TC", "Kaiti TC", cursive`;
 let writer = null, lastBlock = null;
 const pen = { x: 0, y: 0, a: 0, size: 60, warm: false };
-function units(text){ return text.match(/[⺀-鿿豈-﫿＀-￯　-〿가-힯]|[^\s⺀-鿿豈-﫿＀-￯　-〿가-힯]+|\s+/g) || []; }
+const CJK = '\\u2E80-\\u9FFF\\uF900-\\uFAFF\\uFF00-\\uFFEF\\u3000-\\u303F\\uAC00-\\uD7AF';
+const unitRe = new RegExp(`[${CJK}]|[^\\s${CJK}]+|\\s+`, 'g');
 function wrap(text, maxW){
   const lines = []; let cur = '';
-  for(const u of units(text)){
+  for(const u of (text.match(unitRe) || [])){
     if(/^\s+$/.test(u)){ if(cur) cur += ' '; continue; }
     const test = cur + u;
     if(cur.trim() && tctx.measureText(test).width > maxW){ lines.push(cur.trim()); cur = u; } else cur = test;
@@ -965,32 +984,29 @@ async function write(text, who){
   text = String(text || '').trim(); if(!text) return;
   await W4.fontsReady(FONT(64), text);
   setFlip(false);
-  const mirror = who === 'them';
-  const maxW = Math.min(W * .86, 1000);
+  const mirror = who === 'them', maxW = Math.min(W * .86, 1000);
   let size = W4.clamp(W / 7.6, 42, 110), lines = [];
   for(let i = 0; i < 14; i++){
-    tctx.font = FONT(size);
-    lines = wrap(text, maxW);
+    tctx.font = FONT(size); lines = wrap(text, maxW);
     const widest = Math.max(...lines.map(l => tctx.measureText(l).width));
     if(lines.length * size * 1.08 < H * .46 && widest <= maxW) break;
     size *= .9;
   }
   const lh = size * 1.05, blockH = lines.length * lh;
-  // stack a reply under the words already on the glass; if there's no room, breathe the glass clean first
+  // a reply goes under the words already on the glass; if there's no room, breathe it clean first
   const floor = H - ($('.dock').offsetHeight || 160) - 24;
   let top = H * .41 - (lines.length - 1) * lh / 2;
   if(lastBlock && mirror === false && lastBlock.mirror !== mirror){
     const below = lastBlock.bottom + size * .55 + lh * .5;
     if(below + blockH - lh * .5 < floor) top = below; else quickFog();
-  }else if(lastBlock){ quickFog(); }
+  }else if(lastBlock) quickFog();
   lastBlock = { top: top - lh * .5, bottom: top + (lines.length - 1) * lh + lh * .5, mirror };
   tctx.setTransform(1, 0, 0, 1, 0, 0); tctx.clearRect(0, 0, W, H);
   if(mirror) tctx.setTransform(-1, 0, 0, 1, W, 0);
   tctx.font = FONT(size); tctx.textBaseline = 'middle'; tctx.lineJoin = 'round'; tctx.lineCap = 'round';
   tctx.fillStyle = tctx.strokeStyle = '#000'; tctx.lineWidth = Math.max(2, size * .075);
   const L = lines.map((s, i) => {
-    const w = tctx.measureText(s).width;
-    const x = (W - w) / 2 + (Math.random() - .5) * size * .35, y = top + i * lh + (Math.random() - .5) * size * .08;
+    const w = tctx.measureText(s).width, x = (W - w) / 2 + (Math.random() - .5) * size * .35, y = top + i * lh + (Math.random() - .5) * size * .08;
     const chars = []; let acc = '';
     for(const ch of s){ const x0 = tctx.measureText(acc).width; acc += ch; chars.push({ x0, x1: tctx.measureText(acc).width, sp: /\s/.test(ch) }); }
     tctx.fillText(s, x, y); tctx.strokeText(s, x, y);
@@ -1025,10 +1041,7 @@ function reveal(line, upto){
   const sy = Math.max(0, Math.floor(line.y - w.size * .85)), sh = Math.min(H - sy, Math.ceil(w.size * 1.7));
   if(sx < 0){ sw += sx; sx = 0; }
   if(sx + sw > W) sw = W - sx;
-  if(sw > 0 && sh > 0){
-    mctx.globalCompositeOperation = 'destination-out';
-    mctx.drawImage(tmask, sx, sy, sw, sh, sx, sy, sw, sh);
-  }
+  if(sw > 0 && sh > 0){ mctx.globalCompositeOperation = 'destination-out'; mctx.drawImage(tmask, sx, sy, sw, sh, sx, sy, sw, sh); }
   line.done = upto;
   placePen(line, upto);
   if(Math.random() < .05) addDrop(pen.x + (Math.random() - .5) * 8, line.y + w.size * (.18 + Math.random() * .22), 1.3 + Math.random() * 2.3, Math.random() < .16);
@@ -1042,23 +1055,27 @@ function placePen(line, upto){
 function drawPen(g, dt){
   if(!writer) pen.a = Math.max(0, pen.a - dt * 1.4);
   if(pen.a <= 0) return;
-  const r = pen.size * .55, gr = g.createRadialGradient(pen.x, pen.y, 0, pen.x, pen.y, r);
-  const c = pen.warm ? '255,210,150' : '255,236,240';
-  gr.addColorStop(0, `rgba(${c},${.42 * pen.a})`); gr.addColorStop(1, `rgba(${c},0)`);
+  const r = pen.size * .55, gr = g.createRadialGradient(pen.x, pen.y, 0, pen.x, pen.y, r), c = pen.warm ? '255,190,130' : '255,255,255';
+  gr.addColorStop(0, `rgba(${c},${.6 * pen.a})`); gr.addColorStop(1, `rgba(${c},0)`);
   g.fillStyle = gr; g.fillRect(pen.x - r, pen.y - r, r * 2, r * 2);
 }
 function finishWriting(){
   const w = writer; writer = null;
   const n = W4.names();
   if(w.who === 'them'){
-    $('#said').textContent = `${n.Them} wrote on the glass: ${w.text}`;
-    if(w.mirror){ const lastLine = w.lines[w.lines.length - 1], fb = $('#flip'); fb.style.top = Math.min(H - 190, lastLine.y + w.size * .85) + 'px'; fb.hidden = false; fb.classList.add('pulse'); whisper(`${n.Them} wrote it from outside — so from in here it’s backwards.<small>tap ↺ to read it from their side</small>`); }
+    $('#said').textContent = W4.t('said', { Them: n.Them, text: w.text });
+    if(w.mirror){ const lastLine = w.lines[w.lines.length - 1], fb = $('#flip'); fb.style.top = Math.min(H - 190, lastLine.y + w.size * .85) + 'px'; fb.hidden = false; fb.classList.add('pulse'); whisper(W4.t('backwards', { Them: n.Them })); }
   }else{
     const fb = $('#flip'); if(!fb.hidden) fb.style.top = Math.min(H - 190, lastBlock.bottom + 12) + 'px';
     $('#tell').hidden = false; lastWrittenByMe = w.text;
-    $('#said').textContent = `You wrote: ${w.text}`;
+    $('#said').textContent = W4.t('youWrote', { text: w.text });
   }
   W4.chime([1318, 1760], { gain: .035, gap: .14 });
+}
+function quickFog(){
+  let k = 0;
+  const step = () => { mctx.globalCompositeOperation = 'source-over'; mctx.fillStyle = 'rgba(0,0,0,.2)'; mctx.fillRect(0, 0, W, H); if(++k < 8) requestAnimationFrame(step); };
+  step(); drops.forEach(d => d.dead = true); lastBlock = null;
 }
 
 /* ---------- composing a frame ---------- */
@@ -1066,9 +1083,7 @@ let raf = 0, last = performance.now(), lastActivity = performance.now(), lastRef
 function frame(now){
   const dt = Math.min(.05, (now - last) / 1000); last = now; time += dt;
   stepWriter(dt); stepHold(dt); stepMic(); stepDrops(dt); stepSnow(dt);
-  if(!writer && now - lastActivity > 30000 && now - lastRefog > 1000){
-    lastRefog = now; mctx.globalCompositeOperation = 'source-over'; mctx.fillStyle = 'rgba(0,0,0,.012)'; mctx.fillRect(0, 0, W, H);
-  }
+  if(!writer && now - lastActivity > 30000 && now - lastRefog > 1000){ lastRefog = now; mctx.globalCompositeOperation = 'source-over'; mctx.fillStyle = 'rgba(0,0,0,.012)'; mctx.fillRect(0, 0, W, H); }
   ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'source-over';
   ctx.drawImage(sharp, 0, 0);
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -1081,10 +1096,8 @@ function frame(now){
   drawDrops(ctx); drawRoom(ctx); drawPen(ctx, dt);
   raf = requestAnimationFrame(frame);
 }
-
 function resize(){
-  const r = cv.getBoundingClientRect();
-  const nw = Math.round(r.width), nh = Math.round(r.height);
+  const r = cv.getBoundingClientRect(), nw = Math.round(r.width), nh = Math.round(r.height);
   if(nw === W && nh === H) return;
   let old = null;
   if(W){ old = mk(); old.width = W; old.height = H; old.getContext('2d').drawImage(mask, 0, 0); }
@@ -1098,30 +1111,14 @@ function resize(){
 
 /* ---------- your finger ---------- */
 let hold = null, strokeLen = 0, lastWrittenByMe = '';
-function pt(e){
-  const r = cv.getBoundingClientRect();
-  let x = e.clientX - r.left, y = e.clientY - r.top;
-  if(stage.classList.contains('flipped')) x = r.width - x;
-  return { x, y };
-}
-cv.addEventListener('pointerdown', e => {
-  cv.setPointerCapture(e.pointerId);
-  const p = pt(e);
-  hold = { x: p.x, y: p.y, lx: p.x, ly: p.y, t: 0, moved: false, breathing: false };
-  whisperGone();
-});
+function pt(e){ const r = cv.getBoundingClientRect(); let x = e.clientX - r.left; const y = e.clientY - r.top; if(stage.classList.contains('flipped')) x = r.width - x; return { x, y }; }
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); const p = pt(e); hold = { x: p.x, y: p.y, lx: p.x, ly: p.y, t: 0, moved: false, breathing: false }; whisperGone(); });
 cv.addEventListener('pointermove', e => {
   if(!hold) return;
   const p = pt(e);
   if(!hold.moved && Math.hypot(p.x - hold.x, p.y - hold.y) > 4 && !hold.breathing) hold.moved = true;
-  if(hold.moved){
-    const r = e.pointerType === 'mouse' ? 11 : 14;
-    wipe(hold.lx, hold.ly, p.x, p.y, r);
-    strokeLen += Math.hypot(p.x - hold.lx, p.y - hold.ly);
-    if(strokeLen > 260) $('#tell').hidden = false;
-  }
-  hold.lx = p.x; hold.ly = p.y;
-  lastActivity = performance.now();
+  if(hold.moved){ wipe(hold.lx, hold.ly, p.x, p.y, e.pointerType === 'mouse' ? 11 : 14); strokeLen += Math.hypot(p.x - hold.lx, p.y - hold.ly); if(strokeLen > 260) $('#tell').hidden = false; }
+  hold.lx = p.x; hold.ly = p.y; lastActivity = performance.now();
 });
 const endHold = () => { hold = null; };
 cv.addEventListener('pointerup', endHold); cv.addEventListener('pointercancel', endHold);
@@ -1144,109 +1141,67 @@ async function toggleMic(){
   if(mic){ mic.stream.getTracks().forEach(t => t.stop()); try{ mic.ctx.close(); }catch(e){} mic = null; b.setAttribute('aria-pressed', 'false'); return; }
   try{
     const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
-    const AC = window.AudioContext || window.webkitAudioContext, ac = new AC();
-    const an = ac.createAnalyser(); an.fftSize = 1024;
+    const AC = window.AudioContext || window.webkitAudioContext, ac = new AC(), an = ac.createAnalyser(); an.fftSize = 1024;
     ac.createMediaStreamSource(stream).connect(an);
     mic = { stream, ctx: ac, an, buf: new Float32Array(an.fftSize) };
-    b.setAttribute('aria-pressed', 'true');
-    W4.toast('Blow gently on your microphone ✦');
-  }catch(e){ W4.toast('No microphone — hold your finger still on the glass instead'); }
+    b.setAttribute('aria-pressed', 'true'); W4.toast(W4.t('micOn'));
+  }catch(e){ W4.toast(W4.t('micNo')); }
 }
 function stepMic(){
   if(!mic) return;
   mic.an.getFloatTimeDomainData(mic.buf);
   let s = 0; for(let i = 0; i < mic.buf.length; i++) s += mic.buf[i] * mic.buf[i];
   const rms = Math.sqrt(s / mic.buf.length);
-  if(rms > .07){
-    const x = W / 2 + (Math.random() - .5) * 60, y = H * .86;
-    breatheAt(x, y, 90 + rms * 900, Math.min(.2, rms * .9));
-    if(Math.random() < .3) breathFx(x, y - 40, 120 + rms * 700);
-    lastActivity = performance.now();
-  }
+  if(rms > .07){ const x = W / 2 + (Math.random() - .5) * 60, y = H * .86; breatheAt(x, y, 90 + rms * 900, Math.min(.2, rms * .9)); if(Math.random() < .3) breathFx(x, y - 40, 120 + rms * 700); lastActivity = performance.now(); }
 }
 
 /* ---------- words in, words out ---------- */
 const whisperEl = $('#whisper');
 function whisper(html){ whisperEl.innerHTML = html; whisperEl.classList.remove('gone'); clearTimeout(whisper.t); whisper.t = setTimeout(whisperGone, 9000); }
 function whisperGone(){ whisperEl.classList.add('gone'); }
-function setFlip(on){
-  stage.classList.toggle('flipped', on);
-  $('#flip').textContent = on ? '↻ Back to my side' : '↺ Read it from their side';
-}
+function setFlip(on){ stage.classList.toggle('flipped', on); $('#flip').textContent = W4.t(on ? 'flipBack' : 'flip'); }
 function relabel(){
   const n = W4.names();
-  $('#ask').textContent = `Ask ${n.themName || 'them'} to write`;
-  $('#paste').textContent = `Paste ${n.themName ? W4.poss(n.themName) : 'their'} words`;
-  $('#tell').textContent = `Tell ${n.themName || 'them'}`;
+  $('#ask').textContent = W4.t('ask', { them: n.them }); $('#paste').textContent = W4.t('paste', { their: n.their }); $('#tell').textContent = W4.t('tell', { them: n.them });
+  $('#flip').textContent = W4.t(stage.classList.contains('flipped') ? 'flipBack' : 'flip');
 }
 relabel(); W4.onNames(relabel);
+whisperEl.innerHTML = W4.t('start');
 
-function askText(){
-  return `🪟 Let’s play “The Other Side of the Glass.”
-It’s a winter night. You’re outside in the snow, I’m inside by the window, and the glass between us is completely fogged up. We can’t hear each other through it — but you can write on the fog with your fingertip.
-
-Write me something on the glass. It has to fit on a window, so keep it short: 12 words at most.
-
-Reply with a line that starts with “Glass:” — for example:
-Glass: come outside, the snow is perfect
-
-(If you can send links, this works too: ${W4.here()}#glass=come+outside)`;
-}
 function receiveWords(text){
-  const words = W4.one(text, ['glass', 'window', 'fog', 'on the glass', 'writes', 'written'], 90);
-  if(!words) return 'I couldn’t find any words in that — try pasting their whole reply.';
+  const words = W4.one(text, ['glass', 'window', 'fog', 'on the glass', 'writes', 'written', '玻璃', '窗上', '窗戶', '霧上'], 90);
+  if(!words) return W4.t('noWords');
   arrive(words);
 }
-function quickFog(){
-  let k = 0;
-  const step = () => { mctx.globalCompositeOperation = 'source-over'; mctx.fillStyle = 'rgba(0,0,0,.2)'; mctx.fillRect(0, 0, W, H); if(++k < 8) requestAnimationFrame(step); };
-  step(); drops.forEach(d => d.dead = true); lastBlock = null;
-}
 function arrive(words){
-  const n = W4.names();
   $('#flip').hidden = true;
-  whisper(`${n.Them} is writing from outside…`);
-  quickFog();   // a fresh breath of fog first, so the words have somewhere to go
+  whisper(W4.t('writing', { Them: W4.names().Them }));
+  quickFog();
   setTimeout(() => write(words, 'them'), 900);
 }
-
-$('#ask').onclick = () => W4.send(askText(), { title: 'Invite them to the window' });
-$('#paste').onclick = () => W4.receive({
-  title: `What did ${W4.names().themName || 'they'} write?`,
-  tip: 'Paste their whole reply. The game looks for the line that starts with <b>Glass:</b> — or just uses their words.',
-  placeholder: 'Glass: come outside, the snow is perfect',
-  go: 'Watch them write', onText: receiveWords
-});
+$('#ask').onclick = () => W4.send(W4.t('askText', { url: W4.here() }), { title: W4.t('inviteTitle') });
+$('#paste').onclick = () => W4.receive({ title: W4.t('pasteTitle', { them: W4.names().them }), tip: W4.t('pasteTip'), placeholder: W4.t('pastePh'), go: W4.t('pasteGo'), onText: receiveWords });
 $('#flip').onclick = () => { setFlip(!stage.classList.contains('flipped')); $('#flip').classList.remove('pulse'); whisperGone(); };
 $('#breathe').onclick = () => { whisperGone(); bigBreath(); };
 $('#mic').onclick = toggleMic;
 $('#write').onclick = () => {
-  const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">Write back</p>
-    <h3>What do you want to write on the glass?</h3>
-    <p class="tip">Your finger will write it for you. Keep it short — it’s a window, not a letter. (You can also just draw on the glass yourself.)</p>
-    <input class="input" maxlength="80" placeholder="it’s warm in here — come in?" aria-label="Your words">
-    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="go">Write it</button></div>
-  </div>`);
+  const d = W4.sheet(`<div class="w4-sheet-in"><h3>${W4.t('writeTitle')}</h3><p class="tip">${W4.t('writeTip')}</p>
+    <input class="input" maxlength="80" placeholder="${W4.esc(W4.t('writePh'))}" aria-label="${W4.esc(W4.t('writeTitle'))}">
+    <div class="row end"><button class="btn ghost" data-a="close">${W4.t('cancel')}</button><button class="btn primary" data-a="go">${W4.t('writeGo')}</button></div></div>`);
   const inp = d.querySelector('input');
   const go = () => { const t = inp.value.trim(); if(!t){ inp.focus(); return; } d.done(); whisperGone(); setTimeout(() => write(t, 'me'), 250); };
   d.querySelector('[data-a="go"]').onclick = go;
   inp.addEventListener('keydown', e => { if(e.key === 'Enter') go(); });
   if(!W4.coarse) setTimeout(() => inp.focus(), 60);
 };
-$('#tell').onclick = () => {
-  const msg = lastWrittenByMe
-    ? `🪟 I wrote back on the glass. From out there it reads backwards, so here it is the right way round:\n“${lastWrittenByMe}”`
-    : `🪟 I wrote something on the glass for you with my finger: (describe what you drew)\n\n(I can save the window as a picture if you can see images.)`;
-  W4.send(msg, { title: 'Tell them what you wrote' });
-};
+$('#tell').onclick = () => W4.send(lastWrittenByMe ? W4.t('tellTyped', { text: lastWrittenByMe }) : W4.t('tellDrawn'), { title: W4.t('tellTitle') });
 $('#save').onclick = () => {
   const c = mk(); c.width = cv.width; c.height = cv.height;
   const g = c.getContext('2d');
   if(stage.classList.contains('flipped')){ g.translate(c.width, 0); g.scale(-1, 1); }
   g.drawImage(cv, 0, 0); g.setTransform(1, 0, 0, 1, 0, 0);
-  g.font = `600 ${13 * DPR}px Nunito, sans-serif`; g.textAlign = 'right'; g.fillStyle = 'rgba(255,240,224,.6)';
-  g.fillText('The Other Side of the Glass · Winter, for Two', c.width - 20 * DPR, c.height - 20 * DPR);
+  g.font = `600 ${13 * DPR}px "Plus Jakarta Sans", "Chiron GoRound TC", sans-serif`; g.textAlign = 'right'; g.fillStyle = 'rgba(60,45,40,.55)';
+  g.fillText(W4.t('caption'), c.width - 20 * DPR, c.height - 20 * DPR);
   W4.saveCanvas(c, 'the-other-side-of-the-glass.png');
 };
 
@@ -1255,7 +1210,6 @@ resize();
 addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 120); });
 document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if(!document.hidden){ last = performance.now(); raf = requestAnimationFrame(frame); } });
 raf = requestAnimationFrame(frame);
-
 const incoming = W4.pasted() || W4.params().get('glass') || W4.params().get('say');
 if(incoming){ W4.clearURL(); setTimeout(() => { whisperGone(); receiveWords(incoming); }, 700); }
 })();

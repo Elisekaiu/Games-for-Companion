@@ -13,92 +13,100 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
 <style data-shared="base.css">
-/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+/* Winter, for Two — shared styles. Light, modern, delicate.
    Source of truth for the block inlined into every page by tools/inline-shared.py.
    Edit here, then run:  python3 tools/inline-shared.py */
 :root{
-  --bg-0:#110a07;
-  --bg-1:#1b120d;
-  --bg-2:#271a13;
-  --bg-3:#352319;
-  --line:rgba(255,226,194,.13);
-  --line-2:rgba(255,226,194,.25);
-  --glass:rgba(255,236,214,.065);
-  --glass-2:rgba(255,236,214,.12);
-  --ink:#fcf1e3;
-  --ink-2:#e6d1b9;
-  --ink-3:#b39a83;
-  --gold:#f3bf68;      /* honey */
-  --gold-2:#e29a45;
-  --ember:#ec7f4c;
-  --berry:#d05866;     /* cranberry */
-  --pine:#6a9a76;
-  --rose:#ec9fab;
-  --cream:#f8ecdb;
-  --me:#f3b55e;        /* the human's colour: honey */
-  --them:#ee9cab;      /* the companion's colour: rose */
-  --paper:#f7ebd7;
-  --paper-ink:#3d2c20;
-  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
-  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bg:#fbf8f5;
+  --bg-2:#f4eee8;
+  --surface:rgba(255,255,255,.74);
+  --solid:#ffffff;
+  --line:rgba(70,45,30,.09);
+  --line-2:rgba(70,45,30,.17);
+  --ink:#2a2421;
+  --ink-2:#5f5550;
+  --ink-3:#9c918a;
+  --me:#f0935a;         /* the human: apricot */
+  --me-soft:#fde8da;
+  --them:#a48bea;       /* the companion: lilac */
+  --them-soft:#eee8fc;
+  --accent:#f0935a;
+  --sky:#8fb9ea;
+  --mint:#7fcbb0;
+  --butter:#f6d488;
+  --blush:#f5c6cc;
+  --sans:"Plus Jakarta Sans","Chiron GoRound TC","PingFang TC","Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Instrument Serif","LXGW WenKai TC",Georgia,serif;
   --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
-  --r:22px;
-  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
-  color-scheme:dark;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:24px;
+  --shadow:0 20px 44px -26px rgba(90,55,30,.30),0 2px 6px -3px rgba(90,55,30,.08);
+  color-scheme:light;
 }
+html[lang^="zh"]{--serif:"LXGW WenKai TC","Instrument Serif",Georgia,serif}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
 html,body{margin:0}
-body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
-  background:var(--bg-1);
-  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
-  background-attachment:fixed;
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;font-weight:400;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+/* soft light in the corners */
+body::before{content:"";position:fixed;inset:-12%;z-index:-1;pointer-events:none;
+  background:radial-gradient(36% 30% at 10% 6%,rgba(255,204,168,.55),transparent 70%),radial-gradient(34% 30% at 94% 10%,rgba(206,190,250,.5),transparent 70%),
+    radial-gradient(42% 34% at 74% 98%,rgba(172,206,245,.42),transparent 70%),radial-gradient(30% 26% at 4% 90%,rgba(250,198,210,.42),transparent 70%)}
+body.plain::before{display:none}
 button,input,textarea,select{font:inherit;color:inherit}
-a{color:var(--gold)}
+a{color:inherit}
 img,svg,canvas{display:block}
-::selection{background:rgba(243,191,104,.38)}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+::selection{background:rgba(240,147,90,.25)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:12px}
 [hidden]{display:none!important}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-/* warm grain, opt in with <body class="grain"> */
-body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ---------- type ---------- */
-.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
-.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.eyebrow{font-size:11.5px;line-height:1.2;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:0}
+html[lang^="zh"] .eyebrow{letter-spacing:.2em;font-size:12.5px}
+.display{font-family:var(--sans);font-weight:300;letter-spacing:-.03em;line-height:1.05;margin:0;color:var(--ink)}
+.display em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--accent)}
+html[lang^="zh"] .display{font-family:"LXGW WenKai TC",var(--sans);font-weight:400;letter-spacing:.02em;line-height:1.2}
+html[lang^="zh"] .display em{font-style:normal}
+.lede{color:var(--ink-2);font-size:15.5px;line-height:1.55;margin:10px 0 0;font-weight:400}
 .muted{color:var(--ink-3)}
 .hand{font-family:var(--hand)}
 
 /* ---------- top bar ---------- */
 .w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
 .w4-top>*{pointer-events:auto}
-.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-2);font-size:13.5px;font-weight:600;height:38px;padding:0 14px 0 10px;border-radius:999px;
+  background:rgba(255,255,255,.72);border:1px solid var(--line);box-shadow:0 6px 16px -10px rgba(90,55,30,.35);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:color .2s,border-color .2s}
 .w4-home:hover{color:var(--ink);border-color:var(--line-2)}
-.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-home svg{width:15px;height:15px}
 .w4-spacer{flex:1}
-.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon{min-width:38px;height:38px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.72);box-shadow:0 6px 16px -10px rgba(90,55,30,.35);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0 10px;font-size:13px;font-weight:700;transition:color .2s,border-color .2s}
 .w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
-.w4-icon svg{width:18px;height:18px}
+.w4-icon svg{width:17px;height:17px}
 .w4-icon[aria-pressed="false"]{color:var(--ink-3)}
 .w4-icon[aria-pressed="false"] .on{display:none}
 .w4-icon[aria-pressed="true"] .off{display:none}
 
 /* ---------- buttons ---------- */
-.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line-2);background:rgba(255,255,255,.82);color:var(--ink);min-height:44px;padding:10px 18px;border-radius:999px;
+  font-size:14.5px;font-weight:600;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;
+  box-shadow:0 6px 16px -12px rgba(90,55,30,.35);transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:#fff;border-color:rgba(70,45,30,.26)}
 .btn:active{transform:scale(.97)}
-.btn svg{width:18px;height:18px;flex:none}
-.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
-.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
-.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
-.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
-.btn.ghost:hover{background:var(--glass)}
-.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
-.btn.round{width:46px;padding:0}
-.btn.small.round{width:38px}
-.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+.btn svg{width:17px;height:17px;flex:none}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 10px 22px -12px rgba(42,36,33,.7)}
+.btn.primary:hover{background:#3a322e}
+.btn.soft{background:var(--me-soft);border-color:transparent;color:#a4532a}
+.btn.soft.them{background:var(--them-soft);color:#6a4fc4}
+.btn.ghost{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--ink-2)}
+.btn.ghost:hover{background:rgba(70,45,30,.05)}
+.btn.small{min-height:36px;padding:6px 13px;font-size:13.5px}
+.btn.round{width:44px;padding:0}
+.btn.small.round{width:36px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.38;pointer-events:none}
+.link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;cursor:pointer;font-size:13.5px}
 
 .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .row.end{justify-content:flex-end}
@@ -108,48 +116,51 @@ body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:
 
 /* ---------- fields ---------- */
 .field{display:flex;flex-direction:column;gap:7px;min-width:0}
-.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field>label,.label{font-size:12.5px;font-weight:600;color:var(--ink-2);letter-spacing:.01em}
 .field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
-.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
-.input::placeholder{color:rgba(230,209,185,.42)}
-.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
-textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
-.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
-
+.input{width:100%;background:rgba(255,255,255,.9);border:1px solid var(--line-2);border-radius:14px;padding:11px 14px;font-size:16px;outline:none;transition:border-color .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:#b9aea6}
+.input:focus{border-color:rgba(240,147,90,.7);box-shadow:0 0 0 4px rgba(240,147,90,.13)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.5;display:block}
+.count{font-size:12px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums;font-family:var(--mono)}
 .swatches{display:flex;flex-wrap:wrap;gap:10px}
-.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
-.swatch:hover{transform:scale(1.07)}
-.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+.swatch{width:34px;height:34px;border-radius:50%;border:2px solid #fff;cursor:pointer;padding:0;position:relative;background-size:cover;box-shadow:0 0 0 1px var(--line-2),0 4px 10px -6px rgba(90,55,30,.4);transition:transform .15s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.08)}
+.swatch[aria-checked="true"]{box-shadow:0 0 0 2px var(--ink),0 4px 10px -6px rgba(90,55,30,.4)}
 
 /* ---------- panels ---------- */
-.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.panel h2{font-weight:500;font-size:17px;letter-spacing:-.01em;margin:0}
+.panel .sub{color:var(--ink-3);font-size:13.5px;margin:3px 0 12px}
 
 /* ---------- sheets (dialogs) ---------- */
-dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
-dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
-dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
-.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
-.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(540px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(60,40,30,.22);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.12)}
+.w4-sheet-in{background:#fff;border:1px solid var(--line);border-radius:28px;padding:22px 20px 18px;box-shadow:0 40px 90px -36px rgba(70,40,20,.45);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-weight:500;font-size:21px;letter-spacing:-.015em;line-height:1.2;margin:0}
 .w4-sheet-in p{margin:0}
-.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
-.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
-.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
-.w4-sheet .err{font-size:14px;color:#ffb8a6}
-@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.w4-sheet-in textarea.input{min-height:170px;font-size:14.5px;background:var(--bg)}
+.w4-sheet .tip{font-size:13.5px;color:var(--ink-3);line-height:1.5}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:600}
+.w4-sheet .err{font-size:13.5px;color:#c4523a}
+@keyframes w4-rise{from{opacity:0;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
 
 /* ---------- toast ---------- */
-.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,14px);opacity:0;z-index:120;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-size:14px;font-weight:600;
+  box-shadow:0 16px 36px -14px rgba(42,36,33,.6);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
 .w4-toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* a gentle "look here" */
 .pulse{animation:w4-pulse 2.4s ease-in-out infinite}
-@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(240,147,90,0)}50%{box-shadow:0 0 0 7px rgba(240,147,90,.18)}}
 
-/* ---------- the three-step bridge ---------- */
+/* ---------- the two voices ---------- */
 .bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .who-me{color:var(--me)}
 .who-them{color:var(--them)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;vertical-align:1px;margin-right:6px}
+.dot.me{background:var(--me)}.dot.them{background:var(--them)}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -257,23 +268,14 @@ dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
 /* Winter, for Two — the bridge.
    You play with your hands; your companion plays with words. These helpers carry
    words across: an invitation you copy to your companion, their reply pasted back
-   in (read forgivingly), and a few things kept in this browser. No dependencies,
-   no servers, no tracking.
+   in (read forgivingly), and a few things kept in this browser. English and
+   繁體中文. No dependencies, no servers, no tracking.
    Source of truth for the block inlined into every page by tools/inline-shared.py.
    Edit here, then run:  python3 tools/inline-shared.py */
 (function(){
 'use strict';
 const W4 = window.W4 = {};
 const NS = 'w4t:';
-
-W4.games = {
-  'window':    { path:'window/',     title:'The Other Side of the Glass' },
-  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
-  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
-  'music-box': { path:'music-box/',  title:'Music Box Duet' },
-  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
-  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
-};
 
 /* ---------- storage: never throws (private windows, blocked storage) ---------- */
 W4.store = {
@@ -282,37 +284,91 @@ W4.store = {
   del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
 };
 
+/* ---------- language ---------- */
+W4.lang = (function(){
+  let p = null;
+  try{ p = new URLSearchParams(location.hash.slice(1)).get('lang') || new URLSearchParams(location.search).get('lang'); }catch(e){}
+  if(p === 'zh' || p === 'en'){ W4.store.set('lang', p); return p; }
+  const s = W4.store.get('lang', null);
+  if(s === 'zh' || s === 'en') return s;
+  return /^zh/i.test(navigator.language || '') ? 'zh' : 'en';
+})();
+W4.zh = W4.lang === 'zh';
+document.documentElement.lang = W4.zh ? 'zh-Hant' : 'en';
+const DICT = { en: {}, zh: {} };
+W4.i18n = function(d){ for(const l in d){ DICT[l] = Object.assign(DICT[l] || {}, d[l]); } if(document.readyState !== 'loading') W4.applyI18n(); };
+W4.t = function(key, vars){
+  let s = DICT[W4.lang][key]; if(s === undefined) s = DICT.en[key]; if(s === undefined) return key;
+  if(typeof s === 'function') return s(vars || {});
+  return vars ? String(s).replace(/\{(\w+)\}/g, (_, k) => (vars[k] == null ? '' : vars[k])) : s;
+};
+/* pick the right string from an { en, zh } pair */
+W4.L = o => (o && typeof o === 'object' && ('en' in o || 'zh' in o)) ? (o[W4.lang] != null ? o[W4.lang] : o.en) : o;
+W4.applyI18n = function(root){
+  const r = root || document;
+  r.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = W4.t(el.dataset.i18n); });
+  r.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = W4.t(el.dataset.i18nPh); });
+  r.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', W4.t(el.dataset.i18nAria)); });
+  r.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = W4.t(el.dataset.i18nTitle); });
+};
+W4.setLang = l => { W4.store.set('lang', l); location.reload(); };
+
+W4.i18n({
+  en: { site: 'Winter, for Two', who: 'Who’s playing', namesTitle: 'Two names, that’s all', namesTip: 'Used for labels and messages. Stays in this browser.',
+    you: 'You', companion: 'Your companion', yourName: 'your name', theirName: 'their name', cancel: 'Cancel', save: 'Save', close: 'Close', copy: 'Copy', share: 'Share…',
+    sendTitle: 'Send this to {them}', sendTip: 'Paste it into your chat. Change any words first — it’s your voice.', copied: 'Copied — paste it to {them} ✦', copyBlocked: 'Copying was blocked — select the text and copy it',
+    receiveTitle: 'Paste {their} reply', receiveTip: 'Paste their whole message. Extra words are fine.', pasteClip: 'Paste from clipboard', clipEmpty: 'The clipboard is empty',
+    clipDenied: 'Not allowed — long-press the box and paste', open: 'Open it', fromThem: 'From {them}', forThem: 'For {them}', sound: 'Sound', langBtn: '中', langName: '中文',
+    meDefault: 'you', themDefault: 'your companion', ThemDefault: 'Your companion', imageFail: 'Couldn’t make the image' },
+  zh: { site: '兩個人的冬天', who: '誰在玩', namesTitle: '兩個名字就好', namesTip: '只用來寫標籤和訊息，只存在這個瀏覽器。',
+    you: '你', companion: '你的 AI 夥伴', yourName: '你的名字', theirName: '對方的名字', cancel: '取消', save: '儲存', close: '關閉', copy: '複製', share: '分享…',
+    sendTitle: '傳給{them}', sendTip: '貼到你們的對話裡。想改哪個字都可以——這是你的語氣。', copied: '已複製，貼給{them}吧 ✦', copyBlocked: '瀏覽器擋住了複製——請選取文字後自行複製',
+    receiveTitle: '貼上{their}回覆', receiveTip: '整段貼上就好，多出來的字沒關係。', pasteClip: '從剪貼簿貼上', clipEmpty: '剪貼簿是空的',
+    clipDenied: '瀏覽器不允許——請長按輸入框貼上', open: '打開', fromThem: '來自{them}', forThem: '給{them}', sound: '聲音', langBtn: 'EN', langName: 'English',
+    meDefault: '你', themDefault: '對方', ThemDefault: '對方', imageFail: '圖片做不出來' }
+});
+
 /* ---------- small helpers ---------- */
 W4.$ = (s, r) => (r || document).querySelector(s);
 W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
-W4.poss = s => s + '’s';
+W4.poss = s => W4.zh ? s + '的' : s + '’s';
 W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
 W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
-W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(W4.zh ? 'zh-Hant' : undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.shortDate = d => new Date(d || Date.now()).toLocaleDateString(W4.zh ? 'zh-Hant' : undefined, { day:'numeric', month:'short' });
 W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 W4.pick = a => a[Math.floor(Math.random() * a.length)];
 W4.here = () => location.href.split('#')[0].split('?')[0];
-W4.home = () => new URL('../', W4.here()).href;
+
+W4.games = {
+  'window':    { path:'window/',     title:{ en:'The Other Side of the Glass', zh:'隔著玻璃' } },
+  'snowflakes':{ path:'snowflakes/', title:{ en:'Snowflakes from Words',       zh:'字成雪花' } },
+  'gifts':     { path:'gifts/',      title:{ en:'Impossible Gifts',            zh:'不可能的禮物' } },
+  'music-box': { path:'music-box/',  title:{ en:'Music Box Duet',              zh:'音樂盒二重奏' } },
+  'star-jar':  { path:'star-jar/',   title:{ en:'A Jar of Small Stars',        zh:'一罐小星星' } },
+  'cracker':   { path:'cracker/',    title:{ en:'Pull a Cracker',              zh:'聖誕拉炮' } }
+};
 
 /* ---------- names ---------- */
 W4.names = function(){
   const me = String(W4.store.get('me', '') || '').trim();
   const them = String(W4.store.get('them', '') || '').trim();
-  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+  return { me: me || W4.t('meDefault'), them: them || W4.t('themDefault'), Them: them || W4.t('ThemDefault'), meName: me, themName: them,
+    their: them ? W4.poss(them) : (W4.zh ? '對方的' : 'their') };
 };
 W4.onNames = cb => document.addEventListener('w4:names', cb);
 W4.editNames = function(onDone){
   const n = W4.names();
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">Who’s playing</p>
-    <h3>Two names, that’s all</h3>
-    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
-    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
-    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
-    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+    <p class="eyebrow">${W4.t('who')}</p>
+    <h3>${W4.t('namesTitle')}</h3>
+    <p class="tip">${W4.t('namesTip')}</p>
+    <div class="field"><label for="w4-me">${W4.t('you')}</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="${W4.t('yourName')}"></div>
+    <div class="field"><label for="w4-them">${W4.t('companion')}</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="${W4.t('theirName')}"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">${W4.t('cancel')}</button><button class="btn primary" data-a="save">${W4.t('save')}</button></div>
   </div>`);
   const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
   me.value = n.meName; them.value = n.themName;
@@ -377,22 +433,22 @@ W4.send = function(text, opt){
   opt = opt || {};
   const n = W4.names();
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
-    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
-    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
-    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <p class="eyebrow">${W4.esc(opt.eyebrow || W4.t('forThem', { them: n.them }))}</p>
+    <h3>${W4.esc(opt.title || W4.t('sendTitle', { them: n.them }))}</h3>
+    <p class="tip">${opt.tip || W4.t('sendTip')}</p>
+    <textarea class="input" spellcheck="false" aria-label="${W4.esc(W4.t('sendTitle', { them: n.them }))}"></textarea>
     <div class="row end">
-      <button class="btn ghost" data-a="close">Close</button>
-      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
-      <button class="btn primary" data-a="copy">Copy</button>
+      <button class="btn ghost" data-a="close">${W4.t('close')}</button>
+      ${navigator.share && W4.coarse ? `<button class="btn" data-a="share">${W4.t('share')}</button>` : ''}
+      <button class="btn primary" data-a="copy">${W4.t('copy')}</button>
     </div>
   </div>`);
   const ta = d.querySelector('textarea');
   ta.value = text;
   d.querySelector('[data-a="copy"]').onclick = async () => {
     const ok = await W4.copy(ta.value);
-    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
-    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+    if(ok){ d.done(); W4.toast(opt.copied || W4.t('copied', { them: n.them })); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast(W4.t('copyBlocked')); }
   };
   const sh = d.querySelector('[data-a="share"]');
   if(sh) sh.onclick = async () => {
@@ -407,23 +463,23 @@ W4.receive = function(opt){
   const n = W4.names();
   const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
   const d = W4.sheet(`<div class="w4-sheet-in">
-    <p class="eyebrow">From ${W4.esc(n.them)}</p>
-    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
-    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
-    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="eyebrow">${W4.esc(W4.t('fromThem', { them: n.them }))}</p>
+    <h3>${W4.esc(opt.title || W4.t('receiveTitle', { their: n.their }))}</h3>
+    <p class="tip">${opt.tip || W4.t('receiveTip')}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="${W4.esc(W4.t('receiveTitle', { their: n.their }))}"></textarea>
     <p class="err" role="alert" hidden></p>
     <div class="row">
-      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      ${canRead ? `<button class="btn small" data-a="clip">${W4.t('pasteClip')}</button>` : ''}
       <span class="spacer"></span>
-      <button class="btn ghost" data-a="close">Cancel</button>
-      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+      <button class="btn ghost" data-a="close">${W4.t('cancel')}</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || W4.t('open'))}</button>
     </div>
   </div>`);
   const ta = d.querySelector('textarea'), err = d.querySelector('.err');
   const clip = d.querySelector('[data-a="clip"]');
   if(clip) clip.onclick = async () => {
-    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
-    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast(W4.t('clipEmpty')); }
+    catch(e){ W4.toast(W4.t('clipDenied')); }
   };
   d.querySelector('[data-a="go"]').onclick = () => {
     const t = ta.value.trim();
@@ -459,7 +515,7 @@ W4.params = function(){
   if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
   return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
 };
-/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+/* A reply routed here from the home page’s “paste anything” box arrives as #paste=… */
 W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
 W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
 W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
@@ -474,12 +530,12 @@ W4.clean = function(s){
   return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
 };
 W4.stripActions = s => String(s || '')
-  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
-  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?。，！？])/g, ' ')
+  .replace(/(^|\s)[(（][^()（）\n]{1,140}[)）](?=\s|$)/g, ' ');
 /* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
 W4.fields = function(text, spec){
   const out = {}; let cur = null;
-  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”「」【】]/g, '').replace(/\s+/g, ' ').trim();
   const keyOf = label => {
     const l = norm(label);
     if(!l || l.length > 28) return null;
@@ -516,15 +572,15 @@ W4.one = function(text, labels, max){
   if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
   return v;
 };
-/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+/* Which game is a pasted reply for? (Used by the home page’s “paste anything” box.) */
 W4.detect = function(text){
   const t = String(text || '');
   const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
-  if(L('glass').test(t)) return 'window';
-  if(L('flake|snowflake').test(t)) return 'snowflakes';
-  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
-  if(L('notes?|melody').test(t)) return 'music-box';
-  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(L('glass|玻璃|窗上').test(t)) return 'window';
+  if(L('flake|snowflake|雪花').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper|裡面|裏面|包裝紙|搖晃|聲音').test(t)) return 'gifts';
+  if(L('notes?|melody|音符|旋律').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown|笑點|握力|小玩意|紙皇冠|皇冠').test(t)) return 'cracker';
   if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
   return null;
 };
@@ -594,7 +650,7 @@ W4.fontsReady = async function(spec, text){
 /* ---------- save a canvas as an image (share sheet on phones) ---------- */
 W4.saveCanvas = function(canvas, filename){
   canvas.toBlob(async blob => {
-    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    if(!blob){ W4.toast(W4.t('imageFail')); return; }
     try{
       const file = new File([blob], filename, { type:'image/png' });
       if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
@@ -650,21 +706,23 @@ W4.snowfall = function(canvas, o){
 
 /* ---------- the top bar every game shares ---------- */
 const ICON = {
-  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
-  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
-  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
-  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
 };
 W4.icon = ICON;
 W4.topbar = function(o){
   o = o || {};
   const bar = document.createElement('header');
   bar.className = 'w4-top';
-  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>${W4.t('site')}</span></a>
     <span class="w4-spacer"></span>${o.extra || ''}
-    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
-    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+    <button class="w4-icon" type="button" data-a="lang" aria-label="${W4.t('langName')}" title="${W4.t('langName')}">${W4.t('langBtn')}</button>
+    <button class="w4-icon" type="button" data-a="names" aria-label="${W4.t('who')}" title="${W4.t('who')}">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="${W4.t('sound')}" title="${W4.t('sound')}" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
   document.body.prepend(bar);
+  bar.querySelector('[data-a="lang"]').onclick = () => W4.setLang(W4.zh ? 'en' : 'zh');
   bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
   const s = bar.querySelector('[data-a="sound"]');
   s.onclick = () => {
@@ -673,6 +731,7 @@ W4.topbar = function(o){
   };
   return bar;
 };
+document.addEventListener('DOMContentLoaded', () => W4.applyI18n());
 })();
 </script>
 <script>
