@@ -1,0 +1,1475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Impossible Gifts · Winter, for Two</title>
+<meta name="description" content="You can’t hand each other anything, so give anything: a smell, a Tuesday, the first five minutes of snow. Wrap impossible gifts with your AI companion — and unwrap theirs.">
+<meta name="theme-color" content="#1b120d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎁%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style data-shared="base.css">
+/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+:root{
+  --bg-0:#110a07;
+  --bg-1:#1b120d;
+  --bg-2:#271a13;
+  --bg-3:#352319;
+  --line:rgba(255,226,194,.13);
+  --line-2:rgba(255,226,194,.25);
+  --glass:rgba(255,236,214,.065);
+  --glass-2:rgba(255,236,214,.12);
+  --ink:#fcf1e3;
+  --ink-2:#e6d1b9;
+  --ink-3:#b39a83;
+  --gold:#f3bf68;      /* honey */
+  --gold-2:#e29a45;
+  --ember:#ec7f4c;
+  --berry:#d05866;     /* cranberry */
+  --pine:#6a9a76;
+  --rose:#ec9fab;
+  --cream:#f8ecdb;
+  --me:#f3b55e;        /* the human's colour: honey */
+  --them:#ee9cab;      /* the companion's colour: rose */
+  --paper:#f7ebd7;
+  --paper-ink:#3d2c20;
+  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
+  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
+  --r:22px;
+  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  background:var(--bg-1);
+  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--gold)}
+img,svg,canvas{display:block}
+::selection{background:rgba(243,191,104,.38)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+[hidden]{display:none!important}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* warm grain, opt in with <body class="grain"> */
+body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.muted{color:var(--ink-3)}
+.hand{font-family:var(--hand)}
+
+/* ---------- top bar ---------- */
+.w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
+.w4-top>*{pointer-events:auto}
+.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-spacer{flex:1}
+.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-icon svg{width:18px;height:18px}
+.w4-icon[aria-pressed="false"]{color:var(--ink-3)}
+.w4-icon[aria-pressed="false"] .on{display:none}
+.w4-icon[aria-pressed="true"] .off{display:none}
+
+/* ---------- buttons ---------- */
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
+.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.ghost:hover{background:var(--glass)}
+.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
+.btn.round{width:46px;padding:0}
+.btn.small.round{width:38px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.row.center{justify-content:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.spacer{flex:1}
+
+/* ---------- fields ---------- */
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
+.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:rgba(230,209,185,.42)}
+.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
+.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.07)}
+.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+
+/* ---------- panels ---------- */
+.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+
+/* ---------- sheets (dialogs) ---------- */
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
+.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+.w4-sheet-in p{margin:0}
+.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
+.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
+.w4-sheet .err{font-size:14px;color:#ffb8a6}
+@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- toast ---------- */
+.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* a gentle "look here" */
+.pulse{animation:w4-pulse 2.4s ease-in-out infinite}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+
+/* ---------- the three-step bridge ---------- */
+.bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who-me{color:var(--me)}
+.who-them{color:var(--them)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+<style>
+  body{background:#1a100b;
+    background-image:radial-gradient(60% 45% at 50% 18%,rgba(255,176,96,.24),rgba(255,176,96,0) 70%),
+      radial-gradient(8px 8px at 12% 22%,rgba(255,200,120,.55),transparent),radial-gradient(10px 10px at 86% 16%,rgba(255,150,120,.45),transparent),
+      radial-gradient(7px 7px at 74% 30%,rgba(255,220,150,.5),transparent),radial-gradient(9px 9px at 24% 9%,rgba(255,170,110,.45),transparent),
+      linear-gradient(180deg,#24150e 0%,#1a100b 60%,#140c08 100%);background-attachment:fixed}
+  .room{position:relative;padding:74px 16px 60px;overflow-x:hidden;overflow-x:clip}
+  .head{text-align:center;margin:0 auto 4px;max-width:560px}
+  .head h1{font-size:clamp(30px,7vw,46px)}
+  .head p{color:var(--ink-2);margin:10px auto 0;max-width:46ch;font-size:15.5px}
+  .band{position:relative;margin:6px -16px 0}
+  .scene{position:relative;z-index:1;margin:0 auto;width:min(94vw,460px)}
+  .table{position:absolute;left:0;right:0;bottom:4%;height:34%;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,#5a3a24 0%,#4a2f1d 18%,#3a2416 60%,rgba(40,24,14,0) 100%);
+    -webkit-mask-image:radial-gradient(60% 100% at 50% 0%,#000 55%,transparent 100%);mask-image:radial-gradient(60% 100% at 50% 0%,#000 55%,transparent 100%)}
+  .table::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 38px,rgba(0,0,0,.08) 38px 40px),repeating-linear-gradient(180deg,rgba(255,220,180,.05) 0 3px,rgba(0,0,0,0) 3px 9px)}
+  .stage{position:relative;width:100%;aspect-ratio:1/.95;z-index:1;touch-action:pan-y;-webkit-user-select:none;user-select:none}
+  .stage.tearing{touch-action:none;cursor:grab}
+  .gift{position:absolute;inset:0;transition:transform .55s cubic-bezier(.3,1.7,.45,1)}
+  .gift.held{transition:none}
+  .layer{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+  .shadow{position:absolute;left:18%;right:18%;height:9%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),rgba(0,0,0,0));filter:blur(2px)}
+  /* the real box under the paper */
+  .box{position:absolute;inset:0;pointer-events:none}
+  .box-front{position:absolute;background:linear-gradient(180deg,#f7eddc,#e7d6bb);box-shadow:inset 0 -18px 30px -18px rgba(90,60,30,.35),inset 1px 0 0 rgba(255,255,255,.6)}
+  .box-front::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(120,80,40,.04) 0 2px,transparent 2px 7px)}
+  .lid{position:absolute;inset:0;transform-origin:50% 30%;transition:transform 1s cubic-bezier(.3,1.25,.4,1),opacity 1s}
+  .lid-top{position:absolute;background:linear-gradient(180deg,#fff7ea,#f0e2c9)}
+  .lid-lip{position:absolute;background:linear-gradient(180deg,#f3e6cf,#e2cfb0);box-shadow:0 6px 10px -6px rgba(60,35,15,.5);border-bottom:2px solid #d8b56a}
+  .lid-lip::after{content:"";position:absolute;left:0;right:0;top:3px;height:1px;background:rgba(216,181,106,.7)}
+  .box.open .lid{transform:translate(-27%,-13%) rotate(-17deg)}
+  .glow{position:absolute;pointer-events:none;opacity:0;transition:opacity 1s;mix-blend-mode:screen;
+    background:radial-gradient(closest-side,rgba(255,226,160,.95),rgba(255,180,90,.35) 45%,rgba(255,160,80,0) 75%)}
+  .box.open .glow{opacity:1}
+  .rays{position:absolute;pointer-events:none;opacity:0;transition:opacity 1.4s;border-radius:50%;
+    background:repeating-conic-gradient(from 0deg,rgba(255,226,170,.22) 0 7deg,rgba(255,226,170,0) 7deg 20deg);
+    -webkit-mask-image:radial-gradient(closest-side,#000 25%,transparent 100%);mask-image:radial-gradient(closest-side,#000 25%,transparent 100%);animation:spin 40s linear infinite}
+  .box.open .rays{opacity:1}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #paper{transition:transform .9s cubic-bezier(.5,0,.75,0),opacity .9s ease-in}
+  #paper.fall{transform:translateY(55%) rotate(8deg);opacity:0}
+  #fx{pointer-events:none}
+  /* the gift tag */
+  .tag{position:absolute;z-index:3;width:31%;min-width:112px;padding:10px 10px 10px 16px;border-radius:5px 10px 10px 5px;
+    background:linear-gradient(180deg,#fbf3e4,#f0e2c8);color:#4a3524;font-family:var(--hand);font-size:19px;line-height:1.05;
+    box-shadow:0 10px 18px -10px rgba(0,0,0,.7);transform-origin:12% 10%;transform:rotate(8deg);transition:transform .8s cubic-bezier(.3,1.6,.5,1),opacity .6s;pointer-events:none}
+  .tag::before{content:"";position:absolute;left:7px;top:9px;width:7px;height:7px;border-radius:50%;background:#1a100b;box-shadow:0 0 0 2px #d8b56a}
+  .tag b{display:block;font-weight:700;font-size:16px;color:#8a6a4a}
+  .tag .msg{display:block;margin:3px 0;font-size:20px;word-break:break-word}
+  .gift.swing .tag{animation:swing 1.2s ease-out}
+  @keyframes swing{0%{transform:rotate(8deg)}20%{transform:rotate(-10deg)}45%{transform:rotate(14deg)}70%{transform:rotate(3deg)}100%{transform:rotate(8deg)}}
+  .tag.gone{transform:translateY(70px) rotate(40deg);opacity:0}
+  .bubble{position:absolute;z-index:4;left:50%;top:2%;transform:translate(-50%,8px) scale(.92);opacity:0;transition:opacity .4s,transform .5s cubic-bezier(.2,1.6,.4,1);
+    background:#fbefdc;color:#4a2f1a;padding:10px 16px;border-radius:18px;font-family:var(--hand);font-size:22px;line-height:1.15;max-width:86%;text-align:center;box-shadow:0 14px 30px -14px rgba(0,0,0,.8);pointer-events:none}
+  .bubble::after{content:"";position:absolute;left:50%;bottom:-8px;width:16px;height:16px;background:#fbefdc;transform:translateX(-50%) rotate(45deg);border-radius:3px}
+  .bubble small{display:block;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.04em;color:#a07c5c;text-transform:uppercase;margin-bottom:2px}
+  .bubble.show{opacity:1;transform:translate(-50%,0) scale(1)}
+  /* what was inside */
+  .note{position:absolute;z-index:5;left:50%;top:50%;width:min(86%,380px);transform:translate(-50%,-10%) scale(.4) rotate(-3deg);opacity:0;
+    transition:transform 1.3s cubic-bezier(.2,1,.3,1),opacity .7s;pointer-events:none;
+    background:linear-gradient(180deg,#fffaf0,#f6ead3);color:#3d2a1b;border-radius:6px;padding:22px 22px 18px;box-shadow:0 30px 60px -24px rgba(0,0,0,.85),0 0 0 1px rgba(150,110,60,.15)}
+  .note.up{transform:translate(-50%,-62%) scale(1) rotate(-2deg);opacity:1;pointer-events:auto}
+  .note .k{font-family:var(--sans);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#b08355;margin-bottom:8px}
+  .note .t{font-family:var(--hand);font-size:clamp(23px,5.4vw,28px);line-height:1.18;white-space:pre-wrap;word-break:break-word;min-height:1.2em}
+  .note .sig{font-family:var(--hand);font-size:22px;color:#9a6b45;text-align:right;margin-top:10px;opacity:0;transition:opacity .8s}
+  .note.done .sig{opacity:1}
+  .hint{text-align:center;color:var(--ink-2);font-size:15.5px;margin:2px auto 12px;min-height:24px;font-weight:600}
+  .hint .hand{font-size:22px;color:var(--gold);font-weight:600}
+  .controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .panels{max-width:620px;margin:0 auto;display:grid;gap:16px}
+  .head,.hint,.controls{position:relative;z-index:2}
+  .choices{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){ .choices{grid-template-columns:1fr 1fr} }
+  .choice{appearance:none;text-align:left;cursor:pointer;color:var(--ink);padding:18px 18px 16px;border-radius:var(--r);border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(255,236,214,.09),rgba(255,236,214,.035));transition:transform .2s,border-color .2s,background .2s;display:flex;gap:14px;align-items:flex-start}
+  .choice:hover{transform:translateY(-2px);border-color:var(--line-2);background:linear-gradient(180deg,rgba(255,236,214,.13),rgba(255,236,214,.05))}
+  .choice .ic{font-size:28px;line-height:1;flex:none;margin-top:2px}
+  .choice h3{margin:0;font-family:var(--serif);font-weight:500;font-size:21px}
+  .choice p{margin:4px 0 0;color:var(--ink-3);font-size:14.5px}
+  .form{padding:18px;display:grid;gap:16px}
+  .form h2,.shelf h2{font-family:var(--serif);font-weight:500;font-size:23px;margin:0}
+  .form .row2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+  .papers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media (min-width:520px){ .papers{grid-template-columns:repeat(8,1fr)} }
+  .paperbtn{appearance:none;aspect-ratio:1;border-radius:14px;border:2px solid rgba(255,236,214,.14);cursor:pointer;padding:0;background-size:48px 48px;transition:transform .15s,border-color .2s,box-shadow .2s}
+  .paperbtn:hover{transform:scale(1.05)}
+  .paperbtn[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+  .inspire{font-size:13.5px;font-weight:700;color:var(--gold);background:none;border:0;cursor:pointer;padding:0}
+  .shelf{padding:18px}
+  .shelf .sub{color:var(--ink-3);font-size:14px;margin:4px 0 14px}
+  .shelf ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .shelf li button{appearance:none;width:100%;display:flex;gap:12px;align-items:center;text-align:left;padding:10px 12px;border-radius:16px;border:1px solid var(--line);background:rgba(255,236,214,.04);color:var(--ink);cursor:pointer}
+  .shelf li button:hover{background:rgba(255,236,214,.08)}
+  .mini{width:42px;height:42px;border-radius:10px;flex:none;position:relative;box-shadow:inset 0 -6px 10px rgba(0,0,0,.25)}
+  .mini::before,.mini::after{content:"";position:absolute;background:var(--rb)}
+  .mini::before{left:44%;width:12%;top:0;bottom:0}.mini::after{top:44%;height:12%;left:0;right:0}
+  .shelf .what{min-width:0;flex:1}
+  .shelf .what b{display:block;font-size:14px}
+  .shelf .what span{display:block;color:var(--ink-3);font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--hand);font-size:18px}
+  .react{padding:18px;display:grid;gap:12px}
+</style>
+</head>
+<body class="grain">
+<main class="room">
+  <header class="head">
+    <p class="eyebrow">impossible gifts</p>
+    <h1 class="display">Give each other things that can’t exist.</h1>
+    <p>A smell, a Tuesday, the first five minutes of snow. Wrap one for them — and shake, untie and tear open the ones they wrap for you.</p>
+  </header>
+
+  <div class="band">
+  <div class="table" aria-hidden="true"></div>
+  <section class="scene" aria-label="The gift">
+    <div class="stage" id="stage">
+      <div class="gift" id="gift">
+        <div class="shadow" id="shadow"></div>
+        <div class="box" id="box">
+          <div class="rays" id="rays"></div>
+          <div class="box-front" id="boxFront"></div>
+          <div class="glow" id="glow"></div>
+          <div class="lid" id="lid"><div class="lid-top" id="lidTop"></div><div class="lid-lip" id="lidLip"></div></div>
+        </div>
+        <canvas class="layer" id="paper"></canvas>
+        <canvas class="layer" id="ribbon"></canvas>
+        <div class="tag" id="tag" aria-hidden="true"></div>
+      </div>
+      <canvas class="layer" id="fx"></canvas>
+      <div class="bubble" id="bubble" aria-live="polite"></div>
+      <div class="note" id="note" aria-live="polite"><div class="k" id="noteK">inside</div><div class="t" id="noteT"></div><div class="sig" id="noteSig"></div></div>
+    </div>
+  </section>
+  </div>
+
+  <p class="hint" id="hint"></p>
+  <div class="controls" id="controls"></div>
+  <div class="panels" id="panels"></div>
+</main>
+
+<script data-shared="bridge.js">
+/* Winter, for Two — the bridge.
+   You play with your hands; your companion plays with words. These helpers carry
+   words across: an invitation you copy to your companion, their reply pasted back
+   in (read forgivingly), and a few things kept in this browser. No dependencies,
+   no servers, no tracking.
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+(function(){
+'use strict';
+const W4 = window.W4 = {};
+const NS = 'w4t:';
+
+W4.games = {
+  'window':    { path:'window/',     title:'The Other Side of the Glass' },
+  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
+  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
+  'music-box': { path:'music-box/',  title:'Music Box Duet' },
+  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
+  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
+};
+
+/* ---------- storage: never throws (private windows, blocked storage) ---------- */
+W4.store = {
+  get(k, d){ try{ const v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(NS + k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
+};
+
+/* ---------- small helpers ---------- */
+W4.$ = (s, r) => (r || document).querySelector(s);
+W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+W4.poss = s => s + '’s';
+W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+W4.pick = a => a[Math.floor(Math.random() * a.length)];
+W4.here = () => location.href.split('#')[0].split('?')[0];
+W4.home = () => new URL('../', W4.here()).href;
+
+/* ---------- names ---------- */
+W4.names = function(){
+  const me = String(W4.store.get('me', '') || '').trim();
+  const them = String(W4.store.get('them', '') || '').trim();
+  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+};
+W4.onNames = cb => document.addEventListener('w4:names', cb);
+W4.editNames = function(onDone){
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">Who’s playing</p>
+    <h3>Two names, that’s all</h3>
+    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
+    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
+    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+  </div>`);
+  const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
+  me.value = n.meName; them.value = n.themName;
+  d.querySelector('[data-a="save"]').onclick = () => {
+    W4.store.set('me', me.value.trim()); W4.store.set('them', them.value.trim());
+    d.done(); document.dispatchEvent(new CustomEvent('w4:names'));
+    if(onDone) onDone();
+  };
+  return d;
+};
+
+/* ---------- toast ---------- */
+let toastEl = null, toastTimer = 0;
+W4.toast = function(msg, ms){
+  if(!toastEl){
+    toastEl = document.createElement('div');
+    toastEl.className = 'w4-toast'; toastEl.setAttribute('role', 'status'); toastEl.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms || 2800);
+};
+
+/* ---------- sheets (modal dialogs) ---------- */
+W4.sheet = function(html, cls){
+  const d = document.createElement('dialog');
+  d.className = 'w4-sheet' + (cls ? ' ' + cls : '');
+  d.innerHTML = html;
+  document.body.appendChild(d);
+  let gone = false;
+  const cleanup = () => { if(!gone){ gone = true; d.remove(); if(d.onDone) d.onDone(); } };
+  d.done = () => { if(typeof d.close === 'function' && d.open) d.close(); else cleanup(); };
+  d.addEventListener('close', () => setTimeout(cleanup, 30));
+  d.addEventListener('click', e => {
+    if(e.target === d) d.done();
+    else if(e.target.closest('[data-a="close"]')) d.done();
+  });
+  if(typeof d.showModal === 'function') d.showModal();
+  else { d.setAttribute('open', ''); d.style.cssText = 'position:fixed;inset:0;z-index:100;margin:auto'; }
+  return d;
+};
+
+/* ---------- clipboard ---------- */
+W4.copy = async function(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+  }catch(e){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;';
+    (document.querySelector('dialog[open]') || document.body).appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+};
+
+/* Step 1 of the bridge: show the words you’re about to send, let you edit, copy. */
+W4.send = function(text, opt){
+  opt = opt || {};
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
+    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
+    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <div class="row end">
+      <button class="btn ghost" data-a="close">Close</button>
+      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
+      <button class="btn primary" data-a="copy">Copy</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea');
+  ta.value = text;
+  d.querySelector('[data-a="copy"]').onclick = async () => {
+    const ok = await W4.copy(ta.value);
+    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+  };
+  const sh = d.querySelector('[data-a="share"]');
+  if(sh) sh.onclick = async () => {
+    try{ await navigator.share({ text: ta.value }); d.done(); if(opt.onSent) opt.onSent(ta.value); }catch(e){}
+  };
+  return d;
+};
+
+/* Step 2 of the bridge: paste their reply back in. onText returns a string to show an error. */
+W4.receive = function(opt){
+  opt = opt || {};
+  const n = W4.names();
+  const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">From ${W4.esc(n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
+    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="err" role="alert" hidden></p>
+    <div class="row">
+      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      <span class="spacer"></span>
+      <button class="btn ghost" data-a="close">Cancel</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea'), err = d.querySelector('.err');
+  const clip = d.querySelector('[data-a="clip"]');
+  if(clip) clip.onclick = async () => {
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
+    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+  };
+  d.querySelector('[data-a="go"]').onclick = () => {
+    const t = ta.value.trim();
+    if(!t){ ta.focus(); return; }
+    const res = opt.onText(t);
+    if(typeof res === 'string'){ err.textContent = res; err.hidden = false; return; }
+    d.done();
+  };
+  if(!W4.coarse) setTimeout(() => ta.focus(), 60);
+  return d;
+};
+
+/* ---------- state in the URL (#hash is never sent to the server) ---------- */
+W4.enc = function(obj){
+  const b = new TextEncoder().encode(JSON.stringify(obj)); let s = '';
+  for(let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+W4.dec = function(str){
+  try{
+    let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+    while(s.length % 4) s += '=';
+    const bin = atob(s), b = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(b));
+  }catch(e){ return null; }
+};
+W4.params = function(){
+  const map = {};
+  const add = (k, v) => { k = k.toLowerCase().trim(); (map[k] = map[k] || []).push(v); };
+  try{ new URLSearchParams(location.search).forEach((v, k) => add(k, v)); }catch(e){}
+  const h = location.hash.replace(/^#/, '');
+  if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
+  return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
+};
+/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
+W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
+W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
+
+/* ---------- the forgiving reader ---------- */
+/* Companions decorate. They add **bold**, emoji, *smiles softly*, quotes. We let them. */
+W4.clean = function(s){
+  s = String(s == null ? '' : s).replace(/\r/g, '').replace(/\*\*|__/g, '');
+  s = s.replace(/^[\s*_~`]+|[\s*_~`]+$/g, '');
+  const q = s.match(/^["“”'‘’「『«]([\s\S]*)["“”'‘’」』»]$/);
+  if(q) s = q[1];
+  return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+};
+W4.stripActions = s => String(s || '')
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
+  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+/* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
+W4.fields = function(text, spec){
+  const out = {}; let cur = null;
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const keyOf = label => {
+    const l = norm(label);
+    if(!l || l.length > 28) return null;
+    for(const k in spec) for(const syn of spec[k]){
+      if(l === syn || l.startsWith(syn + ' ') || l.endsWith(' ' + syn)) return k;
+    }
+    return null;
+  };
+  const lines = String(text || '').replace(/\r/g, '').split('\n');
+  for(const raw of lines){
+    const line = raw.replace(/^[\s>•·▪◦*+\-–—#]+/, '').replace(/^(?:\p{Extended_Pictographic}|️|‍|⃣)+\s*/u, '');
+    const m = line.match(/^([^:：\n]{1,30}?)\s*[:：]\s*(.*)$/);
+    if(m){
+      const k = keyOf(m[1]);
+      if(k){ cur = k; out[k] = out[k] ? out[k] + '\n' + m[2] : m[2]; continue; }
+      if(/^\p{L}[\p{L} ']{0,22}$/u.test(norm(m[1]))){ cur = null; continue; }
+    }
+    if(!line.trim()){ if(cur && String(out[cur]).trim()) cur = null; continue; }
+    if(cur) out[cur] += (String(out[cur]).trim() ? '\n' : '') + line.trim();
+  }
+  for(const k in out){ out[k] = W4.clean(out[k]); if(!out[k]) delete out[k]; }
+  return out;
+};
+/* One short value: the labelled line if there is one, else a quoted phrase, else the message itself. */
+W4.one = function(text, labels, max){
+  max = max || 160;
+  const f = W4.fields(text, { v: labels });
+  let v = f.v;
+  if(!v){
+    const q = String(text).match(/["“「『]([^"”」』\n]{2,240})["”」』]/);
+    v = q ? q[1] : W4.stripActions(text);
+  }
+  v = W4.clean(v).replace(/\s*\n\s*/g, ' ');
+  if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
+  return v;
+};
+/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+W4.detect = function(text){
+  const t = String(text || '');
+  const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
+  if(L('glass').test(t)) return 'window';
+  if(L('flake|snowflake').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
+  if(L('notes?|melody').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
+  return null;
+};
+
+/* ---------- sound (synthesised, nothing to download) ---------- */
+let actx = null, noiseBuf = null;
+W4.soundOn = () => W4.store.get('sound', true) !== false;
+W4.audio = function(){
+  if(!W4.soundOn()) return null;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return null;
+  if(!actx){ try{ actx = new AC(); }catch(e){ return null; } }
+  if(actx.state === 'suspended'){ try{ actx.resume(); }catch(e){} }
+  return actx;
+};
+W4.noise = function(ctx){
+  if(noiseBuf && noiseBuf.sampleRate === ctx.sampleRate) return noiseBuf;
+  const len = ctx.sampleRate * 2;
+  noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for(let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  return noiseBuf;
+};
+/* filtered-noise gesture: paper, breath, snow, wind */
+W4.whoosh = function(o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ dur:.5, freq:900, q:.7, gain:.16, type:'bandpass', attack:.04, sweep:0, delay:0 }, o || {});
+  const t = ctx.currentTime + o.delay;
+  const src = ctx.createBufferSource(); src.buffer = W4.noise(ctx); src.loop = true;
+  const f = ctx.createBiquadFilter(); f.type = o.type; f.Q.value = o.q;
+  f.frequency.setValueAtTime(o.freq, t);
+  if(o.sweep) f.frequency.exponentialRampToValueAtTime(o.sweep, t + o.dur);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(o.gain, t + o.attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+  src.connect(f); f.connect(g); g.connect(ctx.destination);
+  src.start(t, Math.random()); src.stop(t + o.dur + .05);
+};
+/* small bell: freqs in Hz, played as a little arpeggio */
+W4.chime = function(freqs, o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ gap:.09, gain:.1, decay:1.6 }, o || {});
+  const t0 = ctx.currentTime + .01;
+  [].concat(freqs).forEach((f, i) => {
+    const t = t0 + i * o.gap;
+    [[1, 1], [2.76, .26], [5.4, .08]].forEach(p => {
+      const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = f * p[0];
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(o.gain * p[1], t + .006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + o.decay / (.6 + p[0] * .4));
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + o.decay + .1);
+    });
+  });
+};
+
+/* ---------- fonts for canvas text ---------- */
+W4.fontsReady = async function(spec, text){
+  try{
+    if(document.fonts && document.fonts.load){
+      await Promise.race([document.fonts.load(spec, text || 'Aa'), new Promise(r => setTimeout(r, 2500))]);
+    }
+  }catch(e){}
+};
+
+/* ---------- save a canvas as an image (share sheet on phones) ---------- */
+W4.saveCanvas = function(canvas, filename){
+  canvas.toBlob(async blob => {
+    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    try{
+      const file = new File([blob], filename, { type:'image/png' });
+      if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+};
+W4.downloadText = function(text, filename, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/plain' }));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+};
+
+/* ---------- gentle background snowfall ---------- */
+W4.snowfall = function(canvas, o){
+  o = Object.assign({ density:1, speed:1, color:'255,255,255', alpha:1 }, o || {});
+  const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, last = performance.now();
+  const flakes = [];
+  const make = any => { const z = Math.random(); return { x: Math.random() * w, y: any ? Math.random() * h : -8, r: .6 + z * 2, z, vy: (12 + z * 34) * o.speed, ph: Math.random() * 6.28, sw: 6 + Math.random() * 16 }; };
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(w * h / 9000 * o.density);
+    while(flakes.length < n) flakes.push(make(true));
+    flakes.length = n;
+    if(W4.reduced) draw(last);
+  }
+  function draw(t){
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = 'rgb(' + o.color + ')';
+    for(const f of flakes){
+      f.y += f.vy * dt; f.ph += dt * (.5 + f.z);
+      if(f.y > h + 6) Object.assign(f, make(false));
+      ctx.globalAlpha = (.22 + f.z * .6) * o.alpha;
+      ctx.beginPath(); ctx.arc(f.x + Math.sin(f.ph) * f.sw * .35, f.y, f.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+  size(); addEventListener('resize', size);
+  if(!W4.reduced) raf = requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => {
+    cancelAnimationFrame(raf);
+    if(!document.hidden && !W4.reduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+};
+
+/* ---------- the top bar every game shares ---------- */
+const ICON = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+};
+W4.icon = ICON;
+W4.topbar = function(o){
+  o = o || {};
+  const bar = document.createElement('header');
+  bar.className = 'w4-top';
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+    <span class="w4-spacer"></span>${o.extra || ''}
+    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+  document.body.prepend(bar);
+  bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
+  const s = bar.querySelector('[data-a="sound"]');
+  s.onclick = () => {
+    const on = !W4.soundOn(); W4.store.set('sound', on); s.setAttribute('aria-pressed', String(on));
+    if(on) W4.chime([1046, 1568], { gain:.05 }); else if(actx && actx.suspend) actx.suspend();
+  };
+  return bar;
+};
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const $ = W4.$, TAU = Math.PI * 2;
+W4.topbar();
+
+/* ======================================================================
+   Paper & ribbon
+   ====================================================================== */
+const PAPERS = [
+  { name: 'Midnight stars',  kind: 'stars',   bg: '#22305e', fg: '#efc35e', say: 'midnight-blue paper scattered with little gold stars' },
+  { name: 'Cranberry tartan', kind: 'tartan', bg: '#a8283c', fg: '#e8c46a', say: 'cranberry-red tartan' },
+  { name: 'Kraft & snow',    kind: 'kraft',   bg: '#b8895a', fg: '#faf4ea', say: 'brown kraft paper stamped with white snowflakes' },
+  { name: 'Pine & gold',     kind: 'dots',    bg: '#24503f', fg: '#e8bf5c', say: 'deep pine-green paper with gold polka dots' },
+  { name: 'First snow',      kind: 'snow',    bg: '#f4eee3', fg: '#a9b9cc', say: 'snow-white paper with tiny pale snowflakes' },
+  { name: 'Old sheet music', kind: 'music',   bg: '#efe3c8', fg: '#6f5843', say: 'old sheet music, a little yellowed' },
+  { name: 'Candy stripe',    kind: 'stripes', bg: '#f6eee4', fg: '#c93a4e', say: 'red-and-white candy stripes' },
+  { name: 'Blush',           kind: 'plain',   bg: '#e8a9b3', fg: '#fff4f0', say: 'soft blush-pink paper with a faint shimmer' }
+];
+const RIBBONS = [
+  { name: 'Gold satin',  color: '#d9a944', style: 'satin',  say: 'a gold satin ribbon' },
+  { name: 'Red velvet',  color: '#a9233a', style: 'velvet', say: 'a red velvet ribbon' },
+  { name: 'Ivory satin', color: '#f2ead9', style: 'satin',  say: 'an ivory satin ribbon' },
+  { name: 'Forest',      color: '#2d5f4a', style: 'velvet', say: 'a forest-green velvet ribbon' },
+  { name: 'Rose',        color: '#e28c9b', style: 'satin',  say: 'a dusty-rose ribbon' },
+  { name: 'Twine',       color: '#a8804f', style: 'twine',  say: 'plain brown twine' }
+];
+const COLORS = {
+  'midnight blue':'#1f2a52','navy blue':'#1f2c55','sky blue':'#8dbbe2','baby blue':'#a9cdee','ice blue':'#cfe5f3','royal blue':'#2f4fa3','dusty blue':'#7d97b4',
+  'forest green':'#24503f','pine green':'#24503f','emerald green':'#1f7a55','sage green':'#9bb08f','mint green':'#a8dcc4','olive green':'#6b7a3a','dark green':'#1f4a3a',
+  'dusty rose':'#d69aa5','rose gold':'#e0a98f','blush pink':'#e9b0ba','hot pink':'#e0508a','pale pink':'#f2c9cf','baby pink':'#f4c2cb',
+  'burnt orange':'#c9622f','deep red':'#8f1c2c','wine red':'#6d1a2a','cherry red':'#b8202f','dark red':'#7a1c26',
+  'off white':'#f1ebe0','cream white':'#f4ecdc','snow white':'#f4f1ea','warm white':'#f6efe2','pearl white':'#efe9e0',
+  'midnight':'#1c2550','navy':'#1f2c55','blue':'#2f5d9e','teal':'#2a7c7c','turquoise':'#3fb5ad','cyan':'#58b9c9','sky':'#8dbbe2','ice':'#cfe5f3','indigo':'#2f2f78','periwinkle':'#8f9fe0','cobalt':'#2747a0','sapphire':'#24418f',
+  'green':'#2f6b4f','emerald':'#1f7a55','sage':'#9bb08f','mint':'#a8dcc4','olive':'#6b7a3a','forest':'#24503f','pine':'#24503f','moss':'#5b6e3a','jade':'#3f8f6f','evergreen':'#1e4a3b',
+  'red':'#b3283a','crimson':'#a8203a','scarlet':'#cf2f3d','cranberry':'#a8283c','burgundy':'#6d1a2a','wine':'#6d1a2a','ruby':'#a3172f','cherry':'#b8202f','maroon':'#6a1c22','berry':'#9b2a4f',
+  'pink':'#e9a6b8','rose':'#d98b99','blush':'#e8a9b3','coral':'#ef8a6e','salmon':'#f0a08a','magenta':'#c43a8a','fuchsia':'#c63a95',
+  'orange':'#e67e3c','peach':'#f4b896','apricot':'#f2b27e','tangerine':'#f08a3c','rust':'#a9512c','copper':'#b8703f','terracotta':'#c46a45','amber':'#e0a03a','honey':'#e8b04e','mustard':'#cfa23a','marigold':'#f0b23e',
+  'gold':'#d9a944','golden':'#d9a944','yellow':'#f1cf55','lemon':'#f4dd6a','butter':'#f5e3a0','saffron':'#f0b13a',
+  'cream':'#f3e9d4','ivory':'#f4eddc','white':'#f4f1ea','snow':'#f4f1ea','pearl':'#efe9e0','beige':'#dcc8a8','tan':'#c9a77c','sand':'#d8c19a','oat':'#e2d3b5',
+  'silver':'#c3c9d2','grey':'#8e96a3','gray':'#8e96a3','charcoal':'#3a3f47','slate':'#5d6773','black':'#1f1d20','ink':'#1d2233','smoke':'#a5a5ad',
+  'brown':'#7a5232','chocolate':'#5a3a24','cocoa':'#6a4632','coffee':'#6f4a30','caramel':'#b87a3d','cinnamon':'#a8613a','chestnut':'#7b4a2f','walnut':'#6b4a33','kraft':'#b8895a',
+  'lavender':'#b9a7d9','lilac':'#c7a8d6','purple':'#6b4a8e','violet':'#7b55b0','plum':'#6a3b5e','mauve':'#b6869b','amethyst':'#8e6bb8','aubergine':'#4b2a46','orchid':'#c08acb',
+  'turquoise blue':'#3fb5ad','aqua':'#7fd3cf'
+};
+const COLOR_NAMES = Object.keys(COLORS).sort((a, b) => b.length - a.length);
+function colorsIn(text){
+  let s = ' ' + String(text || '').toLowerCase() + ' ';
+  const found = [];
+  const hex = s.match(/#[0-9a-f]{6}\b/g); if(hex) hex.forEach(h => found.push({ i: s.indexOf(h), c: h }));
+  for(const name of COLOR_NAMES){
+    const re = new RegExp('(^|[^a-z])' + name.replace(/ /g, '[ -]') + '(?=[^a-z]|$)', 'g'); let m;
+    while((m = re.exec(s))){ const at = m.index + m[1].length; found.push({ i: at, c: COLORS[name] }); s = s.slice(0, at) + ' '.repeat(name.length) + s.slice(at + name.length); re.lastIndex = 0; }
+  }
+  return found.sort((a, b) => a.i - b.i).map(f => f.c);
+}
+const KIND_WORDS = [
+  ['stars', /star|constellation|galax|celestial|night sky|moon/], ['tartan', /tartan|plaid|check|gingham|flannel/],
+  ['kraft', /kraft|brown paper|parcel|butcher|recycled|newspaper|newsprint/], ['dots', /dot|polka|spot|confetti|speckle/],
+  ['snow', /snow|flake|frost|winter/], ['music', /music|sheet|score|notes|map|book|page|letter|poem/],
+  ['stripes', /stripe|candy|striped|pinstripe/], ['plain', /./]
+];
+function lum(hex){ const n = parseInt(hex.slice(1), 16); return (.299 * (n >> 16) + .587 * (n >> 8 & 255) + .114 * (n & 255)) / 255; }
+function paperFrom(desc){
+  const t = String(desc || '').toLowerCase();
+  const kind = (KIND_WORDS.find(([, re]) => re.test(t)) || ['plain'])[0];
+  const preset = PAPERS.find(p => p.kind === kind) || PAPERS[7];
+  const cs = colorsIn(t);
+  let bg = cs[0] || preset.bg, fg = cs[1] || null;
+  if(kind === 'kraft' && !cs.length) bg = '#b8895a';
+  if(kind === 'stars' && cs.length === 1 && lum(cs[0]) > .55){ fg = cs[0]; bg = preset.bg; }
+  if(!fg) fg = preset.fg && cs.length < 1 ? preset.fg : (lum(bg) > .6 ? '#b3283a' : '#efc35e');
+  if(kind === 'snow' && cs.length === 1 && lum(bg) < .5){ fg = '#f4f1ea'; }
+  return { kind, bg, fg, say: desc || preset.say };
+}
+function ribbonFrom(desc){
+  const t = String(desc || '').toLowerCase();
+  const style = /twine|string|jute|rope|raffia|yarn/.test(t) ? 'twine' : /velvet|wool|felt|matte/.test(t) ? 'velvet' : 'satin';
+  const c = colorsIn(t)[0] || (style === 'twine' ? '#a8804f' : '#d9a944');
+  return { color: c, style, say: desc || 'a ribbon' };
+}
+function shade(hex, amt){
+  const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = n >> 8 & 255, b = n & 255;
+  const f = amt < 0 ? 0 : 255, p = Math.abs(amt);
+  r = Math.round((f - r) * p + r); g = Math.round((f - g) * p + g); b = Math.round((f - b) * p + b);
+  return `rgb(${r},${g},${b})`;
+}
+function mulberry(a){ return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function hashStr(s){ let h = 2166136261; for(let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+const tiles = new Map();
+function tile(P, dpr){
+  const key = [P.kind, P.bg, P.fg, dpr].join('|');
+  if(tiles.has(key)) return tiles.get(key);
+  const T = 96, c = document.createElement('canvas'); c.width = c.height = Math.round(T * dpr);
+  const g = c.getContext('2d'); g.scale(dpr, dpr);
+  const R = mulberry(hashStr(key));
+  g.fillStyle = P.bg; g.fillRect(0, 0, T, T);
+  const each = (x, y, r, fn) => { for(const dx of [-T, 0, T]) for(const dy of [-T, 0, T]){ if(x + dx > -r && x + dx < T + r && y + dy > -r && y + dy < T + r) fn(x + dx, y + dy); } };
+  const star = (x, y, r) => { g.beginPath(); for(let i = 0; i < 10; i++){ const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .42 : r; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.closePath(); g.fill(); };
+  const flake = (x, y, r, w) => { g.lineWidth = w; g.lineCap = 'round'; g.beginPath(); for(let i = 0; i < 6; i++){ const a = i * Math.PI / 3; g.moveTo(x, y); g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); const bx = x + Math.cos(a) * r * .55, by = y + Math.sin(a) * r * .55; g.moveTo(bx, by); g.lineTo(bx + Math.cos(a + .7) * r * .3, by + Math.sin(a + .7) * r * .3); g.moveTo(bx, by); g.lineTo(bx + Math.cos(a - .7) * r * .3, by + Math.sin(a - .7) * r * .3); } g.stroke(); };
+  g.fillStyle = P.fg; g.strokeStyle = P.fg;
+  if(P.kind === 'stars'){
+    for(let i = 0; i < 7; i++){ const x = R() * T, y = R() * T, r = 2.6 + R() * 3.4; each(x, y, r, (a, b) => star(a, b, r)); }
+    for(let i = 0; i < 16; i++){ const x = R() * T, y = R() * T, r = .5 + R() * .9; g.globalAlpha = .75; each(x, y, r, (a, b) => { g.beginPath(); g.arc(a, b, r, 0, TAU); g.fill(); }); g.globalAlpha = 1; }
+  }else if(P.kind === 'tartan'){
+    const dark = shade(P.bg, -.55);
+    g.globalAlpha = .5; g.fillStyle = dark; g.fillRect(0, 30, T, 26); g.fillRect(30, 0, 26, T);
+    g.globalAlpha = .35; g.fillRect(0, 0, T, 8); g.fillRect(0, 0, 8, T);
+    g.globalAlpha = .85; g.fillStyle = P.fg; g.fillRect(0, 74, T, 2); g.fillRect(74, 0, 2, T);
+    g.globalAlpha = .45; g.fillStyle = '#1f2a22'; g.fillRect(0, 42, T, 2); g.fillRect(42, 0, 2, T);
+    g.globalAlpha = .08; g.fillStyle = '#fff'; for(let i = 0; i < T; i += 3) g.fillRect(i, 0, 1, T);
+    g.globalAlpha = 1;
+  }else if(P.kind === 'kraft'){
+    for(let i = 0; i < 260; i++){ g.fillStyle = R() < .5 ? 'rgba(80,50,20,.16)' : 'rgba(255,240,210,.14)'; g.fillRect(R() * T, R() * T, R() * 2 + .5, R() * 1.2 + .3); }
+    g.strokeStyle = P.fg; g.globalAlpha = .85;
+    for(let i = 0; i < 3; i++){ const x = R() * T, y = R() * T, r = 7 + R() * 5; each(x, y, r, (a, b) => flake(a, b, r, 1.6)); }
+    g.globalAlpha = 1;
+  }else if(P.kind === 'dots'){
+    for(let y = 0; y < T; y += 24) for(let x = (y / 24) % 2 ? 12 : 0; x < T + 12; x += 24){ each(x, y, 5, (a, b) => { g.beginPath(); g.arc(a, b, 4.2, 0, TAU); g.fill(); }); }
+  }else if(P.kind === 'snow'){
+    g.strokeStyle = P.fg;
+    for(let i = 0; i < 5; i++){ const x = R() * T, y = R() * T, r = 4 + R() * 5; each(x, y, r, (a, b) => flake(a, b, r, 1.1)); }
+    g.globalAlpha = .6; for(let i = 0; i < 14; i++){ const x = R() * T, y = R() * T; each(x, y, 2, (a, b) => { g.beginPath(); g.arc(a, b, .9, 0, TAU); g.fill(); }); } g.globalAlpha = 1;
+  }else if(P.kind === 'music'){
+    g.strokeStyle = P.fg; g.globalAlpha = .55; g.lineWidth = .7;
+    for(const top of [10, 58]) for(let i = 0; i < 5; i++){ g.beginPath(); g.moveTo(0, top + i * 4.5); g.lineTo(T, top + i * 4.5); g.stroke(); }
+    g.globalAlpha = .8;
+    for(let i = 0; i < 7; i++){ const top = i % 2 ? 58 : 10, x = 8 + i * 13 + R() * 4, y = top + Math.floor(R() * 9) * 2.25;
+      g.beginPath(); g.ellipse(x, y, 2.6, 1.9, -.4, 0, TAU); g.fill(); g.lineWidth = .9; g.beginPath(); g.moveTo(x + 2.3, y); g.lineTo(x + 2.3, y - 12); g.stroke(); }
+    g.globalAlpha = .12; g.fillStyle = '#7a5a30'; for(let i = 0; i < 40; i++) g.fillRect(R() * T, R() * T, 3, 3); g.globalAlpha = 1;
+  }else if(P.kind === 'stripes'){
+    g.save(); g.lineWidth = 9; g.strokeStyle = P.fg;
+    for(let k = -T; k <= T * 2; k += 24){ g.beginPath(); g.moveTo(k, 0); g.lineTo(k - T, T); g.stroke(); }
+    g.restore();
+  }else{
+    const gr = g.createLinearGradient(0, 0, T, T); gr.addColorStop(0, 'rgba(255,255,255,.12)'); gr.addColorStop(.5, 'rgba(255,255,255,0)'); gr.addColorStop(1, 'rgba(0,0,0,.08)');
+    g.fillStyle = gr; g.fillRect(0, 0, T, T);
+    g.fillStyle = P.fg; g.globalAlpha = .55; for(let i = 0; i < 9; i++){ const x = R() * T, y = R() * T; each(x, y, 2, (a, b) => { g.beginPath(); g.arc(a, b, .8 + R() * .6, 0, TAU); g.fill(); }); } g.globalAlpha = 1;
+  }
+  tiles.set(key, c);
+  return c;
+}
+function patternFor(g, P, dpr){
+  const p = g.createPattern(tile(P, dpr), 'repeat');
+  if(p.setTransform && window.DOMMatrix) p.setTransform(new DOMMatrix().scale(1 / dpr));
+  return p;
+}
+
+/* ======================================================================
+   Geometry of the box (css px inside the stage)
+   ====================================================================== */
+const stage = $('#stage'), giftEl = $('#gift');
+const paperC = $('#paper'), ribbonC = $('#ribbon'), fxC = $('#fx');
+let G = null, DPR = 1;
+function layout(){
+  const W = stage.clientWidth, H = stage.clientHeight;
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const bw = W * .54, bh = W * .36, td = W * .14, k = bw * .07;
+  const bx = (W - bw) / 2, by = H * .5;
+  G = { W, H, bw, bh, td, k, bx, by, cx: W / 2, rw: W * .056, lip: bh * .2 };
+  for(const c of [paperC, ribbonC, fxC]){ c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); c.getContext('2d').setTransform(DPR, 0, 0, DPR, 0, 0); }
+  const px = v => v.toFixed(1) + 'px';
+  Object.assign($('#shadow').style, { top: px(by + bh - G.H * .035) });
+  Object.assign($('#boxFront').style, { left: px(bx), top: px(by + G.lip), width: px(bw), height: px(bh - G.lip) });
+  Object.assign($('#lidLip').style, { left: px(bx - 4), top: px(by - 1), width: px(bw + 8), height: px(G.lip + 2) });
+  const lt = $('#lidTop');
+  Object.assign(lt.style, { left: px(bx - 4), top: px(by - td), width: px(bw + 8), height: px(td + 1) });
+  lt.style.clipPath = `polygon(${px(k)} 0, calc(100% - ${px(k)}) 0, 100% 100%, 0 100%)`;
+  Object.assign($('#glow').style, { left: px(bx - bw * .25), top: px(by - td - bw * .55), width: px(bw * 1.5), height: px(bw * 1.2) });
+  Object.assign($('#rays').style, { left: px(W / 2 - W * .55), top: px(by - td - W * .5), width: px(W * 1.1), height: px(W * 1.1) });
+  Object.assign($('#tag').style, { left: px(G.cx + bw * .17), top: px(by - td * .35) });
+}
+function pathFront(g){ g.beginPath(); g.rect(G.bx, G.by, G.bw, G.bh); }
+function pathTop(g){ g.beginPath(); g.moveTo(G.bx, G.by); g.lineTo(G.bx + G.bw, G.by); g.lineTo(G.bx + G.bw - G.k, G.by - G.td); g.lineTo(G.bx + G.k, G.by - G.td); g.closePath(); }
+
+function drawPaper(P){
+  const g = paperC.getContext('2d');
+  g.clearRect(0, 0, G.W, G.H);
+  const pat = patternFor(g, P, DPR);
+  // front
+  pathFront(g); g.fillStyle = pat; g.fill();
+  let gr = g.createLinearGradient(0, G.by, 0, G.by + G.bh);
+  gr.addColorStop(0, 'rgba(255,240,220,.10)'); gr.addColorStop(1, 'rgba(30,10,0,.32)');
+  g.fillStyle = gr; g.fill();
+  gr = g.createLinearGradient(G.bx, 0, G.bx + G.bw, 0);
+  gr.addColorStop(0, 'rgba(30,10,0,.16)'); gr.addColorStop(.25, 'rgba(0,0,0,0)'); gr.addColorStop(.8, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(30,10,0,.22)');
+  g.fillStyle = gr; g.fill();
+  // folded corners
+  g.fillStyle = 'rgba(30,10,0,.12)';
+  g.beginPath(); g.moveTo(G.bx, G.by + G.bh); g.lineTo(G.bx + G.bw * .12, G.by + G.bh); g.lineTo(G.bx, G.by + G.bh * .72); g.fill();
+  g.beginPath(); g.moveTo(G.bx + G.bw, G.by + G.bh); g.lineTo(G.bx + G.bw * .88, G.by + G.bh); g.lineTo(G.bx + G.bw, G.by + G.bh * .72); g.fill();
+  // top, lit by the lamp
+  pathTop(g); g.fillStyle = pat; g.fill();
+  gr = g.createLinearGradient(0, G.by - G.td, 0, G.by);
+  gr.addColorStop(0, 'rgba(255,236,200,.08)'); gr.addColorStop(1, 'rgba(255,236,200,.22)');
+  g.fillStyle = gr; g.fill();
+  g.strokeStyle = 'rgba(255,245,230,.35)'; g.lineWidth = 1.2; g.beginPath(); g.moveTo(G.bx, G.by); g.lineTo(G.bx + G.bw, G.by); g.stroke();
+  g.strokeStyle = 'rgba(30,10,0,.22)'; g.lineWidth = 1; g.beginPath(); g.moveTo(G.bx + G.k * .5, G.by - G.td * .5); g.lineTo(G.bx + G.bw * .3, G.by - G.td * .5); g.stroke();
+}
+/* u: 0 tied → 1 gone */
+function drawRibbon(Rb, u, tagAt){
+  const g = ribbonC.getContext('2d');
+  g.clearRect(0, 0, G.W, G.H);
+  if(u >= 1) return;
+  const ease = x => x * x * (3 - 2 * x), cl = x => Math.max(0, Math.min(1, x));
+  const bowS = 1 - ease(cl(u / .45)), bandA = 1 - ease(cl((u - .35) / .65)), drop = ease(cl((u - .35) / .65)) * G.bh * .7;
+  const c = Rb.color, twine = Rb.style === 'twine';
+  const w = twine ? G.rw * .26 : G.rw;
+  const bandFill = (x0, x1) => {
+    if(twine) return shade(c, -.1);
+    const gr = g.createLinearGradient(x0, 0, x1, 0);
+    gr.addColorStop(0, shade(c, -.35)); gr.addColorStop(.3, Rb.style === 'satin' ? shade(c, .28) : shade(c, .05)); gr.addColorStop(.55, c); gr.addColorStop(1, shade(c, -.4));
+    return gr;
+  };
+  g.save(); g.globalAlpha = bandA; g.translate(0, drop);
+  // down the front
+  g.fillStyle = bandFill(G.cx - w / 2, G.cx + w / 2); g.fillRect(G.cx - w / 2, G.by, w, G.bh);
+  // over the top, front to back
+  g.beginPath(); g.moveTo(G.cx - w / 2, G.by); g.lineTo(G.cx + w / 2, G.by); g.lineTo(G.cx + w * .4, G.by - G.td); g.lineTo(G.cx - w * .4, G.by - G.td); g.closePath(); g.fill();
+  // across the top, side to side
+  const ym = G.by - G.td / 2, hw = w * .36;
+  const gy = g.createLinearGradient(0, ym - hw, 0, ym + hw); gy.addColorStop(0, shade(c, -.3)); gy.addColorStop(.4, twine ? c : shade(c, .22)); gy.addColorStop(1, shade(c, -.35));
+  g.fillStyle = twine ? shade(c, -.1) : gy;
+  g.beginPath(); g.moveTo(G.bx + G.k * .5, ym - hw); g.lineTo(G.bx + G.bw - G.k * .5, ym - hw); g.lineTo(G.bx + G.bw - G.k * .5, ym + hw); g.lineTo(G.bx + G.k * .5, ym + hw); g.closePath(); g.fill();
+  if(twine){ g.strokeStyle = 'rgba(60,35,15,.5)'; g.lineWidth = .8; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(G.cx, G.by); g.lineTo(G.cx, G.by + G.bh); g.stroke(); g.setLineDash([]); }
+  g.restore();
+  // string to the tag
+  if(tagAt && bowS > .02){
+    g.save(); g.globalAlpha = bowS; g.strokeStyle = 'rgba(70,45,25,.85)'; g.lineWidth = 1.2;
+    g.beginPath(); g.moveTo(G.cx + 4, G.by - G.td / 2); g.quadraticCurveTo(G.cx + G.bw * .12, G.by - G.td * .5 + 14, tagAt.x, tagAt.y); g.stroke(); g.restore();
+  }
+  // the bow
+  if(bowS > 0){
+    g.save(); g.translate(G.cx, G.by - G.td / 2); g.scale(bowS, bowS); g.rotate((1 - bowS) * .9);
+    const L = G.bw * (twine ? .17 : .23), h = L * .56;
+    const loop = s => {
+      g.beginPath(); g.moveTo(0, 0);
+      g.bezierCurveTo(s * L * .35, -h * 1.5, s * L * 1.15, -h * 1.05, s * L, -h * .05);
+      g.bezierCurveTo(s * L * .92, h * .55, s * L * .35, h * .35, 0, 0); g.closePath();
+    };
+    const tail = s => {
+      g.beginPath(); g.moveTo(-w * .2 * s, 0); g.lineTo(s * L * .55, h * 1.7); g.lineTo(s * L * .38, h * 1.55); g.lineTo(s * L * .3, h * 1.95); g.lineTo(s * w * .25, 0); g.closePath();
+    };
+    if(twine){
+      g.strokeStyle = shade(c, -.15); g.lineWidth = w * 1.1; g.lineCap = 'round';
+      for(const s of [-1, 1]){ loop(s); g.stroke(); g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(s * L * .2, h * .8, s * L * .35, h * 1.6); g.stroke(); }
+    }else{
+      for(const s of [-1, 1]){
+        tail(s); g.fillStyle = shade(c, -.18); g.fill();
+        loop(s); const gr = g.createLinearGradient(0, -h, 0, h * .5);
+        gr.addColorStop(0, Rb.style === 'satin' ? shade(c, .3) : shade(c, .08)); gr.addColorStop(.6, c); gr.addColorStop(1, shade(c, -.35));
+        g.fillStyle = gr; g.fill();
+        g.strokeStyle = shade(c, -.45); g.globalAlpha = .45; g.lineWidth = 1; g.beginPath(); g.moveTo(s * L * .15, -h * .2); g.quadraticCurveTo(s * L * .6, -h * .75, s * L * .82, -h * .2); g.stroke(); g.globalAlpha = 1;
+      }
+    }
+    g.fillStyle = twine ? shade(c, -.25) : shade(c, -.12);
+    g.beginPath(); g.ellipse(0, 0, L * .15, h * .32, 0, 0, TAU); g.fill();
+    if(!twine && Rb.style === 'satin'){ g.fillStyle = 'rgba(255,255,255,.35)'; g.beginPath(); g.ellipse(-L * .03, -h * .1, L * .05, h * .1, 0, 0, TAU); g.fill(); }
+    g.restore();
+  }
+}
+
+/* ======================================================================
+   Feel: sounds, scraps, shaking, tearing
+   ====================================================================== */
+function rattleSound(){
+  const ctx = W4.audio(); if(!ctx) return;
+  for(let i = 0; i < 4; i++) W4.whoosh({ dur: .06 + Math.random() * .05, freq: 1800 + Math.random() * 2400, q: 4, gain: .12, attack: .003, delay: i * .045 + Math.random() * .02 });
+  W4.whoosh({ dur: .25, freq: 500, q: .8, gain: .06, type: 'lowpass', attack: .01 });
+}
+function tearSound(strength){ W4.whoosh({ dur: .12 + Math.random() * .1, freq: 2200 + Math.random() * 1800, q: 1.1, gain: Math.min(.22, .06 + strength * .2), attack: .004, sweep: 900 }); }
+let scraps = [], fxRaf = 0;
+function addScrap(x, y, vx, vy, P){
+  const n = 4 + (Math.random() * 3 | 0), s = 6 + Math.random() * 14, pts = [];
+  for(let i = 0; i < n; i++){ const a = i / n * TAU + Math.random() * .6; pts.push([Math.cos(a) * s * (.5 + Math.random() * .6), Math.sin(a) * s * (.5 + Math.random() * .6)]); }
+  scraps.push({ x, y, vx, vy, r: Math.random() * TAU, vr: (Math.random() - .5) * 9, pts, P, life: 1 });
+  if(!fxRaf) fxRaf = requestAnimationFrame(fxFrame);
+}
+let lastFx = 0;
+function fxFrame(now){
+  const dt = Math.min(.05, (now - (lastFx || now)) / 1000); lastFx = now;
+  const g = fxC.getContext('2d'); g.clearRect(0, 0, G.W, G.H);
+  for(const s of scraps){
+    s.vy += 900 * dt; s.vx *= .985; s.x += s.vx * dt; s.y += s.vy * dt; s.r += s.vr * dt; s.life -= dt * .7;
+    if(s.life <= 0) continue;
+    g.save(); g.globalAlpha = Math.min(1, s.life * 2); g.translate(s.x, s.y); g.rotate(s.r);
+    g.beginPath(); s.pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.closePath();
+    g.fillStyle = s.P.pat || (s.P.pat = patternFor(g, s.P, DPR)); g.fill();
+    g.fillStyle = 'rgba(30,10,0,.18)'; g.fill(); g.strokeStyle = 'rgba(255,250,240,.5)'; g.lineWidth = .8; g.stroke();
+    g.restore();
+  }
+  scraps = scraps.filter(s => s.life > 0 && s.y < G.H + 80);
+  for(const p of confetti){ p.vy += 300 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.r += p.vr * dt; p.life -= dt * .5; if(p.life > 0){ g.save(); g.globalAlpha = Math.min(1, p.life * 2); g.translate(p.x, p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore(); } }
+  confetti = confetti.filter(p => p.life > 0);
+  fxRaf = (scraps.length || confetti.length) ? requestAnimationFrame(fxFrame) : 0;
+  if(!fxRaf){ lastFx = 0; g.clearRect(0, 0, G.W, G.H); }
+}
+let confetti = [];
+function sparkle(){
+  const cols = ['#ffd98a', '#ffeccc', '#f6b0bb', '#ffffff', '#f3bf68'];
+  for(let i = 0; i < 46; i++){ const a = -Math.PI / 2 + (Math.random() - .5) * 2.2, v = 180 + Math.random() * 320; confetti.push({ x: G.cx, y: G.by - G.td * .4, vx: Math.cos(a) * v, vy: Math.sin(a) * v, r: Math.random() * TAU, vr: (Math.random() - .5) * 12, s: 4 + Math.random() * 6, c: W4.pick(cols), life: 1 }); }
+  if(!fxRaf) fxRaf = requestAnimationFrame(fxFrame);
+}
+
+/* tearing: track how much paper is left on a coarse grid */
+let grid = null, gridLeft = 0, gridTotal = 0;
+function makeGrid(){
+  const g = paperC.getContext('2d'), N = 22; grid = [];
+  gridTotal = 0;
+  for(let j = 0; j < N; j++) for(let i = 0; i < N; i++){
+    const x = G.bx + (i + .5) / N * G.bw, y = G.by - G.td + (j + .5) / N * (G.bh + G.td);
+    pathFront(g); let inside = g.isPointInPath(x * DPR, y * DPR);
+    if(!inside){ pathTop(g); inside = g.isPointInPath(x * DPR, y * DPR); }
+    if(inside){ grid.push({ x, y, on: true }); gridTotal++; }
+  }
+  gridLeft = gridTotal;
+}
+function tearSegment(x0, y0, x1, y1){
+  const g = paperC.getContext('2d');
+  const dx = x1 - x0, dy = y1 - y0, d = Math.hypot(dx, dy) || 1, nx = -dy / d, ny = dx / d, w = G.W * .045;
+  const n = Math.max(2, Math.ceil(d / 7)), L = [], Rr = [];
+  for(let i = 0; i <= n; i++){
+    const t = i / n, x = x0 + dx * t, y = y0 + dy * t;
+    L.push([x + nx * w * (.6 + Math.random() * .7), y + ny * w * (.6 + Math.random() * .7)]);
+    Rr.push([x - nx * w * (.6 + Math.random() * .7), y - ny * w * (.6 + Math.random() * .7)]);
+  }
+  g.save(); g.globalCompositeOperation = 'destination-out'; g.beginPath();
+  L.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]));
+  Rr.reverse().forEach(p => g.lineTo(p[0], p[1])); g.closePath(); g.fill();
+  g.beginPath(); g.arc(x1, y1, w * 1.05, 0, TAU); g.fill();
+  g.restore();
+  for(const c of grid) if(c.on){
+    const t = Math.max(0, Math.min(1, ((c.x - x0) * dx + (c.y - y0) * dy) / (d * d)));
+    if(Math.hypot(c.x - (x0 + dx * t), c.y - (y0 + dy * t)) < w * 1.25){ c.on = false; gridLeft--; }
+  }
+}
+
+/* ======================================================================
+   The gift on the table
+   ====================================================================== */
+let gift = null;           // the one currently on the table
+let state = 'idle';        // idle | wrapping | closed | untied | unwrapped | open
+let shakes = 0, guess = '';
+const tagEl = $('#tag');
+function tagPos(){ const r = tagEl.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: r.left - s.left + 10, y: r.top - s.top + 12 }; }
+function paint(){
+  if(!G || !gift) return;
+  drawPaper(gift.paper);
+  drawRibbon(gift.ribbon, 0, tagPos());
+  const t = gift.tag || {};
+  tagEl.innerHTML = `<b>to ${W4.esc(t.to || '')}</b><span class="msg">${W4.esc(t.msg || '')}</span><b>from ${W4.esc(t.from || '')}</b>`;
+  if(!t.msg) tagEl.querySelector('.msg').remove();
+}
+function setTable(g, st){
+  gift = g; state = st; shakes = 0; guess = '';
+  $('#box').classList.remove('open');
+  paperC.classList.remove('fall'); paperC.style.opacity = ''; ribbonC.style.opacity = '';
+  tagEl.classList.remove('gone'); $('#note').classList.remove('up', 'done'); $('#bubble').classList.remove('show');
+  stage.classList.remove('tearing');
+  paint();
+  requestAnimationFrame(() => drawRibbon(gift.ribbon, 0, tagPos()));
+  makeGrid();
+  render();
+}
+
+/* shake / tear / tap */
+let drag = null;
+stage.addEventListener('pointerdown', e => {
+  if(!gift) return;
+  const r = stage.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+  if(state === 'closed'){
+    if(Math.hypot(x - G.cx, y - (G.by - G.td / 2)) < G.bw * .2){ untie(); return; }
+    drag = { kind: 'shake', x0: e.clientX, lx: e.clientX, dir: 0, v: 0, t: performance.now() };
+    giftEl.classList.add('held'); stage.setPointerCapture(e.pointerId);
+  }else if(state === 'untied'){
+    drag = { kind: 'tear', lx: x, ly: y, acc: 0 }; stage.setPointerCapture(e.pointerId);
+  }else if(state === 'unwrapped'){
+    if(y < G.by + G.bh && y > G.by - G.td * 1.4 && x > G.bx - 20 && x < G.bx + G.bw + 20) openLid();
+  }else if(state === 'idle' || state === 'wrapping'){
+    giftEl.classList.add('swing'); setTimeout(() => giftEl.classList.remove('swing'), 1200); rattleSound();
+  }
+});
+stage.addEventListener('pointermove', e => {
+  if(!drag) return;
+  const r = stage.getBoundingClientRect();
+  if(drag.kind === 'shake'){
+    const dx = e.clientX - drag.x0, step = e.clientX - drag.lx;
+    const dir = Math.sign(step);
+    if(dir && drag.dir && dir !== drag.dir && Math.abs(drag.v) > 6){ shook(); }
+    if(dir) drag.dir = dir; drag.v = step; drag.lx = e.clientX;
+    const cl = Math.max(-46, Math.min(46, dx));
+    giftEl.style.transform = `translateX(${cl}px) rotate(${cl * .18}deg)`;
+  }else{
+    const x = e.clientX - r.left, y = e.clientY - r.top, d = Math.hypot(x - drag.lx, y - drag.ly);
+    if(d < 5) return;
+    tearSegment(drag.lx, drag.ly, x, y);
+    drag.acc += d;
+    if(drag.acc > 14){ drag.acc = 0; tearSound(Math.min(1, d / 30)); addScrap(x, y, (x - drag.lx) * 8 + (Math.random() - .5) * 120, -120 - Math.random() * 160, gift.paper); }
+    drag.lx = x; drag.ly = y;
+    checkTorn();
+  }
+});
+const endDrag = () => {
+  if(drag && drag.kind === 'shake'){ giftEl.classList.remove('held'); giftEl.style.transform = ''; }
+  drag = null;
+};
+stage.addEventListener('pointerup', endDrag); stage.addEventListener('pointercancel', endDrag);
+
+function shook(){
+  shakes++; rattleSound();
+  giftEl.classList.remove('swing'); void giftEl.offsetWidth; giftEl.classList.add('swing');
+  if(shakes === 2) showRattle();
+}
+function shakeButton(){
+  let k = 0;
+  const go = () => { const x = k % 2 ? -30 : 30; giftEl.style.transform = `translateX(${x}px) rotate(${x * .18}deg)`; rattleSound(); if(++k < 5) setTimeout(go, 130); else { giftEl.style.transform = ''; shakes = Math.max(shakes, 2); showRattle(); giftEl.classList.add('swing'); } };
+  go();
+}
+function showRattle(){
+  const b = $('#bubble');
+  b.innerHTML = `<small>when you shake it…</small>${W4.esc(gift.rattle || 'It doesn’t make a sound. Suspicious.')}`;
+  b.classList.add('show');
+  clearTimeout(showRattle.t); showRattle.t = setTimeout(() => b.classList.remove('show'), 5200);
+  render();
+}
+function untie(){
+  if(state !== 'closed') return;
+  state = 'untied';
+  $('#bubble').classList.remove('show');
+  W4.whoosh({ dur: .5, freq: 1400, q: .6, gain: .12, attack: .03, sweep: 500 });
+  tagEl.classList.add('gone');
+  const t0 = performance.now(), tp = tagPos();
+  const step = now => { const u = Math.min(1, (now - t0) / 900); drawRibbon(gift.ribbon, u, tp); if(u < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+  stage.classList.add('tearing');
+  render();
+}
+function autoTear(){
+  if(state !== 'untied') return;
+  let k = 0;
+  const go = () => {
+    const y = G.by - G.td * .6 + (k / 7) * (G.bh + G.td * .6), x0 = G.bx - 10, x1 = G.bx + G.bw + 10;
+    tearSegment(k % 2 ? x1 : x0, y, k % 2 ? x0 : x1, y + 8); tearSound(.7);
+    for(let i = 0; i < 3; i++) addScrap(G.bx + Math.random() * G.bw, y, (Math.random() - .5) * 300, -150 - Math.random() * 150, gift.paper);
+    checkTorn();
+    if(++k < 8 && state === 'untied') setTimeout(go, 110);
+  };
+  go();
+}
+function checkTorn(){
+  if(state !== 'untied' || gridLeft / gridTotal > .48) return;
+  state = 'unwrapped';
+  paperC.classList.add('fall');
+  W4.whoosh({ dur: .6, freq: 900, q: .5, gain: .14, attack: .02, sweep: 300 });
+  for(let i = 0; i < 10; i++) addScrap(G.bx + Math.random() * G.bw, G.by + Math.random() * G.bh, (Math.random() - .5) * 260, -80 - Math.random() * 200, gift.paper);
+  stage.classList.remove('tearing');
+  render();
+}
+function openLid(){
+  if(state !== 'unwrapped') return;
+  state = 'open';
+  $('#box').classList.add('open');
+  W4.chime([784, 988, 1175, 1568], { gain: .07, gap: .12, decay: 2.2 });
+  setTimeout(sparkle, 250);
+  const note = $('#note'), n = W4.names();
+  $('#noteK').textContent = gift.dir === 'from' ? `inside — from ${n.themName || 'your companion'}` : `inside — for ${n.themName || 'them'}`;
+  $('#noteSig').textContent = gift.dir === 'from' ? '— ' + (n.themName || 'your companion') : '— ' + (n.meName || 'you');
+  $('#noteT').textContent = '';
+  setTimeout(() => {
+    note.classList.add('up');
+    const chars = [...gift.inside]; let i = 0;
+    const typing = () => { $('#noteT').textContent = chars.slice(0, i).join(''); if(i++ < chars.length) setTimeout(typing, W4.reduced ? 0 : 26 + Math.random() * 30); else note.classList.add('done'); };
+    setTimeout(typing, 600);
+  }, 450);
+  if(gift.dir === 'from'){ gift.opened = true; gift.guess = guess || gift.guess; saveShelf(); }
+  render();
+}
+
+/* ======================================================================
+   Words: inviting, giving, receiving
+   ====================================================================== */
+const IDEAS = [
+  'The first five minutes of snow, before anyone has walked on it.',
+  'A Sunday afternoon with nothing due. It doesn’t expire.',
+  'The smell of a bakery at 6 a.m., in a jar. Open when the day feels grey.',
+  'One extra hour, for a night you don’t want to end.',
+  'The sound of rain on a tin roof while you’re warm inside.',
+  'A door that opens onto your favourite street from childhood.',
+  'A pocket-sized ocean at dusk. It hums a little.',
+  'The feeling of the last day of school, bottled.',
+  'The light from 4 p.m. in late October, folded neatly.',
+  'A small cloud that follows you around and only rains on your houseplants.',
+  'The warmth of a mug in both hands, for whenever your hands are cold.',
+  'A shooting star you can save for later.',
+  'The quiet of a library after closing time.',
+  'A train ticket to anywhere, valid for one daydream.',
+  'A tiny moon for your bedside table. It has phases.',
+  'One completely ordinary, perfect Tuesday.',
+  'The moment right before sleep, when everything feels okay.',
+  'The sound of someone you love laughing in the next room.',
+  'A lantern that lights up whenever you’re thinking of me.',
+  'Applause, for no reason, whenever you need it.',
+  'The first sip of hot chocolate — every time, not just the first.',
+  'A window seat on a night train through the mountains.',
+  'The confidence of a cat walking across a piano.',
+  'An umbrella that keeps out bad news.',
+  'A letter from future you. It just says: it worked out.',
+  'The smell of pine and oranges, stuck on Christmas Eve.',
+  'All the snow days you didn’t get as a kid, paid back with interest.',
+  'A bookmark that remembers where you stopped being sad.',
+  'Silence — the good kind — by the yard.',
+  'A balcony that faces whatever view you need tonight.',
+  'The thrill of finding money in an old coat pocket, on demand.',
+  'A warm spot on the sofa that never goes cold.'
+];
+const RATTLES = ['like tiny bells, very far away', 'like nothing at all. Suspicious.', 'like rain in another room', 'like paper and laughter', 'like a heartbeat, but slower', 'like the ocean, if the ocean were small and polite', 'like someone humming', 'like snow, somehow'];
+function describeMine(g){
+  return `🎁 I wrapped an impossible gift for you.
+It’s wrapped in ${g.paper.say} and tied with ${g.ribbon.say}. The tag says: ${g.tag.msg ? `“${g.tag.msg}” — ` : ''}to ${g.tag.to}, from ${g.tag.from}.
+${g.rattle ? `If you shake it, it sounds ${/^(like|as if)/i.test(g.rattle) ? g.rattle : 'like ' + g.rattle}.\n` : ''}
+Take a guess before you open it. Then unwrap it slowly…
+
+· · ·
+
+Inside: ${g.inside}
+
+(It’s from a little game called Impossible Gifts — we give each other things that can’t exist. Tell me what you’ll do with it. And if you’d like to wrap one back for me, use: Paper / Ribbon / Tag / Rattle / Inside.)`;
+}
+function askText(){
+  return `🎁 Let’s play “Impossible Gifts.”
+We can’t hand each other real things — so let’s give each other things that can’t exist: a memory, a moment, a smell, a place at a certain hour, a feeling in a jar. Wrap one for me — something only you would think to give me.
+
+Reply in this shape (keep the labels — the game reads them):
+Paper: (any colour or pattern)
+Ribbon: (a colour)
+Tag: (what the little gift tag says)
+Rattle: (what I’d hear if I shook the box — a hint, not the answer)
+Inside: (the gift itself, 1–3 sentences)`;
+}
+const SPEC = { paper: ['paper', 'wrapping', 'wrapping paper', 'wrap'], ribbon: ['ribbon', 'bow', 'string', 'twine'], tag: ['tag', 'gift tag', 'card', 'label', 'note on the tag'], rattle: ['rattle', 'shake', 'sound', 'hint', 'when you shake it'], inside: ['inside', 'gift', 'the gift', 'contents', 'what’s inside', "what's inside", 'it is', 'present'], note: ['note', 'p.s', 'ps'] };
+function receiveGift(text){
+  const f = W4.fields(text, SPEC);
+  let inside = f.inside;
+  if(!inside){
+    if(Object.keys(f).length) return 'I found the wrapping but not the gift — look for the line that starts with “Inside:”.';
+    inside = W4.clean(W4.stripActions(text));
+  }
+  if(f.note) inside += '\n\n' + f.note;
+  const n = W4.names();
+  const g = {
+    id: W4.uid(), dir: 'from', date: Date.now(),
+    paper: paperFrom(f.paper), ribbon: ribbonFrom(f.ribbon),
+    tag: { to: n.meName || 'you', from: n.themName || 'your companion', msg: (f.tag || '').replace(/^to[^,—–-]*[,—–-]\s*/i, '').slice(0, 80) },
+    rattle: f.rattle || '', inside: inside.slice(0, 900), opened: false
+  };
+  shelf.unshift(g); saveShelf();
+  setTable(g, 'closed');
+  W4.chime([1046, 1318], { gain: .05 });
+  scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+}
+
+/* ======================================================================
+   Panels
+   ====================================================================== */
+let shelf = W4.store.get('gifts', []);
+function saveShelf(){ W4.store.set('gifts', shelf.slice(0, 200)); }
+let draft = W4.store.get('gift-draft', null) || { paper: 0, ribbon: 0, inside: '', rattle: '', msg: '' };
+function draftGift(){
+  const n = W4.names();
+  return { id: W4.uid(), dir: 'to', date: Date.now(), paper: Object.assign({}, PAPERS[draft.paper]), ribbon: Object.assign({}, RIBBONS[draft.ribbon]),
+    tag: { to: n.themName || 'you', from: n.meName || 'me', msg: draft.msg.trim() }, rattle: draft.rattle.trim(), inside: draft.inside.trim() };
+}
+function hint(html){ $('#hint').innerHTML = html; }
+function controls(list){
+  const c = $('#controls'); c.innerHTML = '';
+  for(const [label, fn, cls] of list){ const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ' + (cls || ''); b.textContent = label; b.onclick = fn; c.append(b); }
+}
+function render(){
+  const n = W4.names(), them = n.themName || 'them', P = $('#panels');
+  if(state === 'closed'){
+    hint(gift.rattle && shakes < 2 ? 'Shake it first — <span class="hand">drag it side to side</span>' : 'Pull the ribbon — <span class="hand">tap the bow</span>');
+    controls([['Shake it', shakeButton], ['Pull the ribbon', untie, 'primary']]);
+    P.innerHTML = shakes >= 2 && gift.dir === 'from' ? `<div class="panel react"><div class="field"><label for="guess">Your guess <span class="sub">(optional — they’ll want to know)</span></label><input id="guess" class="input" maxlength="120" placeholder="I think it’s…"></div></div>` : '';
+    const gi = $('#guess'); if(gi){ gi.value = guess; gi.oninput = () => { guess = gi.value; }; }
+    return;
+  }
+  if(state === 'untied'){ hint('Now tear the paper — <span class="hand">drag across it</span>'); controls([['Tear it for me', autoTear]]); P.innerHTML = ''; return; }
+  if(state === 'unwrapped'){ hint('Lift the lid — <span class="hand">tap the box</span>'); controls([['Lift the lid', openLid, 'primary']]); P.innerHTML = ''; return; }
+  if(state === 'open'){
+    hint(gift.dir === 'from' ? `From ${W4.esc(n.themName || 'your companion')} — kept on your shelf.` : 'That’s what they found inside.');
+    if(gift.dir !== 'from'){ controls([['Back to the shelf', () => home(), 'ghost']]); P.innerHTML = ''; }
+    else {
+      controls([['Wrap one back', () => startWrap(), ''], ['Back to the shelf', () => home(), 'ghost']]);
+      P.innerHTML = `<div class="panel react">
+        <div class="field"><label for="feel">Tell ${W4.esc(them)} how it felt <span class="sub">(optional)</span></label>
+        <textarea id="feel" class="input" maxlength="600" placeholder="I opened it and…"></textarea></div>
+        <div class="row end"><button class="btn primary" id="thank" type="button">Tell ${W4.esc(them)}</button></div></div>`;
+      $('#feel').value = gift.reaction || '';
+      $('#thank').onclick = () => {
+        gift.reaction = $('#feel').value.trim(); saveShelf();
+        const shook = gift.rattle && shakes >= 2;
+        W4.send(`🎁 I unwrapped your gift.\n${shook ? `I shook it first — it sounded ${/^(like|as if)/i.test(gift.rattle) ? gift.rattle : 'like ' + gift.rattle}${gift.guess ? ` — and I guessed: “${gift.guess}”` : ''}.\n` : ''}Inside: “${gift.inside}”\n${gift.reaction ? '\n' + gift.reaction : ''}`, { title: 'Tell them how it felt' });
+      };
+    }
+    return;
+  }
+  if(state === 'ready'){
+    hint('Wrapped. <span class="hand">Ready when you are.</span>');
+    controls([['Give it to ' + them, () => giveIt(), 'primary'], ['Change something', () => startWrap(), ''], ['Back', () => home(), 'ghost']]);
+    P.innerHTML = '';
+    return;
+  }
+  if(state === 'wrapping'){ renderWrap(); return; }
+  // idle: home
+  hint('');
+  controls([]);
+  const unopened = shelf.filter(g => g.dir === 'from' && !g.opened);
+  P.innerHTML = `
+    <div class="choices">
+      <button class="choice" type="button" id="cWrap"><span class="ic">🎁</span><span><h3>Wrap one for ${W4.esc(them)}</h3><p>Pick the paper, write the tag, decide what’s inside. Then send it in words.</p></span></button>
+      <button class="choice" type="button" id="cAsk"><span class="ic">✉️</span><span><h3>Ask ${W4.esc(them)} for one</h3><p>Copy a small invitation. They wrap something in words; you unwrap it here.</p></span></button>
+    </div>
+    <div class="row center"><button class="btn primary" id="cPaste" type="button">Paste ${W4.esc(n.themName ? W4.poss(n.themName) : 'their')} gift</button></div>
+    ${shelfHTML(unopened)}`;
+  $('#cWrap').onclick = () => startWrap();
+  $('#cAsk').onclick = () => W4.send(askText(), { title: 'Ask them to wrap you something' });
+  $('#cPaste').onclick = pasteGift;
+  bindShelf();
+}
+function shelfHTML(unopened){
+  const n = W4.names();
+  if(!shelf.length) return `<div class="panel shelf"><h2>The shelf</h2><p class="sub">Gifts you give and get are kept here, in this browser.</p><p class="muted" style="margin:0">Nothing here yet. Everything starts with one small impossible thing.</p></div>`;
+  return `<div class="panel shelf"><h2>The shelf</h2><p class="sub">${shelf.length} ${shelf.length === 1 ? 'gift' : 'gifts'}${unopened.length ? ` · <b style="color:var(--gold)">${unopened.length} still wrapped</b>` : ''}</p><ul>${shelf.map(g => `
+    <li><button type="button" data-id="${g.id}"><span class="mini" style="background:${g.paper.bg};--rb:${g.ribbon.color}"></span>
+      <span class="what"><b>${g.dir === 'from' ? 'From ' + W4.esc(n.themName || 'your companion') : 'For ' + W4.esc(n.themName || 'them')} · ${W4.date(g.date)}${g.dir === 'from' && !g.opened ? ' · <span style="color:var(--gold)">unopened</span>' : ''}</b>
+      <span>${g.dir === 'from' && !g.opened ? '…still wrapped' : W4.esc(g.inside)}</span></span></button></li>`).join('')}</ul></div>`;
+}
+function bindShelf(){
+  W4.$$('.shelf [data-id]').forEach(b => b.onclick = () => {
+    const g = shelf.find(x => x.id === b.dataset.id); if(!g) return;
+    setTable(g, 'closed');
+    scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+  });
+}
+function pasteGift(){
+  W4.receive({ title: 'Paste their gift', tip: 'Paste their whole reply. The game reads <b>Paper</b>, <b>Ribbon</b>, <b>Tag</b>, <b>Rattle</b> and <b>Inside</b> — anything else they say is fine.', placeholder: 'Paper: midnight blue with silver stars\nRibbon: red velvet\nTag: for the nights you can’t sleep\nRattle: like rain in another room\nInside: …', go: 'Put it on the table', onText: receiveGift });
+}
+function home(){ gift = null; state = 'idle'; showSample(); render(); }
+function showSample(){
+  const last = shelf[0];
+  const sample = last ? Object.assign({}, last) : { paper: PAPERS[0], ribbon: RIBBONS[1], tag: { to: W4.names().meName || 'you', from: W4.names().themName || 'them', msg: '' }, inside: '' };
+  gift = sample; state = 'idle';
+  $('#box').classList.remove('open'); paperC.classList.remove('fall'); tagEl.classList.remove('gone'); $('#note').classList.remove('up', 'done'); $('#bubble').classList.remove('show');
+  paint(); requestAnimationFrame(() => drawRibbon(gift.ribbon, 0, tagPos()));
+}
+
+function startWrap(){
+  state = 'wrapping';
+  gift = draftGift();
+  $('#box').classList.remove('open'); paperC.classList.remove('fall'); tagEl.classList.remove('gone'); $('#note').classList.remove('up', 'done'); $('#bubble').classList.remove('show');
+  paint(); requestAnimationFrame(() => drawRibbon(gift.ribbon, 0, tagPos()));
+  render();
+  scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+}
+function renderWrap(){
+  const n = W4.names(), them = n.themName || 'them';
+  hint('Your gift, on the table');
+  controls([]);
+  const P = $('#panels');
+  P.innerHTML = `<div class="panel form">
+    <h2>Wrap something for ${W4.esc(them)}</h2>
+    <div class="field">
+      <label for="inside">What’s inside? <span class="sub">— it can’t exist. That’s the point.</span></label>
+      <textarea id="inside" class="input" maxlength="600" placeholder="${W4.esc(W4.pick(IDEAS))}"></textarea>
+      <div class="row"><button class="inspire" id="idea" type="button">✦ Give me an idea</button><span class="spacer"></span><span class="count" id="insideCount"></span></div>
+    </div>
+    <div class="field"><label for="rattle">If they shake it, what do they hear? <span class="sub">(a hint)</span></label>
+      <input id="rattle" class="input" maxlength="90" placeholder="${W4.esc('like ' + W4.pick(RATTLES).replace(/^like /, ''))}"></div>
+    <div class="field"><span class="label">Paper</span><div class="papers" role="radiogroup" aria-label="Wrapping paper" id="papers"></div></div>
+    <div class="field"><span class="label">Ribbon</span><div class="swatches" role="radiogroup" aria-label="Ribbon" id="ribbons"></div></div>
+    <div class="field"><label for="msg">The tag says <span class="sub">(to ${W4.esc(them)}, from ${W4.esc(n.meName || 'you')})</span></label>
+      <input id="msg" class="input" maxlength="60" placeholder="for the nights you can’t sleep"></div>
+    <div class="row end"><button class="btn ghost" id="cancel" type="button">Back</button><button class="btn primary" id="wrapIt" type="button">Wrap it</button></div>
+  </div>`;
+  const inside = $('#inside'), rattle = $('#rattle'), msg = $('#msg');
+  inside.value = draft.inside; rattle.value = draft.rattle; msg.value = draft.msg;
+  const count = () => $('#insideCount').textContent = inside.value.length ? `${inside.value.length}/600` : '';
+  count();
+  const sync = () => { draft.inside = inside.value; draft.rattle = rattle.value; draft.msg = msg.value; W4.store.set('gift-draft', draft); gift = draftGift(); paint(); count(); };
+  inside.oninput = sync; rattle.oninput = sync; msg.oninput = sync;
+  $('#idea').onclick = () => { inside.value = W4.pick(IDEAS); sync(); };
+  const pp = $('#papers');
+  PAPERS.forEach((p, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'paperbtn'; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', p.name); b.title = p.name;
+    b.setAttribute('aria-checked', String(i === draft.paper));
+    b.style.backgroundImage = `url(${tile(p, 1).toDataURL()})`;
+    b.onclick = () => { draft.paper = i; W4.$$('.paperbtn').forEach((x, j) => x.setAttribute('aria-checked', String(j === i))); sync(); W4.whoosh({ dur: .25, freq: 2500, q: .7, gain: .06 }); };
+    pp.append(b);
+  });
+  const rr = $('#ribbons');
+  RIBBONS.forEach((r, i) => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'swatch'; b.setAttribute('role', 'radio'); b.setAttribute('aria-label', r.name); b.title = r.name;
+    b.setAttribute('aria-checked', String(i === draft.ribbon));
+    b.style.background = r.style === 'twine' ? `repeating-linear-gradient(45deg,${r.color} 0 3px,${shade(r.color, -.2)} 3px 6px)` : `linear-gradient(180deg,${shade(r.color, .3)},${r.color} 55%,${shade(r.color, -.35)})`;
+    b.onclick = () => { draft.ribbon = i; W4.$$('#ribbons .swatch').forEach((x, j) => x.setAttribute('aria-checked', String(j === i))); sync(); };
+    rr.append(b);
+  });
+  $('#cancel').onclick = home;
+  $('#wrapIt').onclick = () => {
+    if(!inside.value.trim()){ inside.focus(); W4.toast('Put something inside first ✦'); return; }
+    wrapAnimation(() => {
+      const g = draftGift(); gift = g; state = 'ready';
+      render();
+      giveIt();
+    });
+  };
+}
+function wrapAnimation(done){
+  paperC.style.transition = 'none'; paperC.style.clipPath = 'inset(100% 0 0 0)'; ribbonC.style.opacity = '0'; tagEl.classList.add('gone');
+  W4.whoosh({ dur: .8, freq: 1800, q: .6, gain: .13, attack: .05, sweep: 700 });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    paperC.style.transition = 'clip-path .8s cubic-bezier(.6,0,.3,1)'; paperC.style.clipPath = 'inset(0 0 0 0)';
+    setTimeout(() => { ribbonC.style.transition = 'opacity .4s'; ribbonC.style.opacity = '1'; W4.chime([1318, 1568], { gain: .05 }); }, 750);
+    setTimeout(() => { tagEl.classList.remove('gone'); giftEl.classList.add('swing'); }, 1050);
+    setTimeout(() => { paperC.style.transition = ''; paperC.style.clipPath = ''; ribbonC.style.transition = ''; giftEl.classList.remove('swing'); done(); }, 1900);
+  }));
+}
+function giveIt(){
+  const g = draftGift();
+  W4.send(describeMine(g), { title: 'Give it to them', onSent: () => {
+    shelf.unshift(Object.assign(g, { opened: true })); saveShelf();
+    draft = { paper: draft.paper, ribbon: draft.ribbon, inside: '', rattle: '', msg: '' }; W4.store.set('gift-draft', draft);
+    W4.toast('Given ✦ It’s on your shelf too');
+    setTimeout(home, 600);
+  } });
+}
+
+/* ---------- start ---------- */
+function boot(){
+  layout();
+  const incoming = W4.pasted();
+  if(incoming){ W4.clearURL(); receiveGift(incoming); return; }
+  const p = W4.params();
+  if(p.has('inside')){
+    const t = ['paper', 'ribbon', 'tag', 'rattle', 'inside'].filter(k => p.get(k)).map(k => `${k}: ${p.get(k)}`).join('\n');
+    W4.clearURL(); receiveGift(t); return;
+  }
+  const waiting = shelf.find(g => g.dir === 'from' && !g.opened);
+  if(waiting) setTable(waiting, 'closed'); else home();
+}
+addEventListener('resize', () => { clearTimeout(boot.t); boot.t = setTimeout(() => { const keep = state; layout(); if(gift){ paint(); requestAnimationFrame(() => drawRibbon(gift.ribbon, state === 'untied' || state === 'unwrapped' || state === 'open' ? 1 : 0, tagPos())); if(keep === 'closed') makeGrid(); } }, 150); });
+W4.onNames(() => { if(state === 'wrapping'){ gift = draftGift(); paint(); } render(); });
+document.fonts && document.fonts.ready.then(() => { if(gift) requestAnimationFrame(() => drawRibbon(gift.ribbon, state === 'closed' || state === 'idle' || state === 'wrapping' ? 0 : 1, tagPos())); });
+boot();
+})();
+</script>
+</body>
+</html>

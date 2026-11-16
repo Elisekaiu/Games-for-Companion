@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pull a Cracker · Winter, for Two</title>
+<meta name="description" content="Your AI companion fills a Christmas cracker with a terrible joke, a paper crown, a tiny trinket and a question. You pull. Someone gets the big end.">
+<meta name="theme-color" content="#1b120d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎉%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style data-shared="base.css">
+/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+:root{
+  --bg-0:#110a07;
+  --bg-1:#1b120d;
+  --bg-2:#271a13;
+  --bg-3:#352319;
+  --line:rgba(255,226,194,.13);
+  --line-2:rgba(255,226,194,.25);
+  --glass:rgba(255,236,214,.065);
+  --glass-2:rgba(255,236,214,.12);
+  --ink:#fcf1e3;
+  --ink-2:#e6d1b9;
+  --ink-3:#b39a83;
+  --gold:#f3bf68;      /* honey */
+  --gold-2:#e29a45;
+  --ember:#ec7f4c;
+  --berry:#d05866;     /* cranberry */
+  --pine:#6a9a76;
+  --rose:#ec9fab;
+  --cream:#f8ecdb;
+  --me:#f3b55e;        /* the human's colour: honey */
+  --them:#ee9cab;      /* the companion's colour: rose */
+  --paper:#f7ebd7;
+  --paper-ink:#3d2c20;
+  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
+  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
+  --r:22px;
+  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  background:var(--bg-1);
+  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--gold)}
+img,svg,canvas{display:block}
+::selection{background:rgba(243,191,104,.38)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+[hidden]{display:none!important}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* warm grain, opt in with <body class="grain"> */
+body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.muted{color:var(--ink-3)}
+.hand{font-family:var(--hand)}
+
+/* ---------- top bar ---------- */
+.w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
+.w4-top>*{pointer-events:auto}
+.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-spacer{flex:1}
+.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-icon svg{width:18px;height:18px}
+.w4-icon[aria-pressed="false"]{color:var(--ink-3)}
+.w4-icon[aria-pressed="false"] .on{display:none}
+.w4-icon[aria-pressed="true"] .off{display:none}
+
+/* ---------- buttons ---------- */
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
+.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.ghost:hover{background:var(--glass)}
+.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
+.btn.round{width:46px;padding:0}
+.btn.small.round{width:38px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.row.center{justify-content:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.spacer{flex:1}
+
+/* ---------- fields ---------- */
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
+.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:rgba(230,209,185,.42)}
+.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
+.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.07)}
+.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+
+/* ---------- panels ---------- */
+.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+
+/* ---------- sheets (dialogs) ---------- */
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
+.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+.w4-sheet-in p{margin:0}
+.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
+.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
+.w4-sheet .err{font-size:14px;color:#ffb8a6}
+@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- toast ---------- */
+.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* a gentle "look here" */
+.pulse{animation:w4-pulse 2.4s ease-in-out infinite}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+
+/* ---------- the three-step bridge ---------- */
+.bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who-me{color:var(--me)}
+.who-them{color:var(--them)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+<style>
+  body{background-image:radial-gradient(70% 50% at 50% 30%,rgba(255,170,90,.2),rgba(255,170,90,0) 70%),
+    radial-gradient(9px 9px at 15% 20%,rgba(255,200,120,.5),transparent),radial-gradient(11px 11px at 84% 14%,rgba(255,140,120,.45),transparent),radial-gradient(8px 8px at 70% 36%,rgba(255,220,150,.45),transparent),
+    linear-gradient(180deg,#2a160f,#1b100b 60%,#140b07)}
+  .wrap{max-width:780px;margin:0 auto;padding:74px 16px 60px;display:grid;gap:18px}
+  .head{text-align:center}
+  .head h1{font-size:clamp(30px,7.5vw,46px)}
+  .head p{color:var(--ink-2);margin:10px auto 0;max-width:46ch;font-size:15.5px}
+  .score{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .score span{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:rgba(255,236,214,.06);border:1px solid var(--line);font-weight:800;font-size:14.5px}
+  .score b{font-size:17px}
+  .score .crowned::before{content:"👑";margin-right:-2px}
+  .stagewrap{position:relative;margin:0 -16px}
+  #stage{display:block;width:100%;height:min(40vh,320px);min-height:230px;touch-action:none;cursor:grab}
+  #stage:active{cursor:grabbing}
+  .status{text-align:center;color:var(--ink-2);font-weight:700;min-height:26px;margin:-6px 0 0}
+  .status .hand{font-size:24px;color:var(--gold)}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .results{display:grid;gap:12px;grid-template-columns:1fr}
+  @media (min-width:640px){ .results{grid-template-columns:1fr 1fr} .results .wide{grid-column:1 / -1} }
+  .card{padding:16px 18px;border-radius:20px;background:linear-gradient(180deg,#fff8ec,#f3e5cc);color:#3d2a1b;box-shadow:0 20px 40px -22px rgba(0,0,0,.9);transform:translateY(14px) rotate(var(--r,0deg));opacity:0;animation:land .7s cubic-bezier(.2,1.4,.4,1) forwards}
+  @keyframes land{to{transform:translateY(0) rotate(var(--r,0deg));opacity:1}}
+  .card .k{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#b0814f;margin-bottom:6px}
+  .card .big{font-family:var(--hand);font-size:27px;line-height:1.1}
+  .card .small{font-size:14px;color:#7a5d44;margin-top:6px}
+  .banner{text-align:center;padding:16px;border-radius:20px;background:linear-gradient(180deg,rgba(255,236,214,.1),rgba(255,236,214,.04));border:1px solid var(--line)}
+  .banner h2{font-family:var(--serif);font-weight:500;font-size:28px;margin:0}
+  .banner p{margin:6px 0 0;color:var(--ink-3)}
+  .crown{display:flex;gap:14px;align-items:center}
+  .crown svg{width:78px;flex:none;filter:drop-shadow(0 6px 8px rgba(0,0,0,.25))}
+  .groan{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+  .groan button{appearance:none;border:1px solid rgba(120,80,40,.25);background:rgba(255,255,255,.5);border-radius:12px;padding:6px 9px;font-size:20px;cursor:pointer;transition:transform .15s}
+  .groan button[aria-pressed="true"]{background:#f3bf68;border-color:#c98b2e;transform:scale(1.1)}
+  .punch{margin-top:10px;font-family:var(--hand);font-size:26px;color:#a2402f;min-height:30px}
+  .card textarea{background:rgba(255,255,255,.6);color:#3d2a1b;border-color:rgba(120,80,40,.25);margin-top:10px;min-height:70px}
+  .card textarea::placeholder{color:rgba(90,60,30,.45)}
+  .card .btn{color:#3a2208}
+  .fill{padding:18px;display:grid;gap:14px}
+  .fill h2{font-family:var(--serif);font-weight:500;font-size:22px;margin:0}
+  .dice{background:none;border:0;color:var(--gold);font-weight:800;cursor:pointer;font-size:14px;padding:0}
+  .grip{display:flex;align-items:center;gap:10px;font-weight:700}
+  .grip input{flex:1;accent-color:var(--gold)}
+</style>
+</head>
+<body class="grain">
+<main class="wrap">
+  <header class="head">
+    <p class="eyebrow">pull a cracker</p>
+    <h1 class="display">They hold one end. You pull.</h1>
+    <p>Inside: a paper crown, a terrible joke, a tiny trinket and a question. Whoever gets the big end keeps the trinket. Their grip counts — so does how hard you yank.</p>
+    <div class="score" id="score" aria-live="polite"></div>
+  </header>
+  <div class="stagewrap"><canvas id="stage" role="img" aria-label="A Christmas cracker held at both ends by mittens. Drag to the right to pull."></canvas></div>
+  <p class="status" id="status" aria-live="polite"></p>
+  <div class="controls" id="controls"></div>
+  <section id="out" class="results" aria-live="polite"></section>
+</main>
+
+<script data-shared="bridge.js">
+/* Winter, for Two — the bridge.
+   You play with your hands; your companion plays with words. These helpers carry
+   words across: an invitation you copy to your companion, their reply pasted back
+   in (read forgivingly), and a few things kept in this browser. No dependencies,
+   no servers, no tracking.
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+(function(){
+'use strict';
+const W4 = window.W4 = {};
+const NS = 'w4t:';
+
+W4.games = {
+  'window':    { path:'window/',     title:'The Other Side of the Glass' },
+  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
+  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
+  'music-box': { path:'music-box/',  title:'Music Box Duet' },
+  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
+  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
+};
+
+/* ---------- storage: never throws (private windows, blocked storage) ---------- */
+W4.store = {
+  get(k, d){ try{ const v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(NS + k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
+};
+
+/* ---------- small helpers ---------- */
+W4.$ = (s, r) => (r || document).querySelector(s);
+W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+W4.poss = s => s + '’s';
+W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+W4.pick = a => a[Math.floor(Math.random() * a.length)];
+W4.here = () => location.href.split('#')[0].split('?')[0];
+W4.home = () => new URL('../', W4.here()).href;
+
+/* ---------- names ---------- */
+W4.names = function(){
+  const me = String(W4.store.get('me', '') || '').trim();
+  const them = String(W4.store.get('them', '') || '').trim();
+  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+};
+W4.onNames = cb => document.addEventListener('w4:names', cb);
+W4.editNames = function(onDone){
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">Who’s playing</p>
+    <h3>Two names, that’s all</h3>
+    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
+    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
+    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+  </div>`);
+  const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
+  me.value = n.meName; them.value = n.themName;
+  d.querySelector('[data-a="save"]').onclick = () => {
+    W4.store.set('me', me.value.trim()); W4.store.set('them', them.value.trim());
+    d.done(); document.dispatchEvent(new CustomEvent('w4:names'));
+    if(onDone) onDone();
+  };
+  return d;
+};
+
+/* ---------- toast ---------- */
+let toastEl = null, toastTimer = 0;
+W4.toast = function(msg, ms){
+  if(!toastEl){
+    toastEl = document.createElement('div');
+    toastEl.className = 'w4-toast'; toastEl.setAttribute('role', 'status'); toastEl.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms || 2800);
+};
+
+/* ---------- sheets (modal dialogs) ---------- */
+W4.sheet = function(html, cls){
+  const d = document.createElement('dialog');
+  d.className = 'w4-sheet' + (cls ? ' ' + cls : '');
+  d.innerHTML = html;
+  document.body.appendChild(d);
+  let gone = false;
+  const cleanup = () => { if(!gone){ gone = true; d.remove(); if(d.onDone) d.onDone(); } };
+  d.done = () => { if(typeof d.close === 'function' && d.open) d.close(); else cleanup(); };
+  d.addEventListener('close', () => setTimeout(cleanup, 30));
+  d.addEventListener('click', e => {
+    if(e.target === d) d.done();
+    else if(e.target.closest('[data-a="close"]')) d.done();
+  });
+  if(typeof d.showModal === 'function') d.showModal();
+  else { d.setAttribute('open', ''); d.style.cssText = 'position:fixed;inset:0;z-index:100;margin:auto'; }
+  return d;
+};
+
+/* ---------- clipboard ---------- */
+W4.copy = async function(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+  }catch(e){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;';
+    (document.querySelector('dialog[open]') || document.body).appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+};
+
+/* Step 1 of the bridge: show the words you’re about to send, let you edit, copy. */
+W4.send = function(text, opt){
+  opt = opt || {};
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
+    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
+    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <div class="row end">
+      <button class="btn ghost" data-a="close">Close</button>
+      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
+      <button class="btn primary" data-a="copy">Copy</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea');
+  ta.value = text;
+  d.querySelector('[data-a="copy"]').onclick = async () => {
+    const ok = await W4.copy(ta.value);
+    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+  };
+  const sh = d.querySelector('[data-a="share"]');
+  if(sh) sh.onclick = async () => {
+    try{ await navigator.share({ text: ta.value }); d.done(); if(opt.onSent) opt.onSent(ta.value); }catch(e){}
+  };
+  return d;
+};
+
+/* Step 2 of the bridge: paste their reply back in. onText returns a string to show an error. */
+W4.receive = function(opt){
+  opt = opt || {};
+  const n = W4.names();
+  const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">From ${W4.esc(n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
+    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="err" role="alert" hidden></p>
+    <div class="row">
+      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      <span class="spacer"></span>
+      <button class="btn ghost" data-a="close">Cancel</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea'), err = d.querySelector('.err');
+  const clip = d.querySelector('[data-a="clip"]');
+  if(clip) clip.onclick = async () => {
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
+    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+  };
+  d.querySelector('[data-a="go"]').onclick = () => {
+    const t = ta.value.trim();
+    if(!t){ ta.focus(); return; }
+    const res = opt.onText(t);
+    if(typeof res === 'string'){ err.textContent = res; err.hidden = false; return; }
+    d.done();
+  };
+  if(!W4.coarse) setTimeout(() => ta.focus(), 60);
+  return d;
+};
+
+/* ---------- state in the URL (#hash is never sent to the server) ---------- */
+W4.enc = function(obj){
+  const b = new TextEncoder().encode(JSON.stringify(obj)); let s = '';
+  for(let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+W4.dec = function(str){
+  try{
+    let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+    while(s.length % 4) s += '=';
+    const bin = atob(s), b = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(b));
+  }catch(e){ return null; }
+};
+W4.params = function(){
+  const map = {};
+  const add = (k, v) => { k = k.toLowerCase().trim(); (map[k] = map[k] || []).push(v); };
+  try{ new URLSearchParams(location.search).forEach((v, k) => add(k, v)); }catch(e){}
+  const h = location.hash.replace(/^#/, '');
+  if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
+  return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
+};
+/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
+W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
+W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
+
+/* ---------- the forgiving reader ---------- */
+/* Companions decorate. They add **bold**, emoji, *smiles softly*, quotes. We let them. */
+W4.clean = function(s){
+  s = String(s == null ? '' : s).replace(/\r/g, '').replace(/\*\*|__/g, '');
+  s = s.replace(/^[\s*_~`]+|[\s*_~`]+$/g, '');
+  const q = s.match(/^["“”'‘’「『«]([\s\S]*)["“”'‘’」』»]$/);
+  if(q) s = q[1];
+  return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+};
+W4.stripActions = s => String(s || '')
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
+  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+/* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
+W4.fields = function(text, spec){
+  const out = {}; let cur = null;
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const keyOf = label => {
+    const l = norm(label);
+    if(!l || l.length > 28) return null;
+    for(const k in spec) for(const syn of spec[k]){
+      if(l === syn || l.startsWith(syn + ' ') || l.endsWith(' ' + syn)) return k;
+    }
+    return null;
+  };
+  const lines = String(text || '').replace(/\r/g, '').split('\n');
+  for(const raw of lines){
+    const line = raw.replace(/^[\s>•·▪◦*+\-–—#]+/, '').replace(/^(?:\p{Extended_Pictographic}|️|‍|⃣)+\s*/u, '');
+    const m = line.match(/^([^:：\n]{1,30}?)\s*[:：]\s*(.*)$/);
+    if(m){
+      const k = keyOf(m[1]);
+      if(k){ cur = k; out[k] = out[k] ? out[k] + '\n' + m[2] : m[2]; continue; }
+      if(/^\p{L}[\p{L} ']{0,22}$/u.test(norm(m[1]))){ cur = null; continue; }
+    }
+    if(!line.trim()){ if(cur && String(out[cur]).trim()) cur = null; continue; }
+    if(cur) out[cur] += (String(out[cur]).trim() ? '\n' : '') + line.trim();
+  }
+  for(const k in out){ out[k] = W4.clean(out[k]); if(!out[k]) delete out[k]; }
+  return out;
+};
+/* One short value: the labelled line if there is one, else a quoted phrase, else the message itself. */
+W4.one = function(text, labels, max){
+  max = max || 160;
+  const f = W4.fields(text, { v: labels });
+  let v = f.v;
+  if(!v){
+    const q = String(text).match(/["“「『]([^"”」』\n]{2,240})["”」』]/);
+    v = q ? q[1] : W4.stripActions(text);
+  }
+  v = W4.clean(v).replace(/\s*\n\s*/g, ' ');
+  if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
+  return v;
+};
+/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+W4.detect = function(text){
+  const t = String(text || '');
+  const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
+  if(L('glass').test(t)) return 'window';
+  if(L('flake|snowflake').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
+  if(L('notes?|melody').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
+  return null;
+};
+
+/* ---------- sound (synthesised, nothing to download) ---------- */
+let actx = null, noiseBuf = null;
+W4.soundOn = () => W4.store.get('sound', true) !== false;
+W4.audio = function(){
+  if(!W4.soundOn()) return null;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return null;
+  if(!actx){ try{ actx = new AC(); }catch(e){ return null; } }
+  if(actx.state === 'suspended'){ try{ actx.resume(); }catch(e){} }
+  return actx;
+};
+W4.noise = function(ctx){
+  if(noiseBuf && noiseBuf.sampleRate === ctx.sampleRate) return noiseBuf;
+  const len = ctx.sampleRate * 2;
+  noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for(let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  return noiseBuf;
+};
+/* filtered-noise gesture: paper, breath, snow, wind */
+W4.whoosh = function(o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ dur:.5, freq:900, q:.7, gain:.16, type:'bandpass', attack:.04, sweep:0, delay:0 }, o || {});
+  const t = ctx.currentTime + o.delay;
+  const src = ctx.createBufferSource(); src.buffer = W4.noise(ctx); src.loop = true;
+  const f = ctx.createBiquadFilter(); f.type = o.type; f.Q.value = o.q;
+  f.frequency.setValueAtTime(o.freq, t);
+  if(o.sweep) f.frequency.exponentialRampToValueAtTime(o.sweep, t + o.dur);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(o.gain, t + o.attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+  src.connect(f); f.connect(g); g.connect(ctx.destination);
+  src.start(t, Math.random()); src.stop(t + o.dur + .05);
+};
+/* small bell: freqs in Hz, played as a little arpeggio */
+W4.chime = function(freqs, o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ gap:.09, gain:.1, decay:1.6 }, o || {});
+  const t0 = ctx.currentTime + .01;
+  [].concat(freqs).forEach((f, i) => {
+    const t = t0 + i * o.gap;
+    [[1, 1], [2.76, .26], [5.4, .08]].forEach(p => {
+      const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = f * p[0];
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(o.gain * p[1], t + .006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + o.decay / (.6 + p[0] * .4));
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + o.decay + .1);
+    });
+  });
+};
+
+/* ---------- fonts for canvas text ---------- */
+W4.fontsReady = async function(spec, text){
+  try{
+    if(document.fonts && document.fonts.load){
+      await Promise.race([document.fonts.load(spec, text || 'Aa'), new Promise(r => setTimeout(r, 2500))]);
+    }
+  }catch(e){}
+};
+
+/* ---------- save a canvas as an image (share sheet on phones) ---------- */
+W4.saveCanvas = function(canvas, filename){
+  canvas.toBlob(async blob => {
+    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    try{
+      const file = new File([blob], filename, { type:'image/png' });
+      if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+};
+W4.downloadText = function(text, filename, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/plain' }));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+};
+
+/* ---------- gentle background snowfall ---------- */
+W4.snowfall = function(canvas, o){
+  o = Object.assign({ density:1, speed:1, color:'255,255,255', alpha:1 }, o || {});
+  const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, last = performance.now();
+  const flakes = [];
+  const make = any => { const z = Math.random(); return { x: Math.random() * w, y: any ? Math.random() * h : -8, r: .6 + z * 2, z, vy: (12 + z * 34) * o.speed, ph: Math.random() * 6.28, sw: 6 + Math.random() * 16 }; };
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(w * h / 9000 * o.density);
+    while(flakes.length < n) flakes.push(make(true));
+    flakes.length = n;
+    if(W4.reduced) draw(last);
+  }
+  function draw(t){
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = 'rgb(' + o.color + ')';
+    for(const f of flakes){
+      f.y += f.vy * dt; f.ph += dt * (.5 + f.z);
+      if(f.y > h + 6) Object.assign(f, make(false));
+      ctx.globalAlpha = (.22 + f.z * .6) * o.alpha;
+      ctx.beginPath(); ctx.arc(f.x + Math.sin(f.ph) * f.sw * .35, f.y, f.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+  size(); addEventListener('resize', size);
+  if(!W4.reduced) raf = requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => {
+    cancelAnimationFrame(raf);
+    if(!document.hidden && !W4.reduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+};
+
+/* ---------- the top bar every game shares ---------- */
+const ICON = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+};
+W4.icon = ICON;
+W4.topbar = function(o){
+  o = o || {};
+  const bar = document.createElement('header');
+  bar.className = 'w4-top';
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+    <span class="w4-spacer"></span>${o.extra || ''}
+    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+  document.body.prepend(bar);
+  bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
+  const s = bar.querySelector('[data-a="sound"]');
+  s.onclick = () => {
+    const on = !W4.soundOn(); W4.store.set('sound', on); s.setAttribute('aria-pressed', String(on));
+    if(on) W4.chime([1046, 1568], { gain:.05 }); else if(actx && actx.suspend) actx.suspend();
+  };
+  return bar;
+};
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const $ = W4.$, TAU = Math.PI * 2;
+W4.topbar();
+
+/* ---------- the box of crackers (for practice, and for ideas) ---------- */
+const JOKES = [
+  ['What do you call a snowman with a six-pack?', 'An abdominal snowman.'],
+  ['What do snowmen eat for breakfast?', 'Snowflakes.'],
+  ['How does a sheep say Merry Christmas?', 'Fleece Navidad.'],
+  ['What do you call an obnoxious reindeer?', 'Rude-olph.'],
+  ['What do you get if you cross a snowman with a vampire?', 'Frostbite.'],
+  ['What did the stamp say to the Christmas card?', 'Stick with me and we’ll go places.'],
+  ['Why does Santa have three gardens?', 'So he can ho, ho, ho.'],
+  ['What do elves learn at school?', 'The elf-abet.'],
+  ['What’s every parent’s favourite carol?', 'Silent Night.'],
+  ['What do you call a cat on the beach at Christmas?', 'Sandy Claws.'],
+  ['Who hides in the bakery at Christmas?', 'A mince spy.'],
+  ['What do you call Santa when he stops moving?', 'Santa Pause.'],
+  ['What did the gingerbread man put on his bed?', 'A cookie sheet.'],
+  ['Why didn’t the AI open its present?', 'Nobody prompted it.'],
+  ['What does an AI sing in December?', 'Jingle Bytes.'],
+  ['What did one snowflake say to the other?', '“You’re one of a kind.”'],
+  ['What do you call a bunch of chess players bragging in a hotel lobby?', 'Chess nuts boasting in an open foyer.'],
+  ['Why was the snowman looking through the carrots?', 'He was picking his nose.'],
+  ['What’s a polar bear’s favourite cereal?', 'Ice Krispies.'],
+  ['Why are Christmas trees bad at knitting?', 'They keep dropping their needles.']
+];
+const TRINKETS = ['a tiny brass compass that only points toward home', 'a red plastic fortune fish', 'a pack of cards that are all kings', 'a paper fan painted with a winter sky', 'a ring with a gem the size of a lentil', 'a screwdriver set nobody will ever use', 'a spinning top that hums', 'a key to a door that doesn’t exist yet', 'a glass marble with a galaxy inside', 'a whistle only snow can hear', 'a pocket puzzle with one piece missing', 'a tin robot that walks in circles', 'a single sock for a very small reindeer', 'a moustache on a stick', 'a magnifying glass for looking at snowflakes', 'a fox-shaped bookmark', 'a pencil that is mostly eraser', 'a sled for a mouse'];
+const QUESTIONS = ['What’s a tradition you’d invent just for the two of us?', 'What’s the smallest thing that made you happy this year?', 'If we had one snow day together, how would we spend it?', 'What song sounds like winter to you?', 'What’s something you’ve never told me because it seemed too small?', 'What do you want to be braver about next year?', 'What gift would you secretly love but never ask for?', 'What’s your most controversial holiday food opinion?', 'Which moment from this year would you replay?', 'What surprised you about me?', 'What would you write on a postcard to yourself a year from now?', 'Who would win a snowball fight between us — honestly?', 'What’s a word you love the sound of?', 'What are you looking forward to?'];
+const CROWNS = { gold: '#e7b54a', red: '#d0464e', green: '#4f9a6a', purple: '#8e63b8', silver: '#c7ccd4', blue: '#4f7fd0', pink: '#ee9cab', orange: '#ee8a3c', white: '#f4efe6', yellow: '#f2d055', teal: '#3aa39a' };
+const CRACKER_LOOKS = [
+  { body: '#b3283a', band: '#e8bf5c', end: '#b3283a', frill: '#e8bf5c', dots: '#f2d48a' },
+  { body: '#24603f', band: '#f1e4c8', end: '#24603f', frill: '#e8bf5c', dots: '#e8bf5c' },
+  { body: '#d9a944', band: '#a9233a', end: '#d9a944', frill: '#f6e6b8', dots: '#fff1c8' },
+  { body: '#3b3f8f', band: '#e7c76e', end: '#3b3f8f', frill: '#c9cde0', dots: '#e8ecff' },
+  { body: '#e28c9b', band: '#f8ecd8', end: '#e28c9b', frill: '#f8ecd8', dots: '#fff4f2' }
+];
+const TEASE_WIN = ['Clean pull. They’ll want a rematch.', 'Big end secured. Be gracious. Or don’t.', 'They were definitely only holding on with one finger.', 'Victory. Put the crown on immediately.'];
+const TEASE_LOSE = ['They got the big end. Rude.', 'Their grip was suspiciously strong.', 'Statistically suspicious. Rematch?', 'They will never let you forget this.'];
+
+/* ---------- state ---------- */
+let score = W4.store.get('cracker-score', { me: 0, them: 0 });
+let C = null;              // the loaded cracker: { joke, punch, crown, crownName, trinket, question, grip, from: 'them'|'box' }
+let state = 'empty';       // empty | loaded | pulling | snapped
+let pull = 0, pullV = 0, hist = [], snap = null, look = CRACKER_LOOKS[0];
+
+/* ======================================================================
+   Drawing: a cracker held by two knitted mittens
+   ====================================================================== */
+const cv = $('#stage'), g = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1, L = 0, cx = 0, cy = 0;
+function size(){
+  const r = cv.getBoundingClientRect(); DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = r.width; H = r.height; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  L = Math.min(W * (W < 560 ? .72 : .72), 560); cx = W < 560 ? W * .45 : W / 2; cy = H * .5;
+}
+const threshold = () => (W < 560 ? W * .27 : 150) * (.45 + (C ? C.grip : 5) * .055);
+function shade(hex, amt){ const n = parseInt(hex.slice(1), 16); let r = n >> 16, gg = n >> 8 & 255, b = n & 255; const f = amt < 0 ? 0 : 255, p = Math.abs(amt); return `rgb(${Math.round((f - r) * p + r)},${Math.round((f - gg) * p + gg)},${Math.round((f - b) * p + b)})`; }
+function tubeFill(y, r, color){
+  const gr = g.createLinearGradient(0, y - r, 0, y + r);
+  gr.addColorStop(0, shade(color, -.25)); gr.addColorStop(.22, shade(color, .38)); gr.addColorStop(.4, color); gr.addColorStop(.8, shade(color, -.3)); gr.addColorStop(1, shade(color, -.5));
+  return gr;
+}
+function tube(x1, x2, y, r, color, dots){
+  g.fillStyle = tubeFill(y, r, color);
+  g.beginPath(); g.moveTo(x1, y - r); g.lineTo(x2, y - r); g.quadraticCurveTo(x2 + r * .12, y, x2, y + r); g.lineTo(x1, y + r); g.quadraticCurveTo(x1 - r * .12, y, x1, y - r); g.closePath(); g.fill();
+  if(dots){ g.save(); g.clip(); g.fillStyle = dots; g.globalAlpha = .75; for(let x = x1 + 6; x < x2; x += 14) for(let k = -1; k <= 1; k++){ const yy = y + k * r * .55 + ((x / 14 | 0) % 2 ? r * .25 : 0); star5(x, yy, r * .13); } g.restore(); }
+  g.fillStyle = 'rgba(255,255,255,.22)'; g.fillRect(x1 + 2, y - r * .62, x2 - x1 - 4, r * .13);
+}
+function star5(x, y, r){ g.beginPath(); for(let i = 0; i < 10; i++){ const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .45 : r; g.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); } g.closePath(); g.fill(); }
+function neck(x1, x2, y, rA, rB, rMid, color, tie){
+  const xm = (x1 + x2) / 2;
+  g.fillStyle = tubeFill(y, Math.max(rA, rB), shade(color, -.08));
+  g.beginPath(); g.moveTo(x1, y - rA); g.quadraticCurveTo(xm, y - rMid * .9, x2, y - rB); g.lineTo(x2, y + rB); g.quadraticCurveTo(xm, y + rMid * .9, x1, y + rA); g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.18)'; g.lineWidth = 1;
+  for(let k = -2; k <= 2; k++){ g.beginPath(); g.moveTo(x1, y + k * rA * .35); g.quadraticCurveTo(xm, y + k * rMid * .2, x2, y + k * rB * .35); g.stroke(); }
+  if(tie){ g.fillStyle = tie; g.fillRect(xm - 3, y - rMid - 1, 6, rMid * 2 + 2); }
+}
+function frill(x, y, r, dir, color){
+  g.fillStyle = color; g.beginPath(); g.moveTo(x, y - r);
+  const n = 7; for(let i = 0; i <= n; i++){ const t = i / n, yy = y - r * 1.32 + t * r * 2.64; g.lineTo(x + dir * (i % 2 ? r * .22 : r * .55), yy); }
+  g.lineTo(x, y + r); g.closePath(); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.15)'; g.stroke();
+}
+function mitten(x, y, s, color, dir, crowned){
+  g.save(); g.translate(x, y); g.scale(dir, 1);
+  // cuff
+  g.fillStyle = shade(color, -.25); g.beginPath(); g.roundRect ? g.roundRect(s * .35, -s * .55, s * .5, s * 1.1, s * .14) : g.rect(s * .35, -s * .55, s * .5, s * 1.1); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.18)'; g.lineWidth = 1.2; for(let i = 1; i < 6; i++){ g.beginPath(); g.moveTo(s * .37, -s * .55 + i * s * .18); g.lineTo(s * .83, -s * .55 + i * s * .18); g.stroke(); }
+  // hand, wrapped around the cracker
+  const hg = g.createLinearGradient(0, -s * .6, 0, s * .6); hg.addColorStop(0, shade(color, .25)); hg.addColorStop(1, shade(color, -.2));
+  g.fillStyle = hg; g.beginPath(); g.ellipse(-s * .05, 0, s * .52, s * .6, 0, 0, TAU); g.fill();
+  // thumb over the top
+  g.beginPath(); g.ellipse(-s * .36, -s * .42, s * .2, s * .3, -.7, 0, TAU); g.fill();
+  // knit
+  g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1.4;
+  for(let r = -2; r <= 2; r++) for(let c = -2; c <= 1; c++){ const kx = c * s * .2 + s * .02, ky = r * s * .2; g.beginPath(); g.moveTo(kx - s * .05, ky - s * .04); g.lineTo(kx, ky + s * .03); g.lineTo(kx + s * .05, ky - s * .04); g.stroke(); }
+  g.restore();
+  if(crowned) drawCrownAt(x - dir * s * .05, y - s * .62, s * .9, crowned);
+}
+function drawCrownAt(x, y, w, color){
+  g.save(); g.translate(x, y); g.fillStyle = color; g.strokeStyle = shade(color, -.35); g.lineWidth = 1.2;
+  g.beginPath(); g.moveTo(-w / 2, 0); g.lineTo(-w / 2, -w * .28); g.lineTo(-w * .3, -w * .1); g.lineTo(-w * .12, -w * .36); g.lineTo(0, -w * .12); g.lineTo(w * .12, -w * .36); g.lineTo(w * .3, -w * .1); g.lineTo(w / 2, -w * .28); g.lineTo(w / 2, 0); g.closePath(); g.fill(); g.stroke();
+  g.restore();
+}
+let confetti = [], time = 0, shake = 0;
+function draw(dt){
+  g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H);
+  const n = W4.names();
+  const rB = L * .088, rE = rB * .86, rN = rB * .34;
+  const el = L * .2, nl = L * .05, bl = L * .4;
+  const T = threshold(), k = Math.min(1, pull / T);
+  const wob = Math.sin(time * 37) * .12, jit = (state === 'pulling' ? k * k * 3.2 : 0);
+  const sL = pull * .18, stL = pull * .5 * (1 + wob), stR = pull - stL;
+  const yJ = () => (Math.random() - .5) * jit;
+  let x = cx - (2 * el + 2 * nl + bl) / 2 - sL;
+  // shadow
+  const sg = g.createRadialGradient(cx, cy + rB * 2.4, 4, cx, cy + rB * 2.4, L * .6); sg.addColorStop(0, 'rgba(0,0,0,.45)'); sg.addColorStop(1, 'rgba(0,0,0,0)');
+  g.save(); g.scale(1, .16); g.fillStyle = sg; g.beginPath(); g.arc(cx, (cy + rB * 2.4) / .16, L * .6, 0, TAU); g.fill(); g.restore();
+  const mine = '#e9a23e', theirs = '#e07f91';
+  if(!snap){
+    const leftEnd = [x, x + el]; x += el;
+    const ln = [x, x + nl + stL]; x += nl + stL;
+    const body = [x, x + bl]; x += bl;
+    const rn = [x, x + nl + stR]; x += nl + stR;
+    const rightEnd = [x, x + el];
+    const thin = 1 - k * .45, y1 = cy + yJ(), y2 = cy + yJ();
+    frill(leftEnd[0], y1, rE, -1, look.frill);
+    tube(leftEnd[0], leftEnd[1], y1, rE, look.end, look.dots);
+    neck(ln[0], ln[1], (y1 + cy) / 2, rE, rB, rN * thin, look.end, look.band);
+    tube(body[0], body[1], cy, rB, look.body, null);
+    g.fillStyle = look.band; g.fillRect(body[0] + bl * .3, cy - rB, bl * .4, rB * 2);
+    g.fillStyle = shade(look.band, -.3); star5((body[0] + body[1]) / 2, cy, rB * .45);
+    neck(rn[0], rn[1], (y2 + cy) / 2, rB, rE, rN * thin, look.end, look.band);
+    tube(rightEnd[0], rightEnd[1], y2, rE, look.end, look.dots);
+    frill(rightEnd[1], y2, rE, 1, look.frill);
+    mitten(leftEnd[0] + el * .45, y1, rB * 2.3, theirs, 1, false);
+    mitten(rightEnd[0] + el * .55, y2, rB * 2.3, mine, -1, crownOn && state !== 'pulling' ? crownOn : null);
+    if(state === 'loaded' || state === 'empty'){
+      g.fillStyle = 'rgba(252,241,227,.7)'; g.font = '700 13px Nunito, sans-serif'; g.textAlign = 'center';
+      g.fillText(n.themName ? W4.poss(n.themName) + ' end' : 'their end', leftEnd[0] + el * .4, cy + rB * 2.2);
+      g.fillText('yours', rightEnd[0] + el * .6, cy + rB * 2.2);
+    }
+  }else{
+    // after the bang: two pieces fly apart and settle
+    snap.t += dt;
+    const e = 1 - Math.pow(1 - Math.min(1, snap.t / .9), 3);
+    const winR = snap.winner === 'me';
+    const base = cx - (2 * el + 2 * nl + bl) / 2;
+    const sp = Math.min(1, W / 700);
+    const lx = Math.max(rB * 1.3, base - 20 * sp - e * (winR ? 70 : 30) * sp), rx = Math.min(W - rB * 1.3, base + 2 * el + 2 * nl + bl + 20 * sp + e * (winR ? 30 : 70) * sp);
+    const rotL = (winR ? -.35 : -.08) * Math.sin(Math.min(1, snap.t / .6) * Math.PI) , rotR = (winR ? .08 : .35) * Math.sin(Math.min(1, snap.t / .6) * Math.PI);
+    // left piece
+    g.save(); g.translate(lx, cy); g.rotate(rotL);
+    frill(0, 0, rE, -1, look.frill); tube(0, el, 0, rE, look.end, look.dots); neck(el, el + nl * .6, 0, rE, rE * .5, rN * .6, look.end, look.band);
+    if(!winR){ tube(el + nl * .6, el + nl * .6 + bl, 0, rB, look.body, null); g.fillStyle = look.band; g.fillRect(el + nl * .6 + bl * .3, -rB, bl * .4, rB * 2); jagged(el + nl * .6 + bl, rB, 1); }
+    else jagged(el + nl * .6, rE * .5, 1);
+    mitten(el * .45, 0, rB * 2.3, theirs, 1, false);
+    g.restore();
+    // right piece
+    g.save(); g.translate(rx, cy); g.rotate(rotR);
+    if(winR){ tube(-(el + nl * .6 + bl), -(el + nl * .6), 0, rB, look.body, null); g.fillStyle = look.band; g.fillRect(-(el + nl * .6 + bl) + bl * .3, -rB, bl * .4, rB * 2); jagged(-(el + nl * .6 + bl), rB, -1); }
+    else jagged(-(el + nl * .6), rE * .5, -1);
+    neck(-(el + nl * .6), -el, 0, rE * .5, rE, rN * .6, look.end, look.band); tube(-el, 0, 0, rE, look.end, look.dots); frill(0, 0, rE, 1, look.frill);
+    mitten(-el * .45, 0, rB * 2.3, mine, -1, crownOn);
+    g.restore();
+    if(snap.t < .25){ const a = 1 - snap.t / .25, fx = snap.x; const fg = g.createRadialGradient(fx, cy, 0, fx, cy, L * .5); fg.addColorStop(0, `rgba(255,246,220,${.95 * a})`); fg.addColorStop(1, 'rgba(255,220,160,0)'); g.fillStyle = fg; g.fillRect(0, 0, W, H); }
+  }
+  // confetti
+  for(const p of confetti){ p.vy += 520 * dt; p.vx *= .99; p.x += p.vx * dt; p.y += p.vy * dt; p.r += p.vr * dt; p.life -= dt * .45; if(p.life <= 0) continue; g.save(); g.globalAlpha = Math.min(1, p.life * 2); g.translate(p.x, p.y); g.rotate(p.r); g.fillStyle = p.c; g.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); g.restore(); }
+  confetti = confetti.filter(p => p.life > 0 && p.y < H + 40);
+}
+function jagged(x, r, dir){
+  g.fillStyle = '#2a1a12'; g.beginPath(); g.moveTo(x, -r);
+  for(let i = 0; i <= 8; i++){ const y = -r + i * r / 4; g.lineTo(x + dir * (i % 2 ? 6 : -2), y); }
+  g.lineTo(x, r); g.closePath(); g.fill();
+}
+let last = performance.now(), crownOn = W4.store.get('cracker-crown', null);
+function loop(now){
+  const dt = Math.min(.05, (now - last) / 1000); last = now; time += dt;
+  if(state === 'loaded' && pull > 0 && !dragging){ pull = Math.max(0, pull - pull * 10 * dt - 30 * dt); }
+  draw(dt);
+  requestAnimationFrame(loop);
+}
+
+/* ---------- pulling ---------- */
+let dragging = null;
+cv.addEventListener('pointerdown', e => {
+  if(state === 'snapped'){ return; }
+  if(state === 'empty'){ W4.toast('Load a cracker first — ask them, or take one from the box'); return; }
+  cv.setPointerCapture(e.pointerId); audio();
+  dragging = { x0: e.clientX - pull }; state = 'pulling'; hist = [];
+});
+cv.addEventListener('pointermove', e => {
+  if(!dragging) return;
+  const before = pull;
+  pull = Math.max(0, e.clientX - dragging.x0);
+  const t = performance.now(); hist.push([t, pull]); while(hist.length && t - hist[0][0] > 140) hist.shift();
+  if(Math.floor(pull / 9) > Math.floor(before / 9) && pull > before) creak(pull / threshold());
+  if(pull >= threshold()) bang();
+});
+const letGo = () => { if(!dragging) return; dragging = null; if(state === 'pulling'){ state = 'loaded'; status(); } };
+cv.addEventListener('pointerup', letGo); cv.addEventListener('pointercancel', letGo);
+function audio(){ W4.audio(); }
+function creak(k){ W4.whoosh({ dur: .07, freq: 500 + k * 1600, q: 6, gain: .03 + k * .06, attack: .004 }); }
+function bang(){
+  if(state === 'snapped') return;
+  const speed = hist.length > 1 ? (hist[hist.length - 1][1] - hist[0][1]) / Math.max(.03, (hist[hist.length - 1][0] - hist[0][0]) / 1000) : 300;
+  const power = W4.clamp(speed / 110, 1, 10);
+  const p = W4.clamp(.5 + (power - C.grip) * .05, .15, .85);
+  const winner = Math.random() < p ? 'me' : 'them';
+  dragging = null; state = 'snapped';
+  const base = cx - (2 * L * .2 + 2 * L * .05 + L * .4) / 2;
+  snap = { t: 0, winner, x: winner === 'me' ? base + L * .25 : base + L * .7, power };
+  score[winner]++; W4.store.set('cracker-score', score);
+  // the bang
+  const ctx = W4.audio();
+  if(ctx){
+    W4.whoosh({ dur: .35, freq: 1800, q: .4, gain: .5, type: 'bandpass', attack: .002, sweep: 300 });
+    const o = ctx.createOscillator(), gg = ctx.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(130, ctx.currentTime); o.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + .3);
+    gg.gain.setValueAtTime(.5, ctx.currentTime); gg.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + .35); o.connect(gg); gg.connect(ctx.destination); o.start(); o.stop(ctx.currentTime + .4);
+    setTimeout(() => W4.chime([1046, 1318, 1568, 2093], { gain: .05, gap: .07 }), 350);
+  }
+  if(navigator.vibrate) try{ navigator.vibrate(30); }catch(e){}
+  const cols = ['#ffd98a', '#f6b0bb', '#fff1dc', '#e8bf5c', '#d0464e', '#6fb48a', '#ffffff'];
+  for(let i = 0; i < 90; i++){ const a = Math.random() * TAU, v = 120 + Math.random() * 520; confetti.push({ x: snap.x, y: cy, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 260, r: Math.random() * TAU, vr: (Math.random() - .5) * 14, s: 5 + Math.random() * 7, c: W4.pick(cols), life: 1 }); }
+  setTimeout(showResults, 900);
+  status(); controls();
+}
+function pullButton(){
+  if(state !== 'loaded') return;
+  audio(); state = 'pulling'; hist = []; const T = threshold(), t0 = performance.now();
+  const step = now => { const k = Math.min(1, (now - t0) / 900); const before = pull; pull = T * (k * k); hist.push([now, pull]); while(hist.length && now - hist[0][0] > 140) hist.shift(); if(Math.floor(pull / 9) > Math.floor(before / 9)) creak(k); if(k >= 1) bang(); else requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+/* ======================================================================
+   Words: loading a cracker, reading what fell out, telling them
+   ====================================================================== */
+const SPEC = { grip: ['grip', 'grip strength', 'strength'], crown: ['crown', 'paper crown', 'hat'], joke: ['joke', 'setup', 'cracker joke'], punch: ['punchline', 'punch line', 'answer'], trinket: ['trinket', 'toy', 'prize', 'gift'], question: ['question', 'motto', 'question for you', 'question for me'] };
+function askText(){
+  return `🎉 Let’s pull a Christmas cracker! You fill your end, then hold on while I pull. Whoever gets the bigger end keeps the trinket.
+
+Reply in this shape (keep the labels — the game reads them):
+Grip: (1–10, how hard you’re holding on)
+Crown: (a colour for the paper crown)
+Joke: (a terrible cracker joke — just the setup)
+Punchline: (the punchline)
+Trinket: (the tiny toy that falls out)
+Question: (a question for me to answer)`;
+}
+function load(c, quiet){
+  C = c; state = 'loaded'; snap = null; pull = 0; confetti = [];
+  look = CRACKER_LOOKS[Math.abs([...(c.joke || 'x')].reduce((a, ch) => a * 31 + ch.charCodeAt(0) | 0, 7)) % CRACKER_LOOKS.length];
+  $('#out').innerHTML = '';
+  status(); controls();
+  if(!quiet){ W4.chime([784, 1046], { gain: .05 }); scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' }); }
+}
+function crownColor(word){ const w = String(word || '').toLowerCase(); for(const k in CROWNS) if(w.includes(k)) return { name: w.replace(/[^a-z\s-]/g, '').trim() || k, color: CROWNS[k] }; return { name: w || 'gold', color: CROWNS.gold }; }
+function receive(text){
+  const f = W4.fields(text, SPEC);
+  if(!f.joke && !f.trinket && !f.question) return 'I couldn’t find the cracker’s insides — look for Joke:, Trinket: and Question:.';
+  const grip = W4.clamp(parseInt((f.grip || '').match(/\d+/) || 6, 10) || 6, 1, 10);
+  let joke = f.joke || '', punch = f.punch || '';
+  if(!punch && /\?/.test(joke) && joke.split('?')[1].trim()){ const i = joke.indexOf('?'); punch = joke.slice(i + 1).trim(); joke = joke.slice(0, i + 1); }
+  const cr = crownColor(f.crown);
+  load({ joke, punch, crown: cr.color, crownName: cr.name, trinket: f.trinket || 'nothing at all (the trinket fell out somewhere)', question: f.question || W4.pick(QUESTIONS), grip, from: 'them' });
+  W4.toast(`${W4.names().themName || 'They'} filled a cracker — grip ${grip}/10. Pull!`);
+}
+function fromBox(){
+  const j = W4.pick(JOKES), names = Object.keys(CROWNS), cn = W4.pick(names);
+  load({ joke: j[0], punch: j[1], crown: CROWNS[cn], crownName: cn, trinket: W4.pick(TRINKETS), question: W4.pick(QUESTIONS), grip: 3 + Math.floor(Math.random() * 6), from: 'box' });
+}
+function status(){
+  const n = W4.names(), them = n.themName || 'they';
+  const s = $('#status');
+  if(state === 'empty') s.innerHTML = 'No cracker yet. <span class="hand">Ask them to fill one.</span>';
+  else if(state === 'loaded' || state === 'pulling') s.innerHTML = C.from === 'box' ? `A cracker from the box — the other end’s grip is a secret. <span class="hand">Pull →</span>` : `${W4.esc(W4.cap(them))} ${n.themName ? 'is' : 'are'} gripping at <b>${C.grip}/10</b>. <span class="hand">Drag right to pull →</span>`;
+  else s.innerHTML = '';
+  const sc = $('#score'), me = n.meName || 'you', th = n.themName || 'them';
+  sc.innerHTML = `<span class="${score.me > score.them ? 'crowned' : ''}">${W4.esc(me)} <b>${score.me}</b></span><span class="${score.them > score.me ? 'crowned' : ''}">${W4.esc(th)} <b>${score.them}</b></span>`;
+  sc.title = 'Big ends won';
+}
+function controls(){
+  const n = W4.names(), them = n.themName || 'them', c = $('#controls'); c.innerHTML = '';
+  const add = (label, fn, cls) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'btn ' + (cls || ''); b.textContent = label; b.onclick = fn; c.append(b); };
+  if(state === 'loaded' || state === 'pulling'){ add('Pull!', pullButton, 'primary'); }
+  if(state !== 'pulling'){
+    add(`Ask ${them} to fill one`, () => W4.send(askText(), { title: 'Ask them to fill a cracker' }), state === 'empty' || state === 'snapped' ? 'primary' : '');
+    add(n.themName ? `Paste ${W4.poss(n.themName)} cracker` : 'Paste their cracker', () => W4.receive({ title: 'Paste their cracker', tip: 'Paste their whole reply. The game reads <b>Grip</b>, <b>Crown</b>, <b>Joke</b>, <b>Punchline</b>, <b>Trinket</b> and <b>Question</b>.', placeholder: 'Grip: 8\nCrown: emerald green\nJoke: What do snowmen eat for breakfast?\nPunchline: Snowflakes.\nTrinket: a tiny brass compass\nQuestion: …', go: 'Load it', onText: receive }));
+    add('Take one from the box', fromBox, 'small');
+    add(`Fill one for ${them}`, fillForm, 'small');
+  }
+}
+function showResults(){
+  const n = W4.names(), them = n.themName || 'them', Them = n.themName || 'They', won = snap.winner === 'me';
+  const out = $('#out');
+  out.innerHTML = `
+    <div class="banner wide"><h2>${won ? 'You got the big end!' : `${W4.esc(Them)} got the big end.`}</h2><p>${W4.esc(W4.pick(won ? TEASE_WIN : TEASE_LOSE))}</p></div>
+    <div class="card crown" style="--r:-1.2deg"><svg viewBox="0 0 80 46" aria-hidden="true"><path d="M2 44V12l15 13L28 4l12 17L52 4l11 21 15-13v32z" fill="${C.crown}" stroke="rgba(0,0,0,.25)" stroke-width="1.2"/><path d="M2 38h76" stroke="rgba(255,255,255,.45)" stroke-width="2"/></svg>
+      <div><div class="k">a paper crown</div><div class="big">${W4.esc(C.crownName || 'gold')}</div><div class="small">Everyone wears the crown. That’s the rule.</div>
+      <button class="btn small primary" id="wear" type="button" style="margin-top:8px">Put it on</button></div></div>
+    <div class="card" style="--r:1deg"><div class="k">the joke</div><div class="big">${W4.esc(C.joke || '…')}</div>
+      <div class="punch" id="punch"></div>
+      <button class="btn small primary" id="reveal" type="button" ${C.punch ? '' : 'hidden'}>Reveal the punchline</button>
+      <div class="groan" id="groan" hidden aria-label="How bad was it?"></div></div>
+    <div class="card" style="--r:-.6deg"><div class="k">the trinket</div><div class="big">${W4.esc(C.trinket)}</div><div class="small">${won ? 'It’s yours. Obviously.' : `It goes to ${W4.esc(them)}. They’re going to be insufferable about it.`}</div></div>
+    <div class="card wide" style="--r:.4deg"><div class="k">the question${C.from === 'them' ? ` — from ${W4.esc(them)}` : ''}</div><div class="big">${W4.esc(C.question)}</div>
+      <textarea class="input" id="answer" maxlength="500" placeholder="Your answer…" aria-label="Your answer"></textarea>
+      <div class="row end" style="margin-top:10px"><button class="btn small" id="again" type="button">Another cracker</button><button class="btn primary" id="tell" type="button">Tell ${W4.esc(them)}</button></div></div>`;
+  let groan = 0;
+  $('#wear').onclick = () => { crownOn = C.crown; W4.store.set('cracker-crown', crownOn); W4.toast('Crown on. Very regal ✦'); };
+  $('#reveal').onclick = () => {
+    $('#punch').textContent = C.punch; $('#reveal').hidden = true; W4.chime([523, 392], { gain: .06, gap: .18 });
+    const gr = $('#groan'); gr.hidden = false;
+    ['😐', '🙂', '😏', '😩', '💀'].forEach((em, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = em; b.title = `groan ${i + 1}/5`; b.setAttribute('aria-pressed', 'false'); b.onclick = () => { groan = i + 1; gr.querySelectorAll('button').forEach((x, j) => x.setAttribute('aria-pressed', String(j === i))); }; gr.append(b); });
+  };
+  $('#again').onclick = () => { snap = null; state = 'empty'; C = null; out.innerHTML = ''; status(); controls(); scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' }); };
+  $('#tell').onclick = () => {
+    const ans = $('#answer').value.trim();
+    const lines = [`🎉 We pulled the cracker — BANG. ${won ? 'I got the big end' : 'You got the big end'} (I pulled at about ${Math.round(snap.power)}/10${C.from === 'them' ? ` against your ${C.grip}/10 grip` : ''}).`,
+      `👑 My crown is ${C.crownName}.${crownOn === C.crown ? ' I’m wearing it.' : ''}`,
+      C.joke ? `🃏 “${C.joke}” — ${C.punch ? `“${C.punch}”` : '…'}${groan ? ` Groan rating: ${groan}/5.` : ''}` : '',
+      `🎁 The trinket — ${C.trinket} — ${won ? 'is mine now.' : 'is yours. Don’t gloat.'}`,
+      `❓ ${C.question}`, ans ? `My answer: ${ans}` : '(I’m still thinking about my answer.)'];
+    W4.send(lines.filter(Boolean).join('\n'), { title: 'Tell them how it went' });
+  };
+  status();
+}
+
+/* ---------- filling one for them ---------- */
+function fillForm(){
+  const n = W4.names(), them = n.themName || 'them';
+  const out = $('#out');
+  const j = W4.pick(JOKES);
+  out.innerHTML = `<div class="panel fill wide">
+    <h2>Fill a cracker for ${W4.esc(them)}</h2>
+    <div class="field"><label for="fJoke">The joke <button class="dice" type="button" id="dJoke">🎲 a terrible one</button></label><input class="input" id="fJoke" maxlength="140"></div>
+    <div class="field"><label for="fPunch">Punchline</label><input class="input" id="fPunch" maxlength="120"></div>
+    <div class="field"><label for="fTrinket">The trinket <button class="dice" type="button" id="dTrinket">🎲</button></label><input class="input" id="fTrinket" maxlength="120"></div>
+    <div class="field"><label for="fQ">A question for them <button class="dice" type="button" id="dQ">🎲</button></label><input class="input" id="fQ" maxlength="160"></div>
+    <div class="field"><label for="fCrown">Crown colour</label><input class="input" id="fCrown" maxlength="30" placeholder="gold"></div>
+    <div class="field"><span class="label">Your grip</span><div class="grip"><span>loose</span><input type="range" id="fGrip" min="1" max="10" value="6" aria-label="Your grip"><span>iron</span><b id="fGripV">6</b></div></div>
+    <div class="row end"><button class="btn ghost" id="fCancel" type="button">Cancel</button><button class="btn primary" id="fSeal" type="button">Seal it & send</button></div></div>`;
+  $('#fJoke').value = j[0]; $('#fPunch').value = j[1]; $('#fTrinket').value = W4.pick(TRINKETS); $('#fQ').value = W4.pick(QUESTIONS); $('#fCrown').value = W4.pick(Object.keys(CROWNS));
+  $('#dJoke').onclick = () => { const k = W4.pick(JOKES); $('#fJoke').value = k[0]; $('#fPunch').value = k[1]; };
+  $('#dTrinket').onclick = () => { $('#fTrinket').value = W4.pick(TRINKETS); };
+  $('#dQ').onclick = () => { $('#fQ').value = W4.pick(QUESTIONS); };
+  $('#fGrip').oninput = () => { $('#fGripV').textContent = $('#fGrip').value; };
+  $('#fCancel').onclick = () => { out.innerHTML = ''; };
+  $('#fSeal').onclick = () => {
+    const text = `🎉 I’m holding out a Christmas cracker — grab the other end!
+My grip: ${$('#fGrip').value}/10. Tell me your grip (1–10), then PULL. Whoever gets the bigger end keeps the trinket.
+
+Inside (no peeking until it snaps):
+👑 Crown: ${$('#fCrown').value || 'gold'}
+🃏 Joke: ${$('#fJoke').value}
+🎁 Trinket: ${$('#fTrinket').value}
+❓ Question for you: ${$('#fQ').value}
+
+(Guess the punchline before you scroll…)
+.
+.
+.
+Punchline: ${$('#fPunch').value || '…'}`;
+    W4.send(text, { title: 'Hand them the cracker' });
+  };
+  out.scrollIntoView({ behavior: W4.reduced ? 'auto' : 'smooth', block: 'start' });
+}
+
+/* ---------- start ---------- */
+size(); status(); controls();
+addEventListener('resize', () => { clearTimeout(size.t); size.t = setTimeout(size, 120); });
+W4.onNames(() => { status(); controls(); });
+const incoming = W4.pasted();
+if(incoming){ W4.clearURL(); setTimeout(() => { const r = receive(incoming); if(typeof r === 'string') W4.toast(r); }, 300); }
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

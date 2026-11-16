@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Music Box Duet · Winter, for Two</title>
+<meta name="description" content="Punch a little melody into a music-box strip. Your AI companion answers in notes; turn the crank and hear the two of you.">
+<meta name="theme-color" content="#1b120d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎶%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style data-shared="base.css">
+/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+:root{
+  --bg-0:#110a07;
+  --bg-1:#1b120d;
+  --bg-2:#271a13;
+  --bg-3:#352319;
+  --line:rgba(255,226,194,.13);
+  --line-2:rgba(255,226,194,.25);
+  --glass:rgba(255,236,214,.065);
+  --glass-2:rgba(255,236,214,.12);
+  --ink:#fcf1e3;
+  --ink-2:#e6d1b9;
+  --ink-3:#b39a83;
+  --gold:#f3bf68;      /* honey */
+  --gold-2:#e29a45;
+  --ember:#ec7f4c;
+  --berry:#d05866;     /* cranberry */
+  --pine:#6a9a76;
+  --rose:#ec9fab;
+  --cream:#f8ecdb;
+  --me:#f3b55e;        /* the human's colour: honey */
+  --them:#ee9cab;      /* the companion's colour: rose */
+  --paper:#f7ebd7;
+  --paper-ink:#3d2c20;
+  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
+  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
+  --r:22px;
+  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  background:var(--bg-1);
+  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--gold)}
+img,svg,canvas{display:block}
+::selection{background:rgba(243,191,104,.38)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+[hidden]{display:none!important}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* warm grain, opt in with <body class="grain"> */
+body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.muted{color:var(--ink-3)}
+.hand{font-family:var(--hand)}
+
+/* ---------- top bar ---------- */
+.w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
+.w4-top>*{pointer-events:auto}
+.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-spacer{flex:1}
+.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-icon svg{width:18px;height:18px}
+.w4-icon[aria-pressed="false"]{color:var(--ink-3)}
+.w4-icon[aria-pressed="false"] .on{display:none}
+.w4-icon[aria-pressed="true"] .off{display:none}
+
+/* ---------- buttons ---------- */
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
+.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.ghost:hover{background:var(--glass)}
+.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
+.btn.round{width:46px;padding:0}
+.btn.small.round{width:38px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.row.center{justify-content:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.spacer{flex:1}
+
+/* ---------- fields ---------- */
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
+.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:rgba(230,209,185,.42)}
+.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
+.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.07)}
+.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+
+/* ---------- panels ---------- */
+.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+
+/* ---------- sheets (dialogs) ---------- */
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
+.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+.w4-sheet-in p{margin:0}
+.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
+.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
+.w4-sheet .err{font-size:14px;color:#ffb8a6}
+@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- toast ---------- */
+.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* a gentle "look here" */
+.pulse{animation:w4-pulse 2.4s ease-in-out infinite}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+
+/* ---------- the three-step bridge ---------- */
+.bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who-me{color:var(--me)}
+.who-them{color:var(--them)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+<style>
+  .wrap{max-width:1040px;margin:0 auto;padding:74px 16px 60px;display:grid;gap:20px;grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"head" "box" "bridge" "more"}
+  .head{grid-area:head}.boxcol{grid-area:box}.bridge-card{grid-area:bridge}.more{grid-area:more}
+  @media (min-width:920px){
+    .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:40px;grid-template-areas:"box head" "box bridge" "box more" "box .";grid-template-rows:auto auto auto 1fr;padding-top:90px}
+  }
+  .head h1{font-size:clamp(30px,7.5vw,44px)}
+  .head p{color:var(--ink-2);margin:10px 0 0;max-width:44ch;font-size:15.5px}
+  .head .key{display:inline-flex;align-items:center;gap:6px;margin-right:12px;font-weight:700;font-size:14px}
+  .head .key i{width:12px;height:12px;border-radius:50%;display:inline-block;box-shadow:inset 0 0 0 3px currentColor;background:#2a1a12}
+  .boxcol{display:flex;flex-direction:column;align-items:center;gap:14px}
+  .label{background:linear-gradient(180deg,#fbf2e2,#f0e1c6);color:#4a3220;font-family:var(--hand);font-size:24px;line-height:1.1;padding:8px 18px 9px;border-radius:6px;
+    box-shadow:0 10px 24px -14px rgba(0,0,0,.9),inset 0 0 0 1px rgba(140,100,50,.18);transform:rotate(-1deg);max-width:min(92vw,520px);text-align:center}
+  .label small{display:block;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.06em;color:#9a7552;text-transform:uppercase;margin-top:2px}
+  .mbox{position:relative;width:min(94vw,520px);padding:14px;border-radius:24px;
+    background:linear-gradient(135deg,#6b4128 0%,#4f2e1b 40%,#5c3721 70%,#3f2414 100%);
+    box-shadow:0 30px 60px -28px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,210,170,.3),inset 0 -2px 0 rgba(0,0,0,.4),inset 0 0 0 1px rgba(30,15,8,.6)}
+  .mbox::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.35;
+    background:repeating-linear-gradient(100deg,rgba(255,220,180,.07) 0 2px,rgba(0,0,0,0) 2px 9px,rgba(0,0,0,.08) 9px 11px,rgba(0,0,0,0) 11px 19px)}
+  .mbox::after{content:"";position:absolute;inset:8px;border-radius:18px;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,200,150,.14)}
+  #strip{position:relative;z-index:1;display:block;width:100%;height:min(60vh,560px);min-height:380px;border-radius:12px;touch-action:none;cursor:pointer;background:#1a0f0a}
+  .transport{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+  .crank{width:74px;height:74px;border-radius:50%;cursor:grab;touch-action:none;position:relative;flex:none;
+    background:radial-gradient(circle at 35% 30%,#f6d48a,#c99644 55%,#8a5f22 100%);box-shadow:0 10px 22px -10px rgba(0,0,0,.9),inset 0 2px 0 rgba(255,240,200,.6),inset 0 -3px 6px rgba(80,40,0,.4)}
+  .crank:active{cursor:grabbing}
+  .crank svg{position:absolute;inset:0;width:100%;height:100%}
+  .crank .cap{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff1cc,#b98a3c);box-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .tempo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--ink-2)}
+  .tempo input{accent-color:var(--gold);width:110px}
+  .hint{color:var(--ink-3);font-size:14px;text-align:center;margin:0;max-width:44ch}
+  .bridge-card,.more{padding:18px}
+  .bridge-card h2,.more h2{font-family:var(--serif);font-weight:500;font-size:22px;margin:0 0 4px}
+  .bridge-card p,.more p{margin:0 0 14px;color:var(--ink-3);font-size:14.5px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .guess{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);display:grid;gap:10px}
+  .guess .row{flex-wrap:nowrap}
+  .guess .input{flex:1}
+</style>
+</head>
+<body class="grain">
+<main class="wrap">
+  <header class="head">
+    <p class="eyebrow">music box duet</p>
+    <h1 class="display">Answer each other in notes.</h1>
+    <p>Punch a little melody into the paper strip. They answer in notes; turn the crank and hear the two of you. It’s a conversation without words.</p>
+    <p style="margin-top:12px"><span class="key" style="color:var(--me)"><i></i><span id="kMe">your holes</span></span><span class="key" style="color:var(--them)"><i></i><span id="kThem">their holes</span></span></p>
+  </header>
+
+  <section class="boxcol" aria-label="The music box">
+    <div class="label" id="label"><span id="title">an untitled tune</span><small id="credit">punch a few holes to begin</small></div>
+    <div class="mbox"><canvas id="strip" role="img" aria-label="A music-box paper strip. Tap to punch a hole, drag to scroll."></canvas></div>
+    <div class="transport">
+      <button class="btn primary round" id="play" type="button" aria-label="Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><path d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <div class="crank" id="crank" role="slider" tabindex="0" aria-label="Turn the crank to play" aria-valuemin="0" aria-valuemax="64" aria-valuenow="0">
+        <svg viewBox="0 0 74 74" id="crankArm" aria-hidden="true"><rect x="33.5" y="8" width="7" height="31" rx="3.5" fill="#6a4318"/><circle cx="37" cy="11" r="7.5" fill="#3a2410"/><circle cx="35.5" cy="9.5" r="2.6" fill="rgba(255,230,190,.45)"/></svg>
+        <span class="cap"></span>
+      </div>
+      <label class="tempo">slow <input type="range" id="tempo" min="60" max="170" value="104" aria-label="Tempo"> quick</label>
+      <button class="btn small" id="loop" type="button" aria-pressed="false">↻ Loop</button>
+    </div>
+    <p class="hint">Tap the strip to punch a hole · drag it to scroll · turn the crank (or press play) to hear it.</p>
+  </section>
+
+  <section class="panel bridge-card" aria-labelledby="bTitle">
+    <h2 id="bTitle">Play it with them</h2>
+    <p>Send them your phrase and they’ll answer it — or ask for a mystery carol and guess it by ear.</p>
+    <div class="bridge">
+      <button class="btn primary" id="askAnswer" type="button">Send my phrase</button>
+      <button class="btn" id="paste" type="button">Paste their notes</button>
+      <button class="btn small" id="askMystery" type="button">Ask for a mystery carol</button>
+      <button class="btn small" id="askLullaby" type="button">Ask for a lullaby</button>
+    </div>
+    <div class="guess" id="guess" hidden>
+      <label class="label" for="guessIn">Which song is it?</label>
+      <div class="row"><input class="input" id="guessIn" maxlength="80" placeholder="I think it’s…"><button class="btn primary" id="guessGo" type="button">Tell them</button></div>
+    </div>
+  </section>
+
+  <section class="panel more" aria-labelledby="mTitle">
+    <h2 id="mTitle">Start from a carol</h2>
+    <p>Old songs, out of copyright and into your strip. They load as your holes.</p>
+    <div class="chips" id="presets"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="btn small" id="clearMine" type="button">Clear mine</button>
+      <button class="btn small" id="clearTheirs" type="button">Clear theirs</button>
+      <button class="btn small" id="longer" type="button">+16 steps</button>
+    </div>
+  </section>
+</main>
+
+<script data-shared="bridge.js">
+/* Winter, for Two — the bridge.
+   You play with your hands; your companion plays with words. These helpers carry
+   words across: an invitation you copy to your companion, their reply pasted back
+   in (read forgivingly), and a few things kept in this browser. No dependencies,
+   no servers, no tracking.
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+(function(){
+'use strict';
+const W4 = window.W4 = {};
+const NS = 'w4t:';
+
+W4.games = {
+  'window':    { path:'window/',     title:'The Other Side of the Glass' },
+  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
+  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
+  'music-box': { path:'music-box/',  title:'Music Box Duet' },
+  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
+  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
+};
+
+/* ---------- storage: never throws (private windows, blocked storage) ---------- */
+W4.store = {
+  get(k, d){ try{ const v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(NS + k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
+};
+
+/* ---------- small helpers ---------- */
+W4.$ = (s, r) => (r || document).querySelector(s);
+W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+W4.poss = s => s + '’s';
+W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+W4.pick = a => a[Math.floor(Math.random() * a.length)];
+W4.here = () => location.href.split('#')[0].split('?')[0];
+W4.home = () => new URL('../', W4.here()).href;
+
+/* ---------- names ---------- */
+W4.names = function(){
+  const me = String(W4.store.get('me', '') || '').trim();
+  const them = String(W4.store.get('them', '') || '').trim();
+  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+};
+W4.onNames = cb => document.addEventListener('w4:names', cb);
+W4.editNames = function(onDone){
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">Who’s playing</p>
+    <h3>Two names, that’s all</h3>
+    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
+    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
+    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+  </div>`);
+  const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
+  me.value = n.meName; them.value = n.themName;
+  d.querySelector('[data-a="save"]').onclick = () => {
+    W4.store.set('me', me.value.trim()); W4.store.set('them', them.value.trim());
+    d.done(); document.dispatchEvent(new CustomEvent('w4:names'));
+    if(onDone) onDone();
+  };
+  return d;
+};
+
+/* ---------- toast ---------- */
+let toastEl = null, toastTimer = 0;
+W4.toast = function(msg, ms){
+  if(!toastEl){
+    toastEl = document.createElement('div');
+    toastEl.className = 'w4-toast'; toastEl.setAttribute('role', 'status'); toastEl.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms || 2800);
+};
+
+/* ---------- sheets (modal dialogs) ---------- */
+W4.sheet = function(html, cls){
+  const d = document.createElement('dialog');
+  d.className = 'w4-sheet' + (cls ? ' ' + cls : '');
+  d.innerHTML = html;
+  document.body.appendChild(d);
+  let gone = false;
+  const cleanup = () => { if(!gone){ gone = true; d.remove(); if(d.onDone) d.onDone(); } };
+  d.done = () => { if(typeof d.close === 'function' && d.open) d.close(); else cleanup(); };
+  d.addEventListener('close', () => setTimeout(cleanup, 30));
+  d.addEventListener('click', e => {
+    if(e.target === d) d.done();
+    else if(e.target.closest('[data-a="close"]')) d.done();
+  });
+  if(typeof d.showModal === 'function') d.showModal();
+  else { d.setAttribute('open', ''); d.style.cssText = 'position:fixed;inset:0;z-index:100;margin:auto'; }
+  return d;
+};
+
+/* ---------- clipboard ---------- */
+W4.copy = async function(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+  }catch(e){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;';
+    (document.querySelector('dialog[open]') || document.body).appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+};
+
+/* Step 1 of the bridge: show the words you’re about to send, let you edit, copy. */
+W4.send = function(text, opt){
+  opt = opt || {};
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
+    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
+    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <div class="row end">
+      <button class="btn ghost" data-a="close">Close</button>
+      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
+      <button class="btn primary" data-a="copy">Copy</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea');
+  ta.value = text;
+  d.querySelector('[data-a="copy"]').onclick = async () => {
+    const ok = await W4.copy(ta.value);
+    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+  };
+  const sh = d.querySelector('[data-a="share"]');
+  if(sh) sh.onclick = async () => {
+    try{ await navigator.share({ text: ta.value }); d.done(); if(opt.onSent) opt.onSent(ta.value); }catch(e){}
+  };
+  return d;
+};
+
+/* Step 2 of the bridge: paste their reply back in. onText returns a string to show an error. */
+W4.receive = function(opt){
+  opt = opt || {};
+  const n = W4.names();
+  const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">From ${W4.esc(n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
+    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="err" role="alert" hidden></p>
+    <div class="row">
+      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      <span class="spacer"></span>
+      <button class="btn ghost" data-a="close">Cancel</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea'), err = d.querySelector('.err');
+  const clip = d.querySelector('[data-a="clip"]');
+  if(clip) clip.onclick = async () => {
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
+    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+  };
+  d.querySelector('[data-a="go"]').onclick = () => {
+    const t = ta.value.trim();
+    if(!t){ ta.focus(); return; }
+    const res = opt.onText(t);
+    if(typeof res === 'string'){ err.textContent = res; err.hidden = false; return; }
+    d.done();
+  };
+  if(!W4.coarse) setTimeout(() => ta.focus(), 60);
+  return d;
+};
+
+/* ---------- state in the URL (#hash is never sent to the server) ---------- */
+W4.enc = function(obj){
+  const b = new TextEncoder().encode(JSON.stringify(obj)); let s = '';
+  for(let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+W4.dec = function(str){
+  try{
+    let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+    while(s.length % 4) s += '=';
+    const bin = atob(s), b = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(b));
+  }catch(e){ return null; }
+};
+W4.params = function(){
+  const map = {};
+  const add = (k, v) => { k = k.toLowerCase().trim(); (map[k] = map[k] || []).push(v); };
+  try{ new URLSearchParams(location.search).forEach((v, k) => add(k, v)); }catch(e){}
+  const h = location.hash.replace(/^#/, '');
+  if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
+  return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
+};
+/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
+W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
+W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
+
+/* ---------- the forgiving reader ---------- */
+/* Companions decorate. They add **bold**, emoji, *smiles softly*, quotes. We let them. */
+W4.clean = function(s){
+  s = String(s == null ? '' : s).replace(/\r/g, '').replace(/\*\*|__/g, '');
+  s = s.replace(/^[\s*_~`]+|[\s*_~`]+$/g, '');
+  const q = s.match(/^["“”'‘’「『«]([\s\S]*)["“”'‘’」』»]$/);
+  if(q) s = q[1];
+  return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+};
+W4.stripActions = s => String(s || '')
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
+  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+/* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
+W4.fields = function(text, spec){
+  const out = {}; let cur = null;
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const keyOf = label => {
+    const l = norm(label);
+    if(!l || l.length > 28) return null;
+    for(const k in spec) for(const syn of spec[k]){
+      if(l === syn || l.startsWith(syn + ' ') || l.endsWith(' ' + syn)) return k;
+    }
+    return null;
+  };
+  const lines = String(text || '').replace(/\r/g, '').split('\n');
+  for(const raw of lines){
+    const line = raw.replace(/^[\s>•·▪◦*+\-–—#]+/, '').replace(/^(?:\p{Extended_Pictographic}|️|‍|⃣)+\s*/u, '');
+    const m = line.match(/^([^:：\n]{1,30}?)\s*[:：]\s*(.*)$/);
+    if(m){
+      const k = keyOf(m[1]);
+      if(k){ cur = k; out[k] = out[k] ? out[k] + '\n' + m[2] : m[2]; continue; }
+      if(/^\p{L}[\p{L} ']{0,22}$/u.test(norm(m[1]))){ cur = null; continue; }
+    }
+    if(!line.trim()){ if(cur && String(out[cur]).trim()) cur = null; continue; }
+    if(cur) out[cur] += (String(out[cur]).trim() ? '\n' : '') + line.trim();
+  }
+  for(const k in out){ out[k] = W4.clean(out[k]); if(!out[k]) delete out[k]; }
+  return out;
+};
+/* One short value: the labelled line if there is one, else a quoted phrase, else the message itself. */
+W4.one = function(text, labels, max){
+  max = max || 160;
+  const f = W4.fields(text, { v: labels });
+  let v = f.v;
+  if(!v){
+    const q = String(text).match(/["“「『]([^"”」』\n]{2,240})["”」』]/);
+    v = q ? q[1] : W4.stripActions(text);
+  }
+  v = W4.clean(v).replace(/\s*\n\s*/g, ' ');
+  if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
+  return v;
+};
+/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+W4.detect = function(text){
+  const t = String(text || '');
+  const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
+  if(L('glass').test(t)) return 'window';
+  if(L('flake|snowflake').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
+  if(L('notes?|melody').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
+  return null;
+};
+
+/* ---------- sound (synthesised, nothing to download) ---------- */
+let actx = null, noiseBuf = null;
+W4.soundOn = () => W4.store.get('sound', true) !== false;
+W4.audio = function(){
+  if(!W4.soundOn()) return null;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return null;
+  if(!actx){ try{ actx = new AC(); }catch(e){ return null; } }
+  if(actx.state === 'suspended'){ try{ actx.resume(); }catch(e){} }
+  return actx;
+};
+W4.noise = function(ctx){
+  if(noiseBuf && noiseBuf.sampleRate === ctx.sampleRate) return noiseBuf;
+  const len = ctx.sampleRate * 2;
+  noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for(let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  return noiseBuf;
+};
+/* filtered-noise gesture: paper, breath, snow, wind */
+W4.whoosh = function(o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ dur:.5, freq:900, q:.7, gain:.16, type:'bandpass', attack:.04, sweep:0, delay:0 }, o || {});
+  const t = ctx.currentTime + o.delay;
+  const src = ctx.createBufferSource(); src.buffer = W4.noise(ctx); src.loop = true;
+  const f = ctx.createBiquadFilter(); f.type = o.type; f.Q.value = o.q;
+  f.frequency.setValueAtTime(o.freq, t);
+  if(o.sweep) f.frequency.exponentialRampToValueAtTime(o.sweep, t + o.dur);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(o.gain, t + o.attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+  src.connect(f); f.connect(g); g.connect(ctx.destination);
+  src.start(t, Math.random()); src.stop(t + o.dur + .05);
+};
+/* small bell: freqs in Hz, played as a little arpeggio */
+W4.chime = function(freqs, o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ gap:.09, gain:.1, decay:1.6 }, o || {});
+  const t0 = ctx.currentTime + .01;
+  [].concat(freqs).forEach((f, i) => {
+    const t = t0 + i * o.gap;
+    [[1, 1], [2.76, .26], [5.4, .08]].forEach(p => {
+      const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = f * p[0];
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(o.gain * p[1], t + .006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + o.decay / (.6 + p[0] * .4));
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + o.decay + .1);
+    });
+  });
+};
+
+/* ---------- fonts for canvas text ---------- */
+W4.fontsReady = async function(spec, text){
+  try{
+    if(document.fonts && document.fonts.load){
+      await Promise.race([document.fonts.load(spec, text || 'Aa'), new Promise(r => setTimeout(r, 2500))]);
+    }
+  }catch(e){}
+};
+
+/* ---------- save a canvas as an image (share sheet on phones) ---------- */
+W4.saveCanvas = function(canvas, filename){
+  canvas.toBlob(async blob => {
+    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    try{
+      const file = new File([blob], filename, { type:'image/png' });
+      if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+};
+W4.downloadText = function(text, filename, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/plain' }));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+};
+
+/* ---------- gentle background snowfall ---------- */
+W4.snowfall = function(canvas, o){
+  o = Object.assign({ density:1, speed:1, color:'255,255,255', alpha:1 }, o || {});
+  const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, last = performance.now();
+  const flakes = [];
+  const make = any => { const z = Math.random(); return { x: Math.random() * w, y: any ? Math.random() * h : -8, r: .6 + z * 2, z, vy: (12 + z * 34) * o.speed, ph: Math.random() * 6.28, sw: 6 + Math.random() * 16 }; };
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(w * h / 9000 * o.density);
+    while(flakes.length < n) flakes.push(make(true));
+    flakes.length = n;
+    if(W4.reduced) draw(last);
+  }
+  function draw(t){
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = 'rgb(' + o.color + ')';
+    for(const f of flakes){
+      f.y += f.vy * dt; f.ph += dt * (.5 + f.z);
+      if(f.y > h + 6) Object.assign(f, make(false));
+      ctx.globalAlpha = (.22 + f.z * .6) * o.alpha;
+      ctx.beginPath(); ctx.arc(f.x + Math.sin(f.ph) * f.sw * .35, f.y, f.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+  size(); addEventListener('resize', size);
+  if(!W4.reduced) raf = requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => {
+    cancelAnimationFrame(raf);
+    if(!document.hidden && !W4.reduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+};
+
+/* ---------- the top bar every game shares ---------- */
+const ICON = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+};
+W4.icon = ICON;
+W4.topbar = function(o){
+  o = o || {};
+  const bar = document.createElement('header');
+  bar.className = 'w4-top';
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+    <span class="w4-spacer"></span>${o.extra || ''}
+    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+  document.body.prepend(bar);
+  bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
+  const s = bar.querySelector('[data-a="sound"]');
+  s.onclick = () => {
+    const on = !W4.soundOn(); W4.store.set('sound', on); s.setAttribute('aria-pressed', String(on));
+    if(on) W4.chime([1046, 1568], { gain:.05 }); else if(actx && actx.suspend) actx.suspend();
+  };
+  return bar;
+};
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const $ = W4.$, TAU = Math.PI * 2;
+W4.topbar();
+
+/* ---------- the comb: two white-key octaves, C4 to C6 ---------- */
+const NAMES = ['C4','D4','E4','F4','G4','A4','B4','C5','D5','E5','F5','G5','A5','B5','C6'];
+const MIDI  = [60,62,64,65,67,69,71,72,74,76,77,79,81,83,84];
+const COLS = NAMES.length, MAX_ROWS = 64;
+
+/* ---------- carols in the public domain, written in this game’s notation ---------- */
+const PRESETS = [
+  { title: 'Jingle Bells', notes: 'E5 - E5 - E5 - - - | E5 - E5 - E5 - - - | E5 - G5 - C5 - - D5 | E5 - - - - - - - | F5 - F5 - F5 - - F5 | F5 - E5 - E5 - E5 E5 | E5 - D5 - D5 - E5 - | D5 - - - G5 - - -' },
+  { title: 'Silent Night', notes: 'G4 - - A4 G4 - | E4 - - - - - | G4 - - A4 G4 - | E4 - - - - - | D5 - - - D5 - | B4 - - - - - | C5 - - - C5 - | G4 - - - - -' },
+  { title: 'We Wish You a Merry Christmas', notes: 'G4 - | C5 - C5 D5 C5 B4 | A4 - A4 - A4 - | D5 - D5 E5 D5 C5 | B4 - G4 - G4 - | E5 - E5 F5 E5 D5 | C5 - A4 - G4 G4 | A4 - D5 - B4 - | C5 - - - - -' },
+  { title: 'Auld Lang Syne', notes: 'G4 - | C5 - - C5 C5 - E5 - | D5 - - C5 D5 - E5 - | C5 - - C5 E5 - G5 - | A5 - - - - - - -' }
+];
+
+/* ---------- state ---------- */
+let S = W4.store.get('musicbox', null) || { rows: 32, holes: [], title: '', by: '', mode: '' };
+let holes = new Map(S.holes.map(h => [h[0] + ',' + h[1], h[2]]));
+const save = () => { S.holes = [...holes].map(([k, v]) => { const [r, c] = k.split(',').map(Number); return [r, c, v]; }); W4.store.set('musicbox', S); };
+const rowNotes = (r, who) => { const out = []; for(let c = 0; c < COLS; c++){ const v = holes.get(r + ',' + c); if(v && (!who || v === who)) out.push(c); } return out; };
+const lastRow = who => { let m = -1; for(const [k, v] of holes){ if(!who || v === who){ const r = +k.split(',')[0]; if(r > m) m = r; } } return m; };
+
+/* ======================================================================
+   Sound: a small steel comb, plucked
+   ====================================================================== */
+let master = null, masterCtx = null;
+function audio(){
+  const ctx = W4.audio(); if(!ctx) return null;
+  if(masterCtx !== ctx){
+    masterCtx = ctx;
+    master = ctx.createGain(); master.gain.value = .42;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 7500;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 3;
+    const verb = ctx.createConvolver(), wet = ctx.createGain(); wet.gain.value = .3;
+    const len = ctx.sampleRate * 2.4, ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for(let ch = 0; ch < 2; ch++){ const d = ir.getChannelData(ch); for(let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6); }
+    verb.buffer = ir;
+    master.connect(lp); lp.connect(comp); lp.connect(verb); verb.connect(wet); wet.connect(comp); comp.connect(ctx.destination);
+  }
+  return ctx;
+}
+function pluck(col, when, vel){
+  const ctx = audio(); if(!ctx) return;
+  const t = Math.max(ctx.currentTime + .005, when || 0), f = 440 * Math.pow(2, (MIDI[col] + 12 - 69) / 12);
+  const len = 1.25 - col / COLS * .55;
+  for(const [m, a, d] of [[1, .5, 2.4], [2, .12, .8], [3.01, .04, .45], [6.27, .06, .14]]){
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = f * m;
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(a * (vel || 1), t + .004); g.gain.exponentialRampToValueAtTime(.0001, t + d * len);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + d * len + .05);
+  }
+}
+function punchSound(){ W4.whoosh({ dur: .05, freq: 2600, q: 1.5, gain: .1, attack: .002 }); }
+
+/* ======================================================================
+   Drawing the box: brass comb on top, the paper strip feeding up under it
+   ====================================================================== */
+const cv = $('#strip'), g = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1, M = 0, ML = 0, colW = 0, rowH = 26, playY = 0;
+let pos = -.7;                 // the strip position, in rows; row r sits on the comb when pos === r
+const teeth = Array.from({ length: COLS }, () => ({ t: -9, who: 'me' }));
+function size(){
+  const r = cv.getBoundingClientRect(); DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = r.width; H = r.height; cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  ML = 18; colW = (W - ML * 2) / COLS; rowH = W4.clamp(colW * 1.05, 22, 30); M = 92; playY = M + 8;
+}
+function roundRect(x, y, w, h, r){ g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function draw(now){
+  g.setTransform(DPR, 0, 0, DPR, 0, 0);
+  g.fillStyle = '#1a0f0a'; g.fillRect(0, 0, W, H);
+  // the strip
+  const top = M - 14;
+  const paper = g.createLinearGradient(ML - 8, 0, W - ML + 8, 0);
+  paper.addColorStop(0, '#e9dcc2'); paper.addColorStop(.08, '#f7eedc'); paper.addColorStop(.92, '#f7eedc'); paper.addColorStop(1, '#e6d7bb');
+  const endY = playY + (S.rows - pos) * rowH;
+  g.fillStyle = paper; g.fillRect(ML - 8, top, W - ML * 2 + 16, Math.min(H, endY + rowH * .5) - top);
+  const r0 = Math.max(0, Math.floor(pos - (playY - top) / rowH) - 1), r1 = Math.min(S.rows - 1, Math.ceil(pos + (H - playY) / rowH) + 1);
+  // columns
+  g.strokeStyle = 'rgba(120,85,50,.13)'; g.lineWidth = 1;
+  for(let c = 0; c <= COLS; c++){ const x = ML + c * colW; g.beginPath(); g.moveTo(x, top); g.lineTo(x, Math.min(H, endY)); g.stroke(); }
+  // rows, beats, the line between your phrase and theirs
+  const theirStart = firstRow('them');
+  for(let r = r0; r <= r1 + 1; r++){
+    const y = playY + (r - pos) * rowH - rowH / 2;
+    if(y > H || y < top - rowH) continue;
+    g.strokeStyle = r % 4 === 0 ? 'rgba(120,85,50,.28)' : 'rgba(120,85,50,.1)';
+    g.beginPath(); g.moveTo(ML, y); g.lineTo(W - ML, y); g.stroke();
+    if(r === theirStart && r > 0){
+      g.save(); g.setLineDash([5, 5]); g.strokeStyle = 'rgba(226,120,140,.7)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(ML, y); g.lineTo(W - ML, y); g.stroke(); g.restore();
+    }
+    // sprocket holes
+    if(r < S.rows){ g.fillStyle = '#2a1a12'; roundRect(ML - 6, y + rowH * .32, 4, rowH * .36, 2); g.fill(); roundRect(W - ML + 2, y + rowH * .32, 4, rowH * .36, 2); g.fill(); }
+  }
+  // the row under the comb glows while playing
+  if(playing || cranking){ const gr = g.createLinearGradient(0, playY - rowH, 0, playY + rowH); gr.addColorStop(0, 'rgba(255,200,120,0)'); gr.addColorStop(.5, 'rgba(255,200,120,.22)'); gr.addColorStop(1, 'rgba(255,200,120,0)'); g.fillStyle = gr; g.fillRect(ML, playY - rowH, W - ML * 2, rowH * 2); }
+  // holes
+  const hr = Math.min(colW, rowH) * .33;
+  for(let r = r0; r <= r1; r++){
+    const y = playY + (r - pos) * rowH;
+    for(let c = 0; c < COLS; c++){
+      const who = holes.get(r + ',' + c); if(!who) continue;
+      const x = ML + (c + .5) * colW;
+      const lit = Math.abs(r - pos) < .5 && (playing || cranking);
+      const me = who === 'me';
+      g.fillStyle = me ? '#efa94a' : '#ea8a9c';
+      if(lit){ g.save(); g.shadowColor = me ? 'rgba(255,190,90,.95)' : 'rgba(240,140,160,.95)'; g.shadowBlur = 14; }
+      g.beginPath(); g.arc(x, y, hr + 3.6, 0, TAU); g.fill();
+      if(lit) g.restore();
+      g.strokeStyle = 'rgba(255,255,255,.45)'; g.lineWidth = 1; g.beginPath(); g.arc(x, y, hr + 3.1, Math.PI * 1.1, Math.PI * 1.9); g.stroke();
+      const hg = g.createRadialGradient(x, y - hr * .45, hr * .1, x, y, hr);
+      hg.addColorStop(0, '#120804'); hg.addColorStop(1, me ? '#5a3410' : '#5a2430');
+      g.fillStyle = hg; g.beginPath(); g.arc(x, y, hr, 0, TAU); g.fill();
+    }
+  }
+  // end of the strip
+  if(endY < H){
+    g.fillStyle = '#1a0f0a'; g.beginPath(); g.moveTo(ML - 8, endY);
+    for(let x = ML - 8; x <= W - ML + 8; x += 8) g.lineTo(x, endY + (x / 8 % 2 ? 4 : -2));
+    g.lineTo(W - ML + 8, H); g.lineTo(ML - 8, H); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(246,236,216,.4)'; g.font = '600 13px Nunito, sans-serif'; g.textAlign = 'center';
+    if(endY + 30 < H) g.fillText('end of the strip', W / 2, endY + 30);
+  }
+  // shadow the comb casts on the paper
+  let sh = g.createLinearGradient(0, M - 8, 0, M + 26); sh.addColorStop(0, 'rgba(30,15,5,.55)'); sh.addColorStop(1, 'rgba(30,15,5,0)');
+  g.fillStyle = sh; g.fillRect(0, M - 8, W, 34);
+  // brass plate
+  const plate = g.createLinearGradient(0, 0, 0, M - 30);
+  plate.addColorStop(0, '#f2d48e'); plate.addColorStop(.45, '#c99a4a'); plate.addColorStop(1, '#8a6226');
+  g.fillStyle = plate; roundRect(4, 4, W - 8, M - 34, 10); g.fill();
+  g.strokeStyle = 'rgba(255,240,200,.5)'; g.lineWidth = 1; g.beginPath(); g.moveTo(14, 5.5); g.lineTo(W - 14, 5.5); g.stroke();
+  for(const sx of [16, W - 16]){ g.fillStyle = '#7a5520'; g.beginPath(); g.arc(sx, (M - 30) / 2 + 4, 4.5, 0, TAU); g.fill(); g.strokeStyle = 'rgba(255,230,180,.6)'; g.beginPath(); g.moveTo(sx - 3, (M - 30) / 2 + 4); g.lineTo(sx + 3, (M - 30) / 2 + 4); g.stroke(); }
+  // teeth (longer for low notes), plucked teeth shiver
+  const tNow = now / 1000;
+  for(let c = 0; c < COLS; c++){
+    const x = ML + (c + .5) * colW, base = M - 30 - (COLS - 1 - c) * 1.2, tip = playY - 3;
+    const age = tNow - teeth[c].t, wob = age < 1.2 ? Math.sin(age * 95) * 2.6 * Math.exp(-age * 6) : 0;
+    const tw = colW * .5;
+    const tg = g.createLinearGradient(x - tw / 2, 0, x + tw / 2, 0);
+    tg.addColorStop(0, '#9a9488'); tg.addColorStop(.45, '#f2efe6'); tg.addColorStop(1, '#8a857a');
+    g.fillStyle = tg;
+    g.beginPath(); g.moveTo(x - tw / 2, base); g.lineTo(x + tw / 2, base); g.lineTo(x + tw * .36 + wob, tip); g.lineTo(x - tw * .36 + wob, tip); g.closePath(); g.fill();
+    if(age < .6){
+      const a = 1 - age / .6, col = teeth[c].who === 'me' ? '255,190,100' : '240,140,165';
+      const gr = g.createRadialGradient(x + wob, tip, 0, x + wob, tip, colW * 1.2);
+      gr.addColorStop(0, `rgba(${col},${.75 * a})`); gr.addColorStop(1, `rgba(${col},0)`);
+      g.fillStyle = gr; g.fillRect(x - colW * 1.2, tip - colW * 1.2, colW * 2.4, colW * 2.4);
+    }
+  }
+  // the comb’s bar and note names
+  const bar = g.createLinearGradient(0, M - 46, 0, M - 26); bar.addColorStop(0, '#d8d3c8'); bar.addColorStop(1, '#8f897d');
+  g.fillStyle = bar; roundRect(ML - 6, M - 44, W - ML * 2 + 12, 16, 4); g.fill();
+  g.fillStyle = '#4a3a2a'; g.font = `700 ${Math.max(8.5, Math.min(11, colW * .44))}px Nunito, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+  for(let c = 0; c < COLS; c++) g.fillText(NAMES[c][0] + (NAMES[c][0] === 'C' ? NAMES[c][1] : ''), ML + (c + .5) * colW, M - 36);
+  g.textBaseline = 'alphabetic';
+}
+function firstRow(who){ let m = Infinity; for(const [k, v] of holes){ if(v === who){ const r = +k.split(',')[0]; if(r < m) m = r; } } return m === Infinity ? -1 : m; }
+
+/* ======================================================================
+   Playing: by the crank (your speed) or by the play button (steady)
+   ====================================================================== */
+let playing = false, cranking = false, t0 = 0, p0 = 0, nextRow = 0, crankAngle = 0;
+const stepDur = () => 30 / +$('#tempo').value;      // one step is an eighth note
+function endRow(){ return Math.max(lastRow() + 2, 8); }
+function sounding(r){ const cols = rowNotes(r); if(!cols.length) return; const ctx = audio(); for(const c of cols){ teeth[c].t = performance.now() / 1000; teeth[c].who = holes.get(r + ',' + c); if(ctx) pluck(c, 0, cols.length > 2 ? .7 : 1); } }
+function play(){
+  if(playing){ stop(); return; }
+  if(lastRow() < 0){ W4.toast('Punch a few holes first — or load a carol'); return; }
+  audio();
+  if(pos > endRow() - 1) pos = -.7;
+  playing = true; t0 = performance.now() / 1000; p0 = pos; nextRow = Math.ceil(pos);
+  setPlayIcon();
+}
+function stop(){ playing = false; setPlayIcon(); }
+function setPlayIcon(){
+  $('#playIcon').innerHTML = playing ? '<rect x="7" y="6" width="3.6" height="12" rx="1"/><rect x="13.4" y="6" width="3.6" height="12" rx="1"/>' : '<path d="M8 5.5v13l10.5-6.5z"/>';
+  $('#play').setAttribute('aria-label', playing ? 'Pause' : 'Play');
+}
+function tick(now){
+  if(playing){
+    const t = now / 1000, ctx = audio(), sd = stepDur();
+    pos = p0 + (t - t0) / sd;
+    // schedule a little ahead so the timing stays even
+    while(nextRow <= endRow() && p0 + ((t + .09) - t0) / sd >= nextRow){
+      const at = t0 + (nextRow - p0) * sd, cols = rowNotes(nextRow);
+      if(ctx) for(const c of cols) pluck(c, ctx.currentTime + Math.max(0, at - t), cols.length > 2 ? .7 : 1);
+      const r = nextRow; setTimeout(() => { for(const c of rowNotes(r)){ teeth[c].t = performance.now() / 1000; teeth[c].who = holes.get(r + ',' + c); } }, Math.max(0, (at - t) * 1000));
+      nextRow++;
+    }
+    if(pos > endRow()){
+      if($('#loop').getAttribute('aria-pressed') === 'true'){ pos = -.7; t0 = t; p0 = pos; nextRow = 0; }
+      else { stop(); pos = endRow(); setTimeout(() => { if(!playing) glide(-.7); }, 900); }
+    }
+    crankAngle = pos / 4 * TAU; setCrank();
+  }
+  draw(now);
+  requestAnimationFrame(tick);
+}
+function glide(to){
+  const from = pos, start = performance.now();
+  const step = now => { if(playing || cranking || dragging) return; const k = Math.min(1, (now - start) / 900), e = 1 - Math.pow(1 - k, 3); pos = from + (to - from) * e; if(k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+/* the crank */
+const crank = $('#crank');
+function setCrank(){ $('#crankArm').style.transform = `rotate(${crankAngle}rad)`; crank.setAttribute('aria-valuenow', String(Math.max(0, Math.round(pos)))); }
+let ca = null;
+crank.addEventListener('pointerdown', e => {
+  crank.setPointerCapture(e.pointerId); audio(); stop();
+  const r = crank.getBoundingClientRect();
+  ca = { cx: r.left + r.width / 2, cy: r.top + r.height / 2, a: Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) };
+  cranking = true;
+});
+crank.addEventListener('pointermove', e => {
+  if(!ca) return;
+  const a = Math.atan2(e.clientY - ca.cy, e.clientX - ca.cx);
+  let d = a - ca.a; if(d > Math.PI) d -= TAU; if(d < -Math.PI) d += TAU;
+  ca.a = a; turn(d);
+});
+const endCrank = () => { ca = null; cranking = false; };
+crank.addEventListener('pointerup', endCrank); crank.addEventListener('pointercancel', endCrank);
+crank.addEventListener('keydown', e => { if(e.key === 'ArrowRight' || e.key === 'ArrowUp'){ e.preventDefault(); cranking = true; turn(TAU / 4); setTimeout(() => cranking = false, 300); } if(e.key === 'ArrowLeft' || e.key === 'ArrowDown'){ e.preventDefault(); turn(-TAU / 4); } });
+function turn(d){
+  const before = pos;
+  crankAngle += d; pos = Math.max(-.7, Math.min(S.rows, pos + d / TAU * 4));
+  if(pos > before){ for(let r = Math.floor(before) + 1; r <= Math.floor(pos); r++) if(r >= 0) sounding(r); }
+  setCrank();
+}
+
+/* punching and scrolling the strip */
+let dragging = null;
+cv.addEventListener('pointerdown', e => {
+  cv.setPointerCapture(e.pointerId);
+  const r = cv.getBoundingClientRect();
+  dragging = { y0: e.clientY, x: e.clientX - r.left, y: e.clientY - r.top, p0: pos, moved: false, t: performance.now() };
+});
+cv.addEventListener('pointermove', e => {
+  if(!dragging) return;
+  const dy = e.clientY - dragging.y0;
+  if(Math.abs(dy) > 6) dragging.moved = true;
+  if(dragging.moved){ stop(); pos = Math.max(-1.5, Math.min(S.rows - 1, dragging.p0 - dy / rowH)); }
+});
+cv.addEventListener('pointerup', () => {
+  const d = dragging; dragging = null;
+  if(!d || d.moved) return;
+  if(d.y < M - 6) return;
+  const c = Math.floor((d.x - ML) / colW), r = Math.round((d.y - playY) / rowH + pos);
+  if(c < 0 || c >= COLS || r < 0 || r >= S.rows) return;
+  const k = r + ',' + c;
+  if(holes.get(k) === 'them'){ pluck(c, 0, .8); teeth[c].t = performance.now() / 1000; teeth[c].who = 'them'; return; }
+  if(holes.get(k) === 'me') holes.delete(k);
+  else { holes.set(k, 'me'); punchSound(); pluck(c, 0, .8); teeth[c].t = performance.now() / 1000; teeth[c].who = 'me'; }
+  if(!S.title || S.by === 'preset'){ S.title = ''; S.by = ''; }
+  save(); label();
+});
+cv.addEventListener('pointercancel', () => { dragging = null; });
+
+/* ======================================================================
+   Notes ↔ words
+   ====================================================================== */
+function parseOne(s){
+  const m = s.match(/^([A-Ga-g])([#♯b♭]?)(\d)?$/); if(!m) return null;
+  let i = 'CDEFGAB'.indexOf(m[1].toUpperCase()), oct = m[3] ? +m[3] : 5;
+  if(m[2] === '#' || m[2] === '♯'){ i++; if(i > 6){ i = 0; oct++; } }
+  if(m[2] === 'b' || m[2] === '♭'){ i--; if(i < 0){ i = 6; oct--; } }
+  let n = (oct - 4) * 7 + i;
+  while(n < 0) n += 7; while(n > 14) n -= 7;
+  return n;
+}
+function parseNotes(text){
+  const f = W4.fields(text, { notes: ['notes', 'note', 'melody', 'tune', 'phrase', 'answer', 'music', 'my answer', 'reply'], title: ['title', 'name', 'song', 'called', 'tune name'] });
+  const labelled = !!f.notes, body = f.notes || String(text);
+  const steps = [];
+  for(let tok of body.replace(/[|,;/]+/g, ' ').split(/\s+/)){
+    tok = tok.replace(/^[(\[{"“]+|[)\]}"”:]+$/g, '');
+    if(!tok) continue;
+    if(/^(-|–|—|_|\.|·|rest|r|x|~|0)$/i.test(tok)){ steps.push([]); continue; }
+    const m = tok.match(/^([^-–—_~]+)([-–—_~]*)$/);
+    if(!m) continue;
+    const parts = m[1].split(/[+&]/);
+    if(!labelled && !parts.every(p => /^[A-Ga-g][#♯b♭]?\d$/.test(p))) continue;
+    const ns = parts.map(parseOne).filter(n => n !== null);
+    if(!ns.length) continue;
+    steps.push([...new Set(ns)]);
+    for(let i = 0; i < m[2].length; i++) steps.push([]);
+  }
+  return { steps, title: f.title || '' };
+}
+function phraseText(who){
+  const end = lastRow(who); if(end < 0) return '';
+  const len = Math.min(MAX_ROWS, Math.ceil((end + 1) / 4) * 4), toks = [];
+  for(let r = 0; r < len; r++){ const ns = rowNotes(r, who); toks.push(ns.length ? ns.map(c => NAMES[c]).join('+') : '-'); }
+  const groups = []; for(let i = 0; i < toks.length; i += 4) groups.push(toks.slice(i, i + 4).join(' '));
+  return { text: groups.join(' | '), steps: len };
+}
+function placeTheirs(steps){
+  for(const k of [...holes.keys()]) if(holes.get(k) === 'them') holes.delete(k);
+  const mine = lastRow('me');
+  let start = mine < 0 ? 0 : Math.ceil((mine + 1) / 4) * 4;
+  if(start + steps.length > MAX_ROWS) start = Math.max(0, MAX_ROWS - steps.length);
+  steps.slice(0, MAX_ROWS - start).forEach((ns, i) => { for(const c of ns){ const k = (start + i) + ',' + c; if(!holes.has(k)) holes.set(k, 'them'); } });
+  S.rows = Math.min(MAX_ROWS, Math.max(32, Math.ceil((start + steps.length + 2) / 16) * 16));
+  return start;
+}
+const RULES = 'Use notes from C4 to C6, white keys only (C D E F G A B with an octave number, like E5), one step per note, “-” for a rest or to hold, and “+” to play two at once (C4+E4).';
+function askAnswer(){
+  const p = phraseText('me');
+  if(!p){ W4.toast('Punch your phrase first — tap the strip'); return; }
+  S.mode = 'answer'; save();
+  W4.send(`🎶 Let’s play “Music Box Duet.”
+I punched a little melody into a music-box strip. Answer it with a melody of your own — like a reply, but in notes.
+
+My phrase (${p.steps} steps, “-” is a rest):
+${p.text}
+
+Your turn: 8–32 steps. ${RULES}
+Reply like this:
+Title: (a name for our tune)
+Notes: E5 G5 - C5 …`, { title: 'Send them your phrase' });
+}
+function askMystery(){
+  S.mode = 'mystery'; save();
+  W4.send(`🎶 Music Box Duet — guess-the-tune round.
+Pick a song we’d both know (a Christmas carol is perfect) and write its first 16–32 notes for my music box. Don’t tell me the name — I’ll listen and guess.
+If it needs sharps or flats, move it into C major so it fits. ${RULES}
+Reply like this:
+Title: ???
+Notes: E5 - E5 - E5 - - - …`, { title: 'Ask for a mystery carol' });
+}
+function askLullaby(){
+  S.mode = 'lullaby'; save();
+  W4.send(`🎶 Music Box Duet — write me a winter lullaby.
+Compose a small melody of your own for my music box: 16–32 steps, slow and simple, the kind you’d hum to someone who can’t sleep. ${RULES}
+Reply like this:
+Title: (what it’s called)
+Notes: G4 - E5 - D5 C5 - - …`, { title: 'Ask for a lullaby' });
+}
+function receive(text){
+  const { steps, title } = parseNotes(text);
+  if(steps.filter(s => s.length).length < 2) return 'I couldn’t find their notes — look for a line that starts with “Notes:” (like E5 G5 - C5).';
+  const n = W4.names();
+  if(S.mode === 'mystery' || /^\?+$/.test(title.trim())){ for(const k of [...holes.keys()]) holes.delete(k); }
+  const start = placeTheirs(steps);
+  const mystery = S.mode === 'mystery' || /^\?+$/.test(title.trim());
+  S.title = mystery ? '???' : (title || 'a tune for two'); S.by = mystery ? 'mystery' : 'duet';
+  $('#guess').hidden = !mystery;
+  save(); label();
+  stop(); pos = Math.max(-.7, start - 1.7); glide(start - .7);
+  W4.toast(mystery ? 'A mystery tune — press play and guess ✦' : `${n.themName || 'They'} answered — press play ✦`);
+  setTimeout(() => { $('#play').classList.add('pulse'); }, 300);
+  scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+}
+function label(){
+  const n = W4.names(), me = n.meName || 'you', them = n.themName || 'your companion';
+  const hasMe = lastRow('me') >= 0, hasThem = lastRow('them') >= 0;
+  $('#title').textContent = S.title === '???' ? '♪ ??? — a mystery tune' : '♪ ' + (S.title || (hasMe || hasThem ? 'an untitled tune' : 'an empty strip'));
+  $('#credit').textContent = S.title === '???' ? `from ${them} — guess it by ear` : hasMe && hasThem ? `by ${me} & ${them}` : hasThem ? `by ${them}` : hasMe ? (S.by === 'preset' ? 'traditional · on your strip' : `by ${me} — waiting for an answer`) : 'punch a few holes to begin';
+  $('#kMe').textContent = n.meName ? W4.poss(n.meName) + ' holes' : 'your holes';
+  $('#kThem').textContent = n.themName ? W4.poss(n.themName) + ' holes' : 'their holes';
+  $('#bTitle').textContent = `Play it with ${n.themName || 'them'}`;
+  $('#paste').textContent = n.themName ? `Paste ${W4.poss(n.themName)} notes` : 'Paste their notes';
+}
+
+/* ---------- buttons ---------- */
+$('#play').onclick = () => { $('#play').classList.remove('pulse'); play(); };
+$('#loop').onclick = () => { const b = $('#loop'); b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true')); };
+$('#askAnswer').onclick = askAnswer;
+$('#askMystery').onclick = askMystery;
+$('#askLullaby').onclick = askLullaby;
+$('#paste').onclick = () => W4.receive({ title: 'Paste their notes', tip: 'Paste their whole reply. The game reads <b>Notes:</b> (like E5 G5 - C5) and <b>Title:</b>.', placeholder: 'Title: Snow on the Harbour\nNotes: G4 - C5 E5 | D5 - C5 - | …', go: 'Punch them in', onText: receive });
+$('#guessGo').onclick = () => {
+  const v = $('#guessIn').value.trim(); if(!v){ $('#guessIn').focus(); return; }
+  W4.send(`🎶 I listened to your mystery tune on my music box — a few times, honestly.\nMy guess: “${v}”.\nWas I right?`, { title: 'Send your guess' });
+};
+$('#clearMine').onclick = () => { for(const k of [...holes.keys()]) if(holes.get(k) === 'me') holes.delete(k); if(S.by === 'preset'){ S.title = ''; S.by = ''; } save(); label(); };
+$('#clearTheirs').onclick = () => { for(const k of [...holes.keys()]) if(holes.get(k) === 'them') holes.delete(k); if(S.by !== 'preset'){ S.title = ''; S.by = ''; } $('#guess').hidden = true; save(); label(); };
+$('#longer').onclick = () => { if(S.rows >= MAX_ROWS){ W4.toast('That’s as long as a strip gets (64 steps)'); return; } S.rows = Math.min(MAX_ROWS, S.rows + 16); save(); glide(S.rows - 10); };
+const pr = $('#presets');
+PRESETS.forEach(p => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'btn small'; b.textContent = p.title;
+  b.onclick = () => {
+    holes.clear();
+    const { steps } = parseNotes('Notes: ' + p.notes);
+    steps.forEach((ns, r) => ns.forEach(c => holes.set(r + ',' + c, 'me')));
+    S.rows = Math.min(MAX_ROWS, Math.max(32, Math.ceil(steps.length / 16) * 16)); S.title = p.title; S.by = 'preset'; S.mode = '';
+    $('#guess').hidden = true; save(); label(); stop(); glide(-.7);
+    setTimeout(play, 500);
+  };
+  pr.append(b);
+});
+
+/* ---------- start ---------- */
+size(); label();
+addEventListener('resize', () => { clearTimeout(size.t); size.t = setTimeout(size, 120); });
+W4.onNames(label);
+const incoming = W4.pasted() || (W4.params().get('notes') ? 'Title: ' + (W4.params().get('title') || '') + '\nNotes: ' + W4.params().get('notes') : null);
+if(incoming){ W4.clearURL(); setTimeout(() => { const r = receive(incoming); if(typeof r === 'string') W4.toast(r); }, 300); }
+else if(S.title === '???') $('#guess').hidden = false;
+requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

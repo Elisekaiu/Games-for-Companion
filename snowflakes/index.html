@@ -1,0 +1,1131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Snowflakes from Words · Winter, for Two</title>
+<meta name="description" content="Every sentence freezes into a snowflake no one else has. You and your AI companion trade words; the page grows them into crystals.">
+<meta name="theme-color" content="#140b0d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E❄️%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:ital,wght@0,400..800;1,400..700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Special+Elite&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap">
+<style data-shared="base.css">
+/* Winter, for Two — shared styles ("fireside": cocoa, candlelight, honey, rose, cream paper).
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+:root{
+  --bg-0:#110a07;
+  --bg-1:#1b120d;
+  --bg-2:#271a13;
+  --bg-3:#352319;
+  --line:rgba(255,226,194,.13);
+  --line-2:rgba(255,226,194,.25);
+  --glass:rgba(255,236,214,.065);
+  --glass-2:rgba(255,236,214,.12);
+  --ink:#fcf1e3;
+  --ink-2:#e6d1b9;
+  --ink-3:#b39a83;
+  --gold:#f3bf68;      /* honey */
+  --gold-2:#e29a45;
+  --ember:#ec7f4c;
+  --berry:#d05866;     /* cranberry */
+  --pine:#6a9a76;
+  --rose:#ec9fab;
+  --cream:#f8ecdb;
+  --me:#f3b55e;        /* the human's colour: honey */
+  --them:#ee9cab;      /* the companion's colour: rose */
+  --paper:#f7ebd7;
+  --paper-ink:#3d2c20;
+  --serif:"Fraunces","Noto Serif TC","Songti TC",Georgia,serif;
+  --sans:"Nunito","Noto Sans TC","PingFang TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","LXGW WenKai TC","Kaiti TC",cursive;
+  --r:22px;
+  --shadow:0 24px 60px -26px rgba(0,0,0,.85);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  background:var(--bg-1);
+  background-image:radial-gradient(120% 70% at 50% -10%,rgba(236,140,72,.16) 0%,rgba(236,140,72,0) 60%),radial-gradient(90% 60% at 50% 110%,rgba(208,88,102,.10) 0%,rgba(208,88,102,0) 70%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;overflow-x:hidden;overflow-x:clip}
+button,input,textarea,select{font:inherit;color:inherit}
+a{color:var(--gold)}
+img,svg,canvas{display:block}
+::selection{background:rgba(243,191,104,.38)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:12px}
+[hidden]{display:none!important}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* warm grain, opt in with <body class="grain"> */
+body.grain::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:.22;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .92 0 0 0 0 .8 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--hand);font-size:23px;line-height:1;color:var(--gold);font-weight:600;margin:0;letter-spacing:.01em}
+.display{font-family:var(--serif);font-weight:400;letter-spacing:-.012em;line-height:1.06;margin:0;font-optical-sizing:auto}
+.muted{color:var(--ink-3)}
+.hand{font-family:var(--hand)}
+
+/* ---------- top bar ---------- */
+.w4-top{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;gap:8px;padding:12px 14px;padding-top:max(12px,env(safe-area-inset-top));pointer-events:none}
+.w4-top>*{pointer-events:auto}
+.w4-home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;color:var(--ink-2);font-size:14px;font-weight:600;height:40px;padding:0 15px 0 11px;border-radius:999px;background:rgba(30,19,13,.62);border:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s}
+.w4-home:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-home svg{width:16px;height:16px;opacity:.85}
+.w4-spacer{flex:1}
+.w4-icon{width:40px;height:40px;flex:none;border-radius:999px;border:1px solid var(--line);background:rgba(30,19,13,.62);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;color:var(--ink-2);padding:0;transition:color .2s,border-color .2s}
+.w4-icon:hover{color:var(--ink);border-color:var(--line-2)}
+.w4-icon svg{width:18px;height:18px}
+.w4-icon[aria-pressed="false"]{color:var(--ink-3)}
+.w4-icon[aria-pressed="false"] .on{display:none}
+.w4-icon[aria-pressed="true"] .off{display:none}
+
+/* ---------- buttons ---------- */
+.btn{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);min-height:46px;padding:10px 19px;border-radius:999px;font-size:15.5px;font-weight:700;letter-spacing:.005em;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;white-space:nowrap;transition:transform .15s ease,background .2s,border-color .2s,opacity .2s,box-shadow .2s;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.btn:hover{background:var(--glass-2);border-color:var(--line-2)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.primary{background:linear-gradient(180deg,#f9d28d,#eaa24d);color:#3a2208;border-color:rgba(255,226,170,.55);box-shadow:0 12px 28px -14px rgba(236,150,60,.95),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn.primary:hover{background:linear-gradient(180deg,#fbdc9f,#efad5a)}
+.btn.rose{background:linear-gradient(180deg,#f5b5bf,#e28796);color:#3d1219;border-color:rgba(255,210,216,.5);box-shadow:0 12px 28px -14px rgba(226,120,140,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn.ghost{background:transparent;border-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none}
+.btn.ghost:hover{background:var(--glass)}
+.btn.small{min-height:38px;padding:6px 14px;font-size:14.5px}
+.btn.round{width:46px;padding:0}
+.btn.small.round{width:38px}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.42;pointer-events:none}
+
+.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.row.end{justify-content:flex-end}
+.row.center{justify-content:center}
+.stack{display:flex;flex-direction:column;gap:12px}
+.spacer{flex:1}
+
+/* ---------- fields ---------- */
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field>label,.label{font-size:14px;font-weight:700;color:var(--ink-2)}
+.field .sub,.label .sub{font-weight:400;color:var(--ink-3)}
+.input{width:100%;background:rgba(255,238,218,.06);border:1px solid var(--line);border-radius:16px;padding:12px 15px;font-size:16px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;color:var(--ink)}
+.input::placeholder{color:rgba(230,209,185,.42)}
+.input:focus{border-color:rgba(243,191,104,.7);background:rgba(255,238,218,.09);box-shadow:0 0 0 4px rgba(243,191,104,.12)}
+textarea.input{resize:vertical;min-height:90px;line-height:1.45;display:block}
+.count{font-size:12.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+
+.swatches{display:flex;flex-wrap:wrap;gap:10px}
+.swatch{width:42px;height:42px;border-radius:50%;border:2px solid rgba(255,236,214,.16);cursor:pointer;padding:0;position:relative;background-size:cover;transition:transform .15s,border-color .2s,box-shadow .2s;flex:none}
+.swatch:hover{transform:scale(1.07)}
+.swatch[aria-checked="true"]{border-color:var(--cream);box-shadow:0 0 0 3px rgba(243,191,104,.5)}
+
+/* ---------- panels ---------- */
+.panel{background:linear-gradient(180deg,rgba(255,236,214,.08),rgba(255,236,214,.035));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.paper-card{background:var(--paper);color:var(--paper-ink);border-radius:6px 6px 10px 10px;box-shadow:0 18px 40px -20px rgba(0,0,0,.9),inset 0 0 0 1px rgba(90,60,30,.12)}
+
+/* ---------- sheets (dialogs) ---------- */
+dialog.w4-sheet{border:0;padding:0;margin:auto;background:transparent;color:var(--ink);max-width:min(560px,calc(100vw - 24px));width:100%;max-height:calc(100dvh - 24px);overflow:visible}
+dialog.w4-sheet::backdrop{background:rgba(12,6,3,.6);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+dialog.w4-sheet[open]{animation:w4-rise .34s cubic-bezier(.2,.9,.3,1.15)}
+.w4-sheet-in{background:radial-gradient(120% 60% at 50% 0%,rgba(236,140,72,.14),rgba(236,140,72,0) 70%),linear-gradient(180deg,#2e1f17,#22160f);border:1px solid var(--line-2);border-radius:26px;padding:22px 20px 18px;box-shadow:0 40px 90px -30px rgba(0,0,0,.95);max-height:calc(100dvh - 24px);overflow:auto;display:flex;flex-direction:column;gap:14px}
+.w4-sheet-in h3{font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.15;margin:0}
+.w4-sheet-in p{margin:0}
+.w4-sheet-in textarea.input{min-height:180px;font-size:15px}
+.w4-sheet .tip{font-size:14px;color:var(--ink-3);line-height:1.45}
+.w4-sheet .tip b{color:var(--ink-2);font-weight:700}
+.w4-sheet .err{font-size:14px;color:#ffb8a6}
+@keyframes w4-rise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- toast ---------- */
+.w4-toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,16px);opacity:0;z-index:120;background:#fbefdc;color:#3a2410;padding:12px 19px;border-radius:999px;font-size:15px;font-weight:700;box-shadow:0 16px 40px -12px rgba(0,0,0,.75);pointer-events:none;transition:opacity .25s,transform .3s cubic-bezier(.2,.9,.3,1.2);max-width:calc(100vw - 32px);text-align:center}
+.w4-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* a gentle "look here" */
+.pulse{animation:w4-pulse 2.4s ease-in-out infinite}
+@keyframes w4-pulse{0%,100%{box-shadow:0 0 0 0 rgba(243,191,104,0)}50%{box-shadow:0 0 0 7px rgba(243,191,104,.22)}}
+
+/* ---------- the three-step bridge ---------- */
+.bridge{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.who-me{color:var(--me)}
+.who-them{color:var(--them)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+<style>
+  body{background:#0e0809;
+    background-image:radial-gradient(ellipse 90% 60% at 50% 28%,#341d24 0%,#1c1014 48%,#0e0809 100%),radial-gradient(70% 40% at 50% 100%,rgba(236,127,76,.12),rgba(236,127,76,0));
+    background-attachment:fixed}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  #fall{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;pointer-events:none}
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:76px 16px 60px;display:grid;gap:22px;grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"intro" "viewer" "compose" "bridge" "gallery"}
+  .intro{grid-area:intro}.viewer{grid-area:viewer}.compose{grid-area:compose}.bridge-card{grid-area:bridge}.gallery{grid-area:gallery;margin-top:10px}
+  @media (min-width:900px){
+    .wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);column-gap:40px;row-gap:18px;padding-top:96px;
+      grid-template-areas:"viewer intro" "viewer compose" "viewer bridge" "viewer ." "gallery gallery";grid-template-rows:auto auto auto 1fr auto}
+    .intro h1{font-size:46px}
+  }
+  .viewer{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .flake-box{position:relative;width:min(92vw,58vh,560px);aspect-ratio:1}
+  #flake{width:100%;height:100%;cursor:pointer}
+  .tag{position:relative;margin-top:-6px;background:#f6ead4;color:#3a2a1e;border-radius:4px 4px 8px 8px;padding:16px 20px 15px;width:min(88vw,400px);
+    box-shadow:0 16px 40px -18px rgba(0,0,0,.9),inset 0 0 0 1px rgba(80,60,30,.12);transform:rotate(-1.2deg);font-family:"Special Elite","Courier New",monospace}
+  .tag::before{content:"";position:absolute;top:10px;left:14px;width:9px;height:9px;border-radius:50%;background:#1c1014;box-shadow:inset 0 1px 2px rgba(0,0,0,.6)}
+  .tag .no{font-size:12.5px;letter-spacing:.08em;display:flex;justify-content:space-between;gap:10px;padding-left:16px;color:#6d5a44}
+  .tag .words{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.3;margin:10px 0 8px;color:#2b2119;word-break:break-word}
+  .tag .meta{font-size:12px;color:#7a6650;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .tag .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px}
+  .intro h1{font-size:clamp(30px,8vw,40px)}
+  .intro p{margin:10px 0 0;color:var(--ink-2);max-width:42ch;font-size:15.5px}
+  .compose{padding:18px}
+  .compose .input{font-family:var(--serif);font-size:19px;padding:14px 16px}
+  .compose .hint{font-size:13px;color:var(--ink-3);margin:8px 2px 0;display:flex;justify-content:space-between;gap:10px}
+  .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .bridge-card{padding:18px}
+  .bridge-card h2{font-family:var(--serif);font-weight:500;font-size:20px;margin:0 0 4px}
+  .bridge-card p{margin:0 0 14px;color:var(--ink-3);font-size:14px}
+  .gallery h2{font-family:var(--serif);font-weight:400;font-size:26px;margin:0}
+  .gallery .sub{color:var(--ink-3);font-size:14px;margin:4px 0 16px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+  .thumb{appearance:none;border:1px solid var(--line);background:rgba(255,236,214,.04);border-radius:16px;padding:8px 8px 10px;cursor:pointer;color:var(--ink-2);text-align:left;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,background .2s,transform .2s}
+  .thumb:hover{border-color:var(--line-2);background:rgba(255,236,214,.08);transform:translateY(-2px)}
+  .thumb[aria-current="true"]{border-color:rgba(243,197,111,.6)}
+  .thumb canvas{width:100%;aspect-ratio:1}
+  .thumb span{font-family:var(--serif);font-style:italic;font-size:13px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .thumb i{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+  .empty{color:var(--ink-3);font-size:14px;border:1px dashed var(--line);border-radius:16px;padding:22px;text-align:center}
+</style>
+</head>
+<body>
+<canvas id="fall" aria-hidden="true"></canvas>
+<main class="wrap">
+  <section class="viewer" aria-label="The current snowflake">
+    <div class="flake-box"><canvas id="flake" role="img" aria-label="A snowflake grown from words"></canvas></div>
+    <div class="tag" id="tag" aria-live="polite">
+      <div class="no"><span id="tagNo">No. ————</span><span id="tagHabit">—</span></div>
+      <div class="words" id="tagWords">Whisper something to the cold…</div>
+      <div class="meta"><span id="tagBy"></span><span id="tagDate"></span></div>
+    </div>
+  </section>
+
+    <div class="intro">
+      <p class="eyebrow">snowflakes from words</p>
+      <h1 class="display">Every sentence freezes differently.</h1>
+      <p>Each word grows a pair of branches. The same words always grow the same flake — so when they give you one, it’s yours exactly, forever.</p>
+    </div>
+
+    <div class="panel compose">
+      <label class="label" for="words">Your words</label>
+      <input id="words" class="input" maxlength="120" autocomplete="off" placeholder="whisper something to the cold…" style="margin-top:8px">
+      <div class="hint"><span id="hint">It grows as you type.</span><span class="count" id="count">0/120</span></div>
+      <div class="actions">
+        <button class="btn primary" id="catch" type="button">Catch it</button>
+        <button class="btn" id="sendMine" type="button">Send it to them</button>
+        <button class="btn small round" id="card" type="button" title="Save as a card" aria-label="Save as a card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg></button>
+      </div>
+    </div>
+
+    <section class="panel bridge-card" aria-labelledby="bridgeTitle">
+      <h2 id="bridgeTitle">Their flakes</h2>
+      <p id="bridgeSub">Ask for one sentence. Paste what they send. Then grow a flake from both of your words.</p>
+      <div class="bridge">
+        <button class="btn primary" id="ask" type="button">Ask for a flake</button>
+        <button class="btn" id="paste" type="button">Paste their flake</button>
+        <button class="btn" id="join" type="button" disabled>Join two flakes</button>
+        <button class="btn small" id="melt" type="button" hidden>Let it melt</button>
+      </div>
+    </section>
+
+  <section class="gallery" aria-labelledby="gTitle">
+    <h2 id="gTitle">Your snowfall</h2>
+    <p class="sub" id="gSub">Flakes you catch are kept in this browser. Tap one to look again.</p>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<script data-shared="bridge.js">
+/* Winter, for Two — the bridge.
+   You play with your hands; your companion plays with words. These helpers carry
+   words across: an invitation you copy to your companion, their reply pasted back
+   in (read forgivingly), and a few things kept in this browser. No dependencies,
+   no servers, no tracking.
+   Source of truth for the block inlined into every page by tools/inline-shared.py.
+   Edit here, then run:  python3 tools/inline-shared.py */
+(function(){
+'use strict';
+const W4 = window.W4 = {};
+const NS = 'w4t:';
+
+W4.games = {
+  'window':    { path:'window/',     title:'The Other Side of the Glass' },
+  'snowflakes':{ path:'snowflakes/', title:'Snowflakes from Words' },
+  'gifts':     { path:'gifts/',      title:'Impossible Gifts' },
+  'music-box': { path:'music-box/',  title:'Music Box Duet' },
+  'star-jar':  { path:'star-jar/',   title:'A Jar of Small Stars' },
+  'cracker':   { path:'cracker/',    title:'Pull a Cracker' }
+};
+
+/* ---------- storage: never throws (private windows, blocked storage) ---------- */
+W4.store = {
+  get(k, d){ try{ const v = localStorage.getItem(NS + k); return v === null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(NS + k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(NS + k); }catch(e){} }
+};
+
+/* ---------- small helpers ---------- */
+W4.$ = (s, r) => (r || document).querySelector(s);
+W4.$$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+W4.esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+W4.cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+W4.poss = s => s + '’s';
+W4.clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+W4.reduced = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+W4.coarse = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+W4.date = d => new Date(d || Date.now()).toLocaleDateString(undefined, { day:'numeric', month:'short', year:'numeric' });
+W4.uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+W4.pick = a => a[Math.floor(Math.random() * a.length)];
+W4.here = () => location.href.split('#')[0].split('?')[0];
+W4.home = () => new URL('../', W4.here()).href;
+
+/* ---------- names ---------- */
+W4.names = function(){
+  const me = String(W4.store.get('me', '') || '').trim();
+  const them = String(W4.store.get('them', '') || '').trim();
+  return { me: me || 'you', them: them || 'your companion', Them: them || 'Your companion', meName: me, themName: them };
+};
+W4.onNames = cb => document.addEventListener('w4:names', cb);
+W4.editNames = function(onDone){
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">Who’s playing</p>
+    <h3>Two names, that’s all</h3>
+    <p class="tip">Used for the little labels and the messages you send. They stay in this browser.</p>
+    <div class="field"><label for="w4-me">You</label><input id="w4-me" class="input" maxlength="24" autocomplete="nickname" placeholder="your name"></div>
+    <div class="field"><label for="w4-them">Your companion</label><input id="w4-them" class="input" maxlength="24" autocomplete="off" placeholder="their name"></div>
+    <div class="row end"><button class="btn ghost" data-a="close">Cancel</button><button class="btn primary" data-a="save">Save</button></div>
+  </div>`);
+  const me = d.querySelector('#w4-me'), them = d.querySelector('#w4-them');
+  me.value = n.meName; them.value = n.themName;
+  d.querySelector('[data-a="save"]').onclick = () => {
+    W4.store.set('me', me.value.trim()); W4.store.set('them', them.value.trim());
+    d.done(); document.dispatchEvent(new CustomEvent('w4:names'));
+    if(onDone) onDone();
+  };
+  return d;
+};
+
+/* ---------- toast ---------- */
+let toastEl = null, toastTimer = 0;
+W4.toast = function(msg, ms){
+  if(!toastEl){
+    toastEl = document.createElement('div');
+    toastEl.className = 'w4-toast'; toastEl.setAttribute('role', 'status'); toastEl.setAttribute('aria-live', 'polite');
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), ms || 2800);
+};
+
+/* ---------- sheets (modal dialogs) ---------- */
+W4.sheet = function(html, cls){
+  const d = document.createElement('dialog');
+  d.className = 'w4-sheet' + (cls ? ' ' + cls : '');
+  d.innerHTML = html;
+  document.body.appendChild(d);
+  let gone = false;
+  const cleanup = () => { if(!gone){ gone = true; d.remove(); if(d.onDone) d.onDone(); } };
+  d.done = () => { if(typeof d.close === 'function' && d.open) d.close(); else cleanup(); };
+  d.addEventListener('close', () => setTimeout(cleanup, 30));
+  d.addEventListener('click', e => {
+    if(e.target === d) d.done();
+    else if(e.target.closest('[data-a="close"]')) d.done();
+  });
+  if(typeof d.showModal === 'function') d.showModal();
+  else { d.setAttribute('open', ''); d.style.cssText = 'position:fixed;inset:0;z-index:100;margin:auto'; }
+  return d;
+};
+
+/* ---------- clipboard ---------- */
+W4.copy = async function(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); return true; }
+  }catch(e){}
+  try{
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;';
+    (document.querySelector('dialog[open]') || document.body).appendChild(ta);
+    ta.focus(); ta.select(); ta.setSelectionRange(0, text.length);
+    const ok = document.execCommand('copy'); ta.remove(); return ok;
+  }catch(e){ return false; }
+};
+
+/* Step 1 of the bridge: show the words you’re about to send, let you edit, copy. */
+W4.send = function(text, opt){
+  opt = opt || {};
+  const n = W4.names();
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">${W4.esc(opt.eyebrow || 'For ' + n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Send this to ' + n.them)}</h3>
+    <p class="tip">${opt.tip || 'Copy it into your chat with them. Change any words you like first — it’s your voice.'}</p>
+    <textarea class="input" spellcheck="false" aria-label="Message to send"></textarea>
+    <div class="row end">
+      <button class="btn ghost" data-a="close">Close</button>
+      ${navigator.share && W4.coarse ? '<button class="btn" data-a="share">Share…</button>' : ''}
+      <button class="btn primary" data-a="copy">Copy</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea');
+  ta.value = text;
+  d.querySelector('[data-a="copy"]').onclick = async () => {
+    const ok = await W4.copy(ta.value);
+    if(ok){ d.done(); W4.toast(opt.copied || 'Copied — now paste it to ' + n.them + ' ✦'); if(opt.onSent) opt.onSent(ta.value); }
+    else { ta.focus(); ta.select(); W4.toast('Your browser blocked copying — select the text and copy it'); }
+  };
+  const sh = d.querySelector('[data-a="share"]');
+  if(sh) sh.onclick = async () => {
+    try{ await navigator.share({ text: ta.value }); d.done(); if(opt.onSent) opt.onSent(ta.value); }catch(e){}
+  };
+  return d;
+};
+
+/* Step 2 of the bridge: paste their reply back in. onText returns a string to show an error. */
+W4.receive = function(opt){
+  opt = opt || {};
+  const n = W4.names();
+  const canRead = !!(navigator.clipboard && navigator.clipboard.readText && window.isSecureContext);
+  const d = W4.sheet(`<div class="w4-sheet-in">
+    <p class="eyebrow">From ${W4.esc(n.them)}</p>
+    <h3>${W4.esc(opt.title || 'Paste ' + W4.poss(n.them) + ' reply')}</h3>
+    <p class="tip">${opt.tip || 'Paste their whole message — extra words around it are fine.'}</p>
+    <textarea class="input" spellcheck="false" placeholder="${W4.esc(opt.placeholder || '')}" aria-label="Their reply"></textarea>
+    <p class="err" role="alert" hidden></p>
+    <div class="row">
+      ${canRead ? '<button class="btn small" data-a="clip">Paste from clipboard</button>' : ''}
+      <span class="spacer"></span>
+      <button class="btn ghost" data-a="close">Cancel</button>
+      <button class="btn primary" data-a="go">${W4.esc(opt.go || 'Open it')}</button>
+    </div>
+  </div>`);
+  const ta = d.querySelector('textarea'), err = d.querySelector('.err');
+  const clip = d.querySelector('[data-a="clip"]');
+  if(clip) clip.onclick = async () => {
+    try{ const t = await navigator.clipboard.readText(); if(t && t.trim()) ta.value = t; else W4.toast('The clipboard is empty'); }
+    catch(e){ W4.toast('Your browser said no — long-press the box and choose Paste'); }
+  };
+  d.querySelector('[data-a="go"]').onclick = () => {
+    const t = ta.value.trim();
+    if(!t){ ta.focus(); return; }
+    const res = opt.onText(t);
+    if(typeof res === 'string'){ err.textContent = res; err.hidden = false; return; }
+    d.done();
+  };
+  if(!W4.coarse) setTimeout(() => ta.focus(), 60);
+  return d;
+};
+
+/* ---------- state in the URL (#hash is never sent to the server) ---------- */
+W4.enc = function(obj){
+  const b = new TextEncoder().encode(JSON.stringify(obj)); let s = '';
+  for(let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+};
+W4.dec = function(str){
+  try{
+    let s = String(str).replace(/-/g, '+').replace(/_/g, '/');
+    while(s.length % 4) s += '=';
+    const bin = atob(s), b = new Uint8Array(bin.length);
+    for(let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i);
+    return JSON.parse(new TextDecoder().decode(b));
+  }catch(e){ return null; }
+};
+W4.params = function(){
+  const map = {};
+  const add = (k, v) => { k = k.toLowerCase().trim(); (map[k] = map[k] || []).push(v); };
+  try{ new URLSearchParams(location.search).forEach((v, k) => add(k, v)); }catch(e){}
+  const h = location.hash.replace(/^#/, '');
+  if(h.includes('=')){ try{ new URLSearchParams(h).forEach((v, k) => add(k, v)); }catch(e){} }
+  return { get: k => (map[k] || [])[0], all: k => map[k] || [], has: k => k in map, any: () => Object.keys(map).length > 0 };
+};
+/* A reply routed here from the hub’s “paste anything” box arrives as #paste=… */
+W4.pasted = function(){ const v = W4.params().get('paste'); const t = v ? W4.dec(v) : null; return typeof t === 'string' ? t : null; };
+W4.clearURL = function(){ try{ history.replaceState(null, '', location.pathname); }catch(e){} };
+W4.link = function(obj){ return W4.here() + '#' + new URLSearchParams(obj).toString(); };
+
+/* ---------- the forgiving reader ---------- */
+/* Companions decorate. They add **bold**, emoji, *smiles softly*, quotes. We let them. */
+W4.clean = function(s){
+  s = String(s == null ? '' : s).replace(/\r/g, '').replace(/\*\*|__/g, '');
+  s = s.replace(/^[\s*_~`]+|[\s*_~`]+$/g, '');
+  const q = s.match(/^["“”'‘’「『«]([\s\S]*)["“”'‘’」』»]$/);
+  if(q) s = q[1];
+  return s.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+};
+W4.stripActions = s => String(s || '')
+  .replace(/(^|\s)\*[^*\n]{1,140}\*(?=\s|$|[.,!?])/g, ' ')
+  .replace(/(^|\s)\([^()\n]{1,140}\)(?=\s|$)/g, ' ');
+/* Read “Label: value” lines. spec = { key: ['label', 'synonym', …] } */
+W4.fields = function(text, spec){
+  const out = {}; let cur = null;
+  const norm = s => s.toLowerCase().replace(/[*_`~#>\[\]()"“”]/g, '').replace(/\s+/g, ' ').trim();
+  const keyOf = label => {
+    const l = norm(label);
+    if(!l || l.length > 28) return null;
+    for(const k in spec) for(const syn of spec[k]){
+      if(l === syn || l.startsWith(syn + ' ') || l.endsWith(' ' + syn)) return k;
+    }
+    return null;
+  };
+  const lines = String(text || '').replace(/\r/g, '').split('\n');
+  for(const raw of lines){
+    const line = raw.replace(/^[\s>•·▪◦*+\-–—#]+/, '').replace(/^(?:\p{Extended_Pictographic}|️|‍|⃣)+\s*/u, '');
+    const m = line.match(/^([^:：\n]{1,30}?)\s*[:：]\s*(.*)$/);
+    if(m){
+      const k = keyOf(m[1]);
+      if(k){ cur = k; out[k] = out[k] ? out[k] + '\n' + m[2] : m[2]; continue; }
+      if(/^\p{L}[\p{L} ']{0,22}$/u.test(norm(m[1]))){ cur = null; continue; }
+    }
+    if(!line.trim()){ if(cur && String(out[cur]).trim()) cur = null; continue; }
+    if(cur) out[cur] += (String(out[cur]).trim() ? '\n' : '') + line.trim();
+  }
+  for(const k in out){ out[k] = W4.clean(out[k]); if(!out[k]) delete out[k]; }
+  return out;
+};
+/* One short value: the labelled line if there is one, else a quoted phrase, else the message itself. */
+W4.one = function(text, labels, max){
+  max = max || 160;
+  const f = W4.fields(text, { v: labels });
+  let v = f.v;
+  if(!v){
+    const q = String(text).match(/["“「『]([^"”」』\n]{2,240})["”」』]/);
+    v = q ? q[1] : W4.stripActions(text);
+  }
+  v = W4.clean(v).replace(/\s*\n\s*/g, ' ');
+  if([...v].length > max){ v = [...v].slice(0, max).join('').replace(/\s+\S*$/, '') + '…'; }
+  return v;
+};
+/* Which game is a pasted reply for? (Used by the hub’s “paste anything” box.) */
+W4.detect = function(text){
+  const t = String(text || '');
+  const L = w => new RegExp('(^|\\n)[\\s>*_#•\\-–—]*(?:\\p{Extended_Pictographic}|\\uFE0F)*\\s*\\**(?:' + w + ')\\**\\s*[:：]', 'iu');
+  if(L('glass').test(t)) return 'window';
+  if(L('flake|snowflake').test(t)) return 'snowflakes';
+  if(L('inside|rattle|wrapping|paper').test(t)) return 'gifts';
+  if(L('notes?|melody').test(t)) return 'music-box';
+  if(L('punchline|grip|trinket|crown').test(t)) return 'cracker';
+  if(/(^|\n)\s*[★⭐☆✦✧🌟]/u.test(t)) return 'star-jar';
+  return null;
+};
+
+/* ---------- sound (synthesised, nothing to download) ---------- */
+let actx = null, noiseBuf = null;
+W4.soundOn = () => W4.store.get('sound', true) !== false;
+W4.audio = function(){
+  if(!W4.soundOn()) return null;
+  const AC = window.AudioContext || window.webkitAudioContext;
+  if(!AC) return null;
+  if(!actx){ try{ actx = new AC(); }catch(e){ return null; } }
+  if(actx.state === 'suspended'){ try{ actx.resume(); }catch(e){} }
+  return actx;
+};
+W4.noise = function(ctx){
+  if(noiseBuf && noiseBuf.sampleRate === ctx.sampleRate) return noiseBuf;
+  const len = ctx.sampleRate * 2;
+  noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+  const d = noiseBuf.getChannelData(0);
+  for(let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+  return noiseBuf;
+};
+/* filtered-noise gesture: paper, breath, snow, wind */
+W4.whoosh = function(o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ dur:.5, freq:900, q:.7, gain:.16, type:'bandpass', attack:.04, sweep:0, delay:0 }, o || {});
+  const t = ctx.currentTime + o.delay;
+  const src = ctx.createBufferSource(); src.buffer = W4.noise(ctx); src.loop = true;
+  const f = ctx.createBiquadFilter(); f.type = o.type; f.Q.value = o.q;
+  f.frequency.setValueAtTime(o.freq, t);
+  if(o.sweep) f.frequency.exponentialRampToValueAtTime(o.sweep, t + o.dur);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(o.gain, t + o.attack);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + o.dur);
+  src.connect(f); f.connect(g); g.connect(ctx.destination);
+  src.start(t, Math.random()); src.stop(t + o.dur + .05);
+};
+/* small bell: freqs in Hz, played as a little arpeggio */
+W4.chime = function(freqs, o){
+  const ctx = W4.audio(); if(!ctx) return;
+  o = Object.assign({ gap:.09, gain:.1, decay:1.6 }, o || {});
+  const t0 = ctx.currentTime + .01;
+  [].concat(freqs).forEach((f, i) => {
+    const t = t0 + i * o.gap;
+    [[1, 1], [2.76, .26], [5.4, .08]].forEach(p => {
+      const osc = ctx.createOscillator(); osc.type = 'sine'; osc.frequency.value = f * p[0];
+      const g = ctx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(o.gain * p[1], t + .006);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + o.decay / (.6 + p[0] * .4));
+      osc.connect(g); g.connect(ctx.destination); osc.start(t); osc.stop(t + o.decay + .1);
+    });
+  });
+};
+
+/* ---------- fonts for canvas text ---------- */
+W4.fontsReady = async function(spec, text){
+  try{
+    if(document.fonts && document.fonts.load){
+      await Promise.race([document.fonts.load(spec, text || 'Aa'), new Promise(r => setTimeout(r, 2500))]);
+    }
+  }catch(e){}
+};
+
+/* ---------- save a canvas as an image (share sheet on phones) ---------- */
+W4.saveCanvas = function(canvas, filename){
+  canvas.toBlob(async blob => {
+    if(!blob){ W4.toast('Couldn’t make the image'); return; }
+    try{
+      const file = new File([blob], filename, { type:'image/png' });
+      if(W4.coarse && navigator.canShare && navigator.canShare({ files:[file] })){ await navigator.share({ files:[file] }); return; }
+    }catch(e){ if(e && e.name === 'AbortError') return; }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }, 'image/png');
+};
+W4.downloadText = function(text, filename, type){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type: type || 'text/plain' }));
+  a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+};
+
+/* ---------- gentle background snowfall ---------- */
+W4.snowfall = function(canvas, o){
+  o = Object.assign({ density:1, speed:1, color:'255,255,255', alpha:1 }, o || {});
+  const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, last = performance.now();
+  const flakes = [];
+  const make = any => { const z = Math.random(); return { x: Math.random() * w, y: any ? Math.random() * h : -8, r: .6 + z * 2, z, vy: (12 + z * 34) * o.speed, ph: Math.random() * 6.28, sw: 6 + Math.random() * 16 }; };
+  function size(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.clientWidth; h = canvas.clientHeight;
+    canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round(w * h / 9000 * o.density);
+    while(flakes.length < n) flakes.push(make(true));
+    flakes.length = n;
+    if(W4.reduced) draw(last);
+  }
+  function draw(t){
+    const dt = Math.min(.05, (t - last) / 1000); last = t;
+    ctx.clearRect(0, 0, w, h); ctx.fillStyle = 'rgb(' + o.color + ')';
+    for(const f of flakes){
+      f.y += f.vy * dt; f.ph += dt * (.5 + f.z);
+      if(f.y > h + 6) Object.assign(f, make(false));
+      ctx.globalAlpha = (.22 + f.z * .6) * o.alpha;
+      ctx.beginPath(); ctx.arc(f.x + Math.sin(f.ph) * f.sw * .35, f.y, f.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+  const loop = t => { draw(t); raf = requestAnimationFrame(loop); };
+  size(); addEventListener('resize', size);
+  if(!W4.reduced) raf = requestAnimationFrame(loop);
+  document.addEventListener('visibilitychange', () => {
+    cancelAnimationFrame(raf);
+    if(!document.hidden && !W4.reduced){ last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+};
+
+/* ---------- the top bar every game shares ---------- */
+const ICON = {
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
+  people:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8.5" cy="8.5" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M2.8 19.5c.6-3.3 3-5.2 5.7-5.2s5.1 1.9 5.7 5.2M14.6 14.6c.6-.2 1.2-.3 1.9-.3 2.3 0 4.2 1.6 4.7 4.6"/></svg>',
+  bell:'<svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M12 3v2"/></svg>',
+  bellOff:'<svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16.5V11a6 6 0 0 1 9.6-4.8M18 11v5.5l1.5 1.5h-15"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/><path d="M4 4l16 16"/></svg>'
+};
+W4.icon = ICON;
+W4.topbar = function(o){
+  o = o || {};
+  const bar = document.createElement('header');
+  bar.className = 'w4-top';
+  bar.innerHTML = `<a class="w4-home" href="${o.home || '../'}">${ICON.back}<span>Winter, for Two</span></a>
+    <span class="w4-spacer"></span>${o.extra || ''}
+    <button class="w4-icon" type="button" data-a="names" aria-label="Who’s playing" title="Who’s playing">${ICON.people}</button>
+    <button class="w4-icon" type="button" data-a="sound" aria-label="Sound" title="Sound" aria-pressed="${W4.soundOn()}">${ICON.bell}${ICON.bellOff}</button>`;
+  document.body.prepend(bar);
+  bar.querySelector('[data-a="names"]').onclick = () => W4.editNames();
+  const s = bar.querySelector('[data-a="sound"]');
+  s.onclick = () => {
+    const on = !W4.soundOn(); W4.store.set('sound', on); s.setAttribute('aria-pressed', String(on));
+    if(on) W4.chime([1046, 1568], { gain:.05 }); else if(actx && actx.suspend) actx.suspend();
+  };
+  return bar;
+};
+})();
+</script>
+<script>
+(() => {
+'use strict';
+const $ = W4.$, TAU = Math.PI * 2, PI3 = Math.PI / 3;
+W4.topbar();
+
+/* ======================================================================
+   Words → crystal.  Deterministic: a hash of the words seeds everything,
+   so a sentence grows the same flake on every device, forever.
+   ====================================================================== */
+function cyrb128(str){
+  let h1 = 1779033703, h2 = 3144134277, h3 = 1013904242, h4 = 2773480762;
+  for(let i = 0, k; i < str.length; i++){
+    k = str.charCodeAt(i);
+    h1 = h2 ^ Math.imul(h1 ^ k, 597399067); h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+    h3 = h4 ^ Math.imul(h3 ^ k, 951274213); h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+  }
+  h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067); h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+  h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213); h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+  h1 ^= (h2 ^ h3 ^ h4); h2 ^= h1; h3 ^= h1; h4 ^= h1;
+  return [h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0];
+}
+function sfc32(a, b, c, d){
+  return () => { a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; let t = (a + b) | 0; a = b ^ (b >>> 9); b = (c + (c << 3)) | 0; c = (c << 21) | (c >>> 11); d = (d + 1) | 0; t = (t + d) | 0; c = (c + t) | 0; return (t >>> 0) / 4294967296; };
+}
+const lerp = (a, b, t) => a + (b - a) * t;
+const keyOf = s => String(s || '').normalize('NFC').toLowerCase().replace(/\s+/g, ' ').trim().replace(/[\s.!?…。！？,，~～]+$/u, '');
+function segment(text){
+  try{
+    if(window.Intl && Intl.Segmenter){
+      const w = [...new Intl.Segmenter(undefined, { granularity: 'word' }).segment(text)].filter(s => s.isWordLike).map(s => s.segment);
+      if(w.length) return w;
+    }
+  }catch(e){}
+  return String(text).split(/\s+/).filter(Boolean);
+}
+function groupWords(words, n){
+  if(words.length <= n) return words.slice();
+  const out = Array.from({ length: n }, () => '');
+  words.forEach((w, i) => { out[Math.floor(i * n / words.length)] += w; });
+  return out;
+}
+
+const HABITS = {
+  'stellar dendrite':  { c0:[.07,.12], w:.024, tip:'fern',  br:[.26,.52], twig:1,  plate:0 },
+  'fernlike dendrite': { c0:[.05,.09], w:.018, tip:'fern',  br:[.22,.44], twig:2,  plate:0 },
+  'stellar plate':     { c0:[.13,.21], w:.032, tip:'plate', br:[.1,.24],  twig:0,  plate:1 },
+  'sectored plate':    { c0:[.42,.6],  w:.03,  tip:'plate', br:[.05,.12], twig:0,  plate:2 },
+  'simple star':       { c0:[.1,.16],  w:.075, tip:'spear', br:[.06,.15], twig:0,  plate:0 },
+  'plate with arms':   { c0:[.2,.3],   w:.022, tip:'plate', br:[.14,.3],  twig:1,  plate:0 }
+};
+const Ln = (x1, y1, x2, y2, w0, w1, d0) => ({ k: 'L', x1, y1, x2, y2, w0, w1, t0: d0, t1: d0 + Math.hypot(x2 - x1, y2 - y1) });
+const Hx = (x, y, r, d0) => ({ k: 'H', x, y, r, t0: d0, t1: d0 + r * 1.6 });
+
+function design(text){
+  const key = keyOf(text) || '*';
+  const h = cyrb128('w4-flake|' + key), R = sfc32(h[0], h[1], h[2], h[3]);
+  const words = segment(String(text).trim()).slice(0, 16);
+  const nW = Math.max(1, words.length);
+  let habit; const r = R();
+  if(nW <= 2) habit = r < .45 ? 'sectored plate' : r < .85 ? 'stellar plate' : 'simple star';
+  else if(nW <= 5) habit = r < .3 ? 'stellar plate' : r < .55 ? 'plate with arms' : r < .82 ? 'stellar dendrite' : 'sectored plate';
+  else habit = r < .5 ? 'stellar dendrite' : r < .8 ? 'fernlike dendrite' : 'plate with arms';
+  const S = HABITS[habit], E = [];
+  const c0 = lerp(S.c0[0], S.c0[1], R()), W0 = S.w * (.85 + R() * .3), tipR = .92 + R() * .08;
+  E.push(S.tip === 'spear' ? Ln(c0 * .6, 0, tipR, 0, W0, W0 * .06, c0 * .6) : Ln(c0 * .8, 0, tipR, 0, W0, W0 * .42, c0 * .8));
+  // one pair of side branches per word (long sentences fold words together)
+  const nb = Math.min(8, nW), groups = groupWords(words.length ? words : [key], nb);
+  const start = (S.plate === 2 ? c0 * .92 : c0) + .06, end = S.tip === 'fern' ? .78 : .84;
+  let twigs = 0, plates = 0;
+  for(let i = 0; i < nb; i++){
+    const len = [...groups[i]].length;
+    const p = start + (end - start) * ((i + .5 + (R() - .5) * .5) / nb);
+    const f = Math.min(1, Math.pow(Math.max(0, len - 1) / 9, .7));
+    const Lb = lerp(S.br[0], S.br[1], f) * (1 - .5 * p) * (.85 + R() * .3);
+    const ang = (60 + (R() - .5) * 7) * Math.PI / 180, ca = Math.cos(ang), sa = Math.sin(ang);
+    const ex = p + ca * Lb, ey = sa * Lb;
+    E.push(Ln(p, 0, ex, ey, W0 * .62, W0 * .16, p));
+    if(S.twig){
+      const nt = S.twig === 2 ? Math.min(9, len + 2) : Math.min(5, Math.max(1, len - 1));
+      for(let j = 0; j < nt; j++){
+        const q = .24 + .68 * (j + .5) / nt, bx = p + ca * Lb * q, by = sa * Lb * q;
+        const tl = Lb * (.13 + R() * .2) * (1 - q * .55) * (S.twig === 2 ? .8 : 1);
+        E.push(Ln(bx, by, bx + tl, by, W0 * .3, W0 * .07, p + Lb * q)); twigs++;
+        if(R() < .7){ E.push(Ln(bx, by, bx - .5 * tl * .8, by + .866 * tl * .8, W0 * .28, W0 * .07, p + Lb * q)); twigs++; }
+      }
+    }
+    if(S.plate === 1 || (S.tip === 'plate' && S.twig && R() < .45)){ E.push(Hx(ex, ey, Lb * .3 + .014, p + Lb)); plates++; }
+  }
+  if(S.plate === 1){
+    const np = 1 + Math.floor(R() * 2);
+    for(let i = 0; i < np; i++){ const p = lerp(start, end, (i + 1) / (np + 1)); E.push(Hx(p, 0, .04 + R() * .035, p)); }
+  }
+  if(S.tip === 'plate'){ E.push(Hx(tipR, 0, .06 + R() * .06, tipR)); plates++; }
+  if(S.tip === 'fern') for(let j = 0; j < 6; j++){ const p = .79 + j * .027, tl = .11 * (1 - j / 6.5); E.push(Ln(p, 0, p + .5 * tl, .866 * tl, W0 * .34, W0 * .07, p)); twigs++; }
+  if(S.tip === 'spear'){ const p = .66 + R() * .1; E.push(Ln(p, 0, p + .05, .09, W0 * .3, W0 * .05, p)); }
+  if(S.plate === 2){ for(let i = 1; i <= nb; i++) E.push({ k: 'R', r: c0 * i / (nb + 1), t0: c0 * i / (nb + 1), t1: c0 * i / (nb + 1) + .1 }); }
+  let T = 0; for(const e of E) T = Math.max(T, e.t1);
+  const id = h[0].toString(16).toUpperCase().padStart(8, '0').slice(0, 4) + '·' + String(h[1] % 97).padStart(2, '0');
+  return { key, habit, E, T, c0, nb, twigs, plates, id, words: String(text).trim() };
+}
+
+/* ---------- drawing ---------- */
+const TINT = {
+  me:   { fill: 'rgba(255,232,200,.40)', line: 'rgba(255,249,236,.97)', glow: 'rgba(255,178,92,.68)', dot: '#f3b55e' },
+  them: { fill: 'rgba(255,220,226,.40)', line: 'rgba(255,246,247,.97)', glow: 'rgba(240,130,155,.66)', dot: '#ee9cab' },
+  both: { fill: 'rgba(255,228,214,.38)', line: 'rgba(255,248,242,.97)', glow: 'rgba(246,160,120,.6)', dot: '#f2a882' }
+};
+function hexPath(g, x, y, r, rot){
+  g.beginPath();
+  for(let i = 0; i < 6; i++){ const a = (rot || 0) + i * PI3; i ? g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r) : g.moveTo(x + Math.cos(a) * r, y + Math.sin(a) * r); }
+  g.closePath();
+}
+function drawArm(g, F, t, tint, px){
+  g.fillStyle = tint.fill; g.strokeStyle = tint.line; g.lineCap = 'round'; g.lineJoin = 'round';
+  for(const e of F.E){
+    const f = Math.min(1, (t - e.t0) / (e.t1 - e.t0)); if(f <= 0) continue;
+    if(e.k === 'L'){
+      const x2 = e.x1 + (e.x2 - e.x1) * f, y2 = e.y1 + (e.y2 - e.y1) * f;
+      const dx = x2 - e.x1, dy = y2 - e.y1, len = Math.hypot(dx, dy) || 1e-6, nx = -dy / len, ny = dx / len;
+      const a = e.w0 / 2, b = (e.w0 + (e.w1 - e.w0) * f) / 2;
+      g.beginPath(); g.moveTo(e.x1 + nx * a, e.y1 + ny * a); g.lineTo(x2 + nx * b, y2 + ny * b); g.lineTo(x2 - nx * b, y2 - ny * b); g.lineTo(e.x1 - nx * a, e.y1 - ny * a); g.closePath(); g.fill();
+      g.lineWidth = Math.max(px * .9, e.w0 * .22); g.beginPath(); g.moveTo(e.x1, e.y1); g.lineTo(x2, y2); g.stroke();
+    }else if(e.k === 'H'){
+      const r = e.r * f; hexPath(g, e.x, e.y, r); g.fill(); g.lineWidth = px * 1.1; g.stroke();
+      if(r > px * 6){ hexPath(g, e.x, e.y, r * .58); g.globalAlpha = .4; g.stroke(); g.globalAlpha = 1; }
+    }
+  }
+}
+function drawCenter(g, F, t, tint, px){
+  const f = Math.min(1, t / (F.c0 * 1.1 + .02)); if(f <= 0) return;
+  const r = F.c0 * f, rot = -Math.PI / 2;
+  g.fillStyle = tint.fill; g.strokeStyle = tint.line;
+  hexPath(g, 0, 0, r, rot); g.fill(); g.lineWidth = px * 1.2; g.stroke();
+  g.globalAlpha = .5; hexPath(g, 0, 0, r * .56, rot); g.stroke();
+  g.lineWidth = px * .8;
+  for(let i = 0; i < 6; i++){ const a = rot + i * PI3; g.beginPath(); g.moveTo(Math.cos(a) * r * .56, Math.sin(a) * r * .56); g.lineTo(Math.cos(a) * r, Math.sin(a) * r); g.stroke(); }
+  for(const e of F.E) if(e.k === 'R' && t > e.t0){ g.globalAlpha = .32 * Math.min(1, (t - e.t0) / .1); hexPath(g, 0, 0, e.r, rot); g.stroke(); }
+  g.globalAlpha = .9; g.beginPath(); g.arc(0, 0, Math.max(px * 1.5, r * .13), 0, TAU); g.stroke();
+  g.globalAlpha = 1;
+}
+/* Paint a flake (or a two-voice flake) at growth g∈[0,1] into ctx, size×size device px. */
+function paint(g, size, A, B, grow, voiceA, voiceB, spin){
+  const T = Math.max(A.T, B ? B.T : 0), t = grow * T, Rr = size * .46, px = 1 / Rr;
+  g.save(); g.translate(size / 2, size / 2); g.rotate(spin || 0); g.scale(Rr, Rr);
+  for(let k = 0; k < 6; k++){
+    const two = B && (k % 2), F = two ? B : A, tint = TINT[two ? voiceB : voiceA];
+    g.save(); g.rotate(-Math.PI / 2 + k * PI3);
+    drawArm(g, F, t, tint, px); g.scale(1, -1); drawArm(g, F, t, tint, px);
+    g.restore();
+  }
+  drawCenter(g, B ? joinCenter(A, B) : A, t, TINT[B ? 'both' : voiceA], px);
+  g.restore();
+}
+const centers = new Map();
+function joinCenter(A, B){
+  const k = A.key + '|' + B.key;
+  if(!centers.has(k)){ const c = design(A.words + ' ' + B.words); c.c0 = (A.c0 + B.c0) / 2; centers.set(k, c); }
+  return centers.get(k);
+}
+/* glow: a blurred, tinted copy laid under the crisp crystal */
+const small = document.createElement('canvas'), tiny = document.createElement('canvas');
+function glow(g, src, color, alpha){
+  const w = src.width, h = src.height;
+  small.width = Math.max(2, w >> 2); small.height = Math.max(2, h >> 2);
+  tiny.width = Math.max(2, w >> 3); tiny.height = Math.max(2, h >> 3);
+  const s = small.getContext('2d'), t = tiny.getContext('2d');
+  s.clearRect(0, 0, small.width, small.height); s.drawImage(src, 0, 0, small.width, small.height);
+  s.globalCompositeOperation = 'source-atop'; s.fillStyle = color; s.fillRect(0, 0, small.width, small.height); s.globalCompositeOperation = 'source-over';
+  t.clearRect(0, 0, tiny.width, tiny.height); t.drawImage(small, 0, 0, tiny.width, tiny.height);
+  g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = alpha; g.imageSmoothingQuality = 'high';
+  g.drawImage(tiny, 0, 0, w, h); g.globalAlpha = alpha * .8; g.drawImage(small, 0, 0, w, h);
+  g.restore();
+}
+function render(canvas, A, B, grow, voiceA, voiceB, spin){
+  const g = canvas.getContext('2d'), size = canvas.width;
+  const off = render.off || (render.off = document.createElement('canvas'));
+  off.width = off.height = size;
+  const o = off.getContext('2d'); o.clearRect(0, 0, size, size);
+  paint(o, size, A, B, grow, voiceA, voiceB, spin);
+  g.clearRect(0, 0, size, size);
+  glow(g, off, TINT[B ? 'both' : voiceA].glow, .9);
+  g.drawImage(off, 0, 0);
+}
+
+/* ======================================================================
+   The page
+   ====================================================================== */
+const cv = $('#flake'), input = $('#words');
+let flakes = W4.store.get('flakes', []);
+let cur = null;         // { words, by, words2?, id?, date }
+let anim = null, spin = 0, raf = 0, sparks = [];
+function sizeCanvas(){ const r = cv.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2); cv.width = cv.height = Math.round(r.width * dpr); }
+const still = document.createElement('canvas');
+
+function show(f, opts){
+  opts = opts || {};
+  cur = f;
+  const A = design(f.words), B = f.words2 ? design(f.words2) : null;
+  cur._A = A; cur._B = B;
+  anim = { t: opts.from || 0, dur: opts.dur || 1.6 };
+  if(W4.reduced) anim.t = 1;
+  updateTag();
+  updateButtons();
+  markCurrent();
+}
+function updateTag(){
+  const n = W4.names(), f = cur, A = f && f._A;
+  if(!f || !f.words){ $('#tagNo').textContent = 'No. ————'; $('#tagHabit').textContent = '—'; $('#tagWords').textContent = 'Whisper something to the cold…'; $('#tagBy').textContent = ''; $('#tagDate').textContent = ''; return; }
+  const B = f._B;
+  $('#tagNo').textContent = 'No. ' + (B ? joinCenter(A, B).id : A.id);
+  $('#tagHabit').textContent = B ? 'two-voice flake' : A.habit;
+  $('#tagWords').textContent = B ? `“${f.words}” + “${f.words2}”` : `“${f.words}”`;
+  const who = f.by === 'me' ? (n.meName || 'you') : f.by === 'them' ? (n.themName || 'your companion') : `${n.meName || 'you'} & ${n.themName || 'your companion'}`;
+  $('#tagBy').innerHTML = `<span class="dot" style="background:${TINT[f.by].dot}"></span>${f.by === 'both' ? 'grown by ' : 'caught by '}${W4.esc(who)}`;
+  $('#tagDate').textContent = f.demo ? 'an example — type your own' : f.date ? W4.date(f.date) : 'not caught yet';
+  cv.setAttribute('aria-label', `A ${B ? 'two-voice snowflake' : A.habit} grown from the words: ${f.words}${B ? ' and ' + f.words2 : ''}`);
+}
+function drawFlake(dt){
+  if(!cur) return;
+  if(!W4.reduced) spin += dt * .035;
+  const A = cur._A, B = cur._B;
+  if(anim && anim.t < 1){
+    anim.t = Math.min(1, anim.t + dt / anim.dur);
+    const e = 1 - Math.pow(1 - anim.t, 2.2);
+    render(cv, A, B, e, cur.by === 'both' ? 'me' : cur.by, 'them', spin);
+    if(anim.t >= 1){ still.width = still.height = cv.width; render(still, A, B, 1, cur.by === 'both' ? 'me' : cur.by, 'them', 0); }
+  }else{
+    const g = cv.getContext('2d'), s = cv.width;
+    g.clearRect(0, 0, s, s); g.save(); g.translate(s / 2, s / 2); g.rotate(spin); g.drawImage(still, -s / 2, -s / 2); g.restore();
+    drawSparks(g, s, dt);
+  }
+}
+function drawSparks(g, s, dt){
+  if(W4.reduced) return;
+  if(Math.random() < dt * 2.2 && cur){
+    const F = Math.random() < .5 || !cur._B ? cur._A : cur._B, e = W4.pick(F.E);
+    if(e.k === 'L' || e.k === 'H'){
+      const lx = e.k === 'L' ? e.x2 : e.x + e.r, ly = (e.k === 'L' ? e.y2 : e.y) * (Math.random() < .5 ? 1 : -1);
+      const a = -Math.PI / 2 + Math.floor(Math.random() * 6) * PI3 + spin, R = s * .46;
+      sparks.push({ x: s / 2 + R * (lx * Math.cos(a) - ly * Math.sin(a)), y: s / 2 + R * (lx * Math.sin(a) + ly * Math.cos(a)), life: 1 });
+    }
+  }
+  g.save(); g.globalCompositeOperation = 'lighter';
+  for(const p of sparks){
+    p.life -= dt * 1.1; if(p.life <= 0) continue;
+    const a = Math.sin(p.life * Math.PI), r = s * .018 * a;
+    g.strokeStyle = `rgba(255,255,255,${.85 * a})`; g.lineWidth = Math.max(1, s * .0018);
+    g.beginPath(); g.moveTo(p.x - r, p.y); g.lineTo(p.x + r, p.y); g.moveTo(p.x, p.y - r); g.lineTo(p.x, p.y + r); g.stroke();
+    const gr = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * .8); gr.addColorStop(0, `rgba(255,255,255,${.7 * a})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+    g.fillStyle = gr; g.fillRect(p.x - r, p.y - r, r * 2, r * 2);
+  }
+  sparks = sparks.filter(p => p.life > 0);
+  g.restore();
+}
+
+/* ---------- typing ---------- */
+let typeT = 0;
+input.addEventListener('input', () => {
+  $('#count').textContent = `${[...input.value].length}/120`;
+  clearTimeout(typeT);
+  typeT = setTimeout(() => {
+    const v = input.value.trim();
+    if(!v){ cur = null; still.width = still.height = cv.width; cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); updateTag(); updateButtons(); return; }
+    show({ words: v, by: 'me' }, { from: .25, dur: .7 });
+    const F = cur._A;
+    $('#hint').textContent = `${F.nb} ${F.nb === 1 ? 'word, one pair of branches' : 'words, ' + F.nb + ' pairs of branches'} · ${F.habit}`;
+  }, 160);
+});
+input.addEventListener('keydown', e => { if(e.key === 'Enter') $('#catch').click(); });
+
+/* ---------- collection ---------- */
+function save(f){
+  const k = keyOf(f.words) + '|' + keyOf(f.words2 || '') + '|' + f.by;
+  const existing = flakes.find(x => (keyOf(x.words) + '|' + keyOf(x.words2 || '') + '|' + x.by) === k);
+  if(existing) return existing;
+  const rec = { id: W4.uid(), words: f.words, words2: f.words2 || undefined, by: f.by, date: Date.now() };
+  flakes.unshift(rec); W4.store.set('flakes', flakes);
+  renderGrid(); rebuildFall();
+  return rec;
+}
+function renderGrid(){
+  const grid = $('#grid'); grid.innerHTML = '';
+  const n = W4.names();
+  if(!flakes.length){ grid.innerHTML = '<div class="empty" style="grid-column:1/-1">Nothing caught yet. Type a sentence and press <b>Catch it</b> — or ask them for one.</div>'; return; }
+  for(const f of flakes){
+    const b = document.createElement('button'); b.className = 'thumb'; b.type = 'button'; b.dataset.id = f.id;
+    const c = document.createElement('canvas'); c.width = c.height = 200;
+    const A = design(f.words), B = f.words2 ? design(f.words2) : null;
+    render(c, A, B, 1, f.by === 'both' ? 'me' : f.by, 'them', 0);
+    const who = f.by === 'me' ? 'yours' : f.by === 'them' ? (n.themName ? W4.poss(n.themName) : 'theirs') : 'together';
+    b.append(c);
+    b.insertAdjacentHTML('beforeend', `<span>${W4.esc(f.words2 ? f.words + ' + ' + f.words2 : f.words)}</span><i>${W4.esc(who)}</i>`);
+    b.onclick = () => { show(Object.assign({}, f, { saved: true })); scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' }); };
+    grid.append(b);
+  }
+  markCurrent();
+}
+function markCurrent(){ W4.$$('.thumb').forEach(t => t.setAttribute('aria-current', String(!!(cur && cur.id && t.dataset.id === cur.id)))); }
+function latest(by){ return flakes.find(f => f.by === by && !f.words2); }
+function updateButtons(){
+  const n = W4.names();
+  const mine = cur && cur.by === 'me' && !cur.demo ? cur : latest('me'), theirs = cur && cur.by === 'them' ? cur : latest('them');
+  $('#join').disabled = !(mine && theirs);
+  $('#join').title = $('#join').disabled ? 'You need one of your flakes and one of theirs' : '';
+  $('#melt').hidden = !(cur && cur.id);
+  $('#catch').disabled = !(cur && cur.by === 'me' && !cur.id && !cur.demo);
+  $('#sendMine').disabled = !(cur && cur.words && !cur.demo);
+  $('#card').disabled = !(cur && cur.words);
+  $('#ask').textContent = n.themName ? `Ask ${n.themName} for a flake` : 'Ask for a flake';
+  $('#paste').textContent = n.themName ? `Paste ${W4.poss(n.themName)} flake` : 'Paste their flake';
+  $('#bridgeTitle').textContent = n.themName ? `${W4.poss(n.themName)} flakes` : 'Their flakes';
+  $('#sendMine').textContent = cur && cur.by === 'them' ? `Tell ${n.themName || 'them'} about it` : cur && cur.by === 'both' ? 'Send it to them' : `Send it to ${n.themName || 'them'}`;
+}
+
+/* ---------- describing a flake in words, so they can "see" it ---------- */
+function describe(F){
+  const parts = [];
+  if(F.habit === 'sectored plate') parts.push(`a broad hexagonal plate with ${F.nb + 1} faint growth rings and six short arms`);
+  else if(F.habit === 'simple star') parts.push('six spear-shaped arms, wide at the base and sharp at the tips');
+  else parts.push(`six arms, each with ${F.nb} ${F.nb === 1 ? 'pair' : 'pairs'} of side branches`);
+  if(F.twigs > F.nb * 4) parts.push('feathered with fern-like twigs');
+  else if(F.twigs) parts.push('the branches sprouting smaller twigs');
+  if(F.plates) parts.push(F.habit === 'stellar plate' ? 'little hexagonal plates along the arms and at the tips' : 'tiny hexagonal plates at the tips');
+  const center = F.c0 > .35 ? 'wide' : F.c0 > .16 ? 'faceted' : 'small, sharp';
+  return `It’s a ${F.habit} — specimen no. ${F.id}: ${parts.join(', ')}, around a ${center} center.`;
+}
+function sendText(){
+  const f = cur, n = W4.names();
+  if(f.by === 'both'){
+    const C = joinCenter(f._A, f._B);
+    return `❄️ We grew a two-voice snowflake. Three of its arms came from my words — “${f.words}” — and three from yours — “${f.words2}” — around one shared center. The game catalogued it as no. ${C.id}.\n\nMine: ${describe(f._A)}\nYours: ${describe(f._B)}\n\nWhat do you think it looks like, with both of us in it?`;
+  }
+  if(f.by === 'them') return `❄️ I caught the snowflake you sent me — “${f.words}”.\n${describe(f._A)}\n\n(Same words, same flake, forever. It’s in my snowfall now.)`;
+  return `❄️ I froze a snowflake for you out of the words: “${f.words}”.\n${describe(f._A)}\n\n(In this game every sentence grows its own flake — same words, same flake, forever.) What do you think it looks like? If you want to send one back, start it with “Flake:”.`;
+}
+function askText(){
+  return `❄️ Let’s play “Snowflakes from Words.”
+In this little game every sentence freezes into its own one-of-a-kind snowflake — each word grows a pair of branches, and the same words always grow the same flake.
+
+Send me a sentence you’d like to turn into snow for me. Anything: a wish, a secret, something you’ve noticed about me, something you want to keep.
+
+Start it with “Flake:” and keep it under 100 characters — for example:
+Flake: you make the winter feel shorter
+
+(If you can send links: ${W4.here()}#flake=you+make+the+winter+feel+shorter)`;
+}
+function receive(text){
+  const words = W4.one(text, ['flake', 'snowflake', 'sentence', 'words'], 120);
+  if(!words) return 'I couldn’t find their words — try pasting the whole reply.';
+  const rec = save({ words, by: 'them' });
+  show(Object.assign({}, rec, { saved: true }), { dur: 2.6 });
+  W4.chime([1568, 2093, 2637], { gain: .05, gap: .16 });
+  scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+}
+
+$('#catch').onclick = () => {
+  if(!cur || cur.by !== 'me' || cur.id) return;
+  const rec = save(cur);
+  show(Object.assign({}, rec, { saved: true }), { from: .55, dur: .9 });
+  W4.chime([1318, 1976], { gain: .05 });
+  W4.toast('Caught. It will always be this exact flake ✦');
+};
+$('#sendMine').onclick = () => { if(cur) W4.send(sendText(), { title: cur.by === 'them' ? 'Tell them you caught it' : 'Send your flake' }); };
+$('#ask').onclick = () => W4.send(askText(), { title: 'Ask them for a flake' });
+$('#paste').onclick = () => W4.receive({ title: 'Paste their flake', tip: 'Paste their whole reply. The game looks for <b>Flake:</b> — or just uses their words.', placeholder: 'Flake: you make the winter feel shorter', go: 'Let it freeze', onText: receive });
+$('#join').onclick = () => {
+  const mine = cur && cur.by === 'me' ? cur : latest('me'), theirs = cur && cur.by === 'them' ? cur : latest('them');
+  if(!mine || !theirs) return;
+  const rec = save({ words: mine.words, words2: theirs.words, by: 'both' });
+  show(Object.assign({}, rec, { saved: true }), { dur: 2.8 });
+  W4.chime([1046, 1318, 1568, 2093], { gain: .05, gap: .18 });
+  scrollTo({ top: 0, behavior: W4.reduced ? 'auto' : 'smooth' });
+};
+$('#melt').onclick = () => {
+  if(!cur || !cur.id) return;
+  if(!confirm('Let this flake melt? It will leave your snowfall.')) return;
+  flakes = flakes.filter(f => f.id !== cur.id); W4.store.set('flakes', flakes);
+  cur = null; cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); still.width = still.height = cv.width;
+  renderGrid(); rebuildFall(); updateTag(); updateButtons();
+};
+cv.onclick = () => { if(cur) show(cur, { dur: 1.4 }); };
+$('#card').onclick = () => {
+  if(!cur) return;
+  const Wc = 1080, Hc = 1350, c = document.createElement('canvas'); c.width = Wc; c.height = Hc;
+  const g = c.getContext('2d');
+  const bg = g.createRadialGradient(Wc / 2, Hc * .38, 50, Wc / 2, Hc * .45, Hc * .8);
+  bg.addColorStop(0, '#341d24'); bg.addColorStop(.5, '#1a0f12'); bg.addColorStop(1, '#0c0708');
+  g.fillStyle = bg; g.fillRect(0, 0, Wc, Hc);
+  const f = document.createElement('canvas'); f.width = f.height = 900;
+  render(f, cur._A, cur._B, 1, cur.by === 'both' ? 'me' : cur.by, 'them', 0);
+  g.drawImage(f, 90, 90);
+  g.textAlign = 'center'; g.fillStyle = '#f2ebdd';
+  g.font = 'italic 300 46px Fraunces, Georgia, serif';
+  const text = cur._B ? `“${cur.words}” + “${cur.words2}”` : `“${cur.words}”`;
+  wrapText(g, text, Wc / 2, 1070, 900, 58);
+  g.font = '24px "Special Elite", monospace'; g.fillStyle = 'rgba(242,235,221,.55)';
+  g.fillText(`No. ${cur._B ? joinCenter(cur._A, cur._B).id : cur._A.id} · ${cur._B ? 'two-voice flake' : cur._A.habit}`, Wc / 2, 1260);
+  g.font = '600 20px Nunito, sans-serif'; g.fillStyle = 'rgba(242,235,221,.35)'; g.fillText('Snowflakes from Words · Winter, for Two', Wc / 2, 1305);
+  W4.saveCanvas(c, 'snowflake-' + (cur._A.id.replace('·', '-')) + '.png');
+};
+function wrapText(g, text, x, y, maxW, lh){
+  const words = text.split(/(\s+)/); let line = '', lines = [];
+  for(const w of words){ if(g.measureText(line + w).width > maxW && line.trim()){ lines.push(line.trim()); line = w; } else line += w; }
+  if(line.trim()) lines.push(line.trim());
+  lines.slice(0, 3).forEach((l, i) => g.fillText(l, x, y + i * lh - (Math.min(3, lines.length) - 1) * lh / 2));
+}
+
+/* ---------- your snowfall, falling behind the page ---------- */
+const fall = $('#fall'), fg = fall.getContext('2d');
+let sprites = [], drift = [];
+function rebuildFall(){
+  sprites = flakes.slice(0, 24).map(f => {
+    const c = document.createElement('canvas'); c.width = c.height = 96;
+    render(c, design(f.words), f.words2 ? design(f.words2) : null, 1, f.by === 'both' ? 'me' : f.by, 'them', 0);
+    return c;
+  });
+  const n = Math.max(26, Math.min(60, sprites.length * 3));
+  drift = Array.from({ length: n }, (_, i) => newDrift(true, i));
+}
+function newDrift(any, i){
+  const z = Math.random(), sp = sprites.length && (i % 2 === 0) ? sprites[(i / 2 | 0) % sprites.length] : null;
+  return { sp, x: Math.random() * innerWidth, y: any ? Math.random() * innerHeight : -60, z, s: sp ? 22 + z * 34 : 1 + z * 2, vy: 10 + z * 22, rot: Math.random() * TAU, vr: (Math.random() - .5) * .4, ph: Math.random() * TAU };
+}
+function sizeFall(){ const d = Math.min(window.devicePixelRatio || 1, 2); fall.width = innerWidth * d; fall.height = innerHeight * d; fg.setTransform(d, 0, 0, d, 0, 0); }
+function fallFrame(dt){
+  fg.clearRect(0, 0, innerWidth, innerHeight);
+  for(const p of drift){
+    if(!W4.reduced){ p.y += p.vy * dt; p.rot += p.vr * dt; p.ph += dt * .6; }
+    if(p.y > innerHeight + 60){ Object.assign(p, newDrift(false, drift.indexOf(p))); }
+    const x = p.x + Math.sin(p.ph) * 14;
+    if(p.sp){ fg.save(); fg.globalAlpha = .1 + p.z * .16; fg.translate(x, p.y); fg.rotate(p.rot); fg.drawImage(p.sp, -p.s / 2, -p.s / 2, p.s, p.s); fg.restore(); }
+    else { fg.globalAlpha = .2 + p.z * .4; fg.fillStyle = '#fff'; fg.beginPath(); fg.arc(x, p.y, p.s, 0, TAU); fg.fill(); fg.globalAlpha = 1; }
+  }
+}
+let lastT = performance.now();
+function loop(now){
+  const dt = Math.min(.05, (now - lastT) / 1000); lastT = now;
+  fallFrame(dt); drawFlake(dt);
+  raf = requestAnimationFrame(loop);
+}
+document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if(!document.hidden){ lastT = performance.now(); raf = requestAnimationFrame(loop); } });
+
+/* ---------- start ---------- */
+function start(){
+  sizeCanvas(); sizeFall(); renderGrid(); rebuildFall(); updateButtons(); updateTag();
+  const incoming = W4.pasted() || W4.params().get('flake');
+  if(incoming){ W4.clearURL(); setTimeout(() => receive(incoming), 400); }
+  else if(flakes.length){ show(Object.assign({}, flakes[0], { saved: true }), { dur: 2 }); }
+  else { input.value = ''; show({ words: 'the first snow of the year', by: 'me', demo: true }, { dur: 2.4 }); }
+  raf = requestAnimationFrame(loop);
+}
+addEventListener('resize', () => { clearTimeout(start.t); start.t = setTimeout(() => { sizeCanvas(); sizeFall(); if(cur) show(cur, { from: .999, dur: .01 }); }, 150); });
+W4.onNames(() => { updateTag(); updateButtons(); renderGrid(); });
+document.fonts && document.fonts.ready.then(() => cur && updateTag());
+start();
+})();
+</script>
+</body>
+</html>
